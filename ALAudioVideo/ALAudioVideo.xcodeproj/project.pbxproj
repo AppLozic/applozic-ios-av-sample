@@ -1,0 +1,676 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C714D1C71EF176730068C6ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1C61EF176730068C6ED /* main.m */; };
+		C714D1CA1EF176730068C6ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1C91EF176730068C6ED /* AppDelegate.m */; };
+		C714D1D01EF176730068C6ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C714D1CE1EF176730068C6ED /* Main.storyboard */; };
+		C714D1D21EF176730068C6ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C714D1D11EF176730068C6ED /* Assets.xcassets */; };
+		C714D1D51EF176730068C6ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C714D1D31EF176730068C6ED /* LaunchScreen.storyboard */; };
+		C714D1E01EF176740068C6ED /* ALAudioVideoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1DF1EF176740068C6ED /* ALAudioVideoTests.m */; };
+		C714D1EB1EF176740068C6ED /* ALAudioVideoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1EA1EF176740068C6ED /* ALAudioVideoUITests.m */; };
+		C714D1FD1EF1774D0068C6ED /* TwilioVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D1FC1EF1774D0068C6ED /* TwilioVideo.framework */; };
+		C714D1FE1EF1774D0068C6ED /* TwilioVideo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C714D1FC1EF1774D0068C6ED /* TwilioVideo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C714D2011EF177A00068C6ED /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2001EF177A00068C6ED /* AudioToolbox.framework */; };
+		C714D2031EF177AF0068C6ED /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2021EF177AF0068C6ED /* VideoToolbox.framework */; };
+		C714D2051EF177C80068C6ED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2041EF177C80068C6ED /* AVFoundation.framework */; };
+		C714D2071EF177D40068C6ED /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2061EF177D40068C6ED /* CoreTelephony.framework */; };
+		C714D2091EF177E10068C6ED /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2081EF177E10068C6ED /* GLKit.framework */; };
+		C714D20B1EF177EB0068C6ED /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D20A1EF177EB0068C6ED /* CoreMedia.framework */; };
+		C714D20D1EF17C3F0068C6ED /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D20C1EF17C3F0068C6ED /* SystemConfiguration.framework */; };
+		C714D20F1EF17C7A0068C6ED /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D20E1EF17C7A0068C6ED /* libc++.tbd */; };
+		C714D2161EF18D9E0068C6ED /* ALAudioVideoCallVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D2111EF18D9E0068C6ED /* ALAudioVideoCallVC.m */; };
+		C714D2171EF18D9E0068C6ED /* ALAudioVideoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D2131EF18D9E0068C6ED /* ALAudioVideoUtils.m */; };
+		C714D2181EF18D9E0068C6ED /* AudioVideo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C714D2141EF18D9E0068C6ED /* AudioVideo.storyboard */; };
+		C714D2191EF18D9E0068C6ED /* AudioVideo.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C714D2151EF18D9E0068C6ED /* AudioVideo.xcassets */; };
+		C714D21B1EF18E640068C6ED /* Applozic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D21A1EF18E640068C6ED /* Applozic.framework */; };
+		C714D21C1EF18E640068C6ED /* Applozic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C714D21A1EF18E640068C6ED /* Applozic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C714D2271EF1CE1E0068C6ED /* ALChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D2221EF1CE1E0068C6ED /* ALChatManager.m */; };
+		C714D2281EF1CE1E0068C6ED /* ApplozicLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D2241EF1CE1E0068C6ED /* ApplozicLoginViewController.m */; };
+		C714D2291EF1CE1E0068C6ED /* LaunchChatFromSimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D2261EF1CE1E0068C6ED /* LaunchChatFromSimpleViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C714D1DC1EF176740068C6ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C714D1BA1EF176730068C6ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C714D1C11EF176730068C6ED;
+			remoteInfo = ALAudioVideo;
+		};
+		C714D1E71EF176740068C6ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C714D1BA1EF176730068C6ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C714D1C11EF176730068C6ED;
+			remoteInfo = ALAudioVideo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C714D1FB1EF176A70068C6ED /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C714D21C1EF18E640068C6ED /* Applozic.framework in Embed Frameworks */,
+				C714D1FE1EF1774D0068C6ED /* TwilioVideo.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C714D1C21EF176730068C6ED /* ALAudioVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALAudioVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C714D1C61EF176730068C6ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C714D1C81EF176730068C6ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C714D1C91EF176730068C6ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C714D1CF1EF176730068C6ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C714D1D11EF176730068C6ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C714D1D41EF176730068C6ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C714D1D61EF176730068C6ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C714D1DB1EF176740068C6ED /* ALAudioVideoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ALAudioVideoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C714D1DF1EF176740068C6ED /* ALAudioVideoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALAudioVideoTests.m; sourceTree = "<group>"; };
+		C714D1E11EF176740068C6ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C714D1E61EF176740068C6ED /* ALAudioVideoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ALAudioVideoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C714D1EA1EF176740068C6ED /* ALAudioVideoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALAudioVideoUITests.m; sourceTree = "<group>"; };
+		C714D1EC1EF176740068C6ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C714D1FC1EF1774D0068C6ED /* TwilioVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwilioVideo.framework; sourceTree = "<group>"; };
+		C714D2001EF177A00068C6ED /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C714D2021EF177AF0068C6ED /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		C714D2041EF177C80068C6ED /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C714D2061EF177D40068C6ED /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		C714D2081EF177E10068C6ED /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		C714D20A1EF177EB0068C6ED /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		C714D20C1EF17C3F0068C6ED /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C714D20E1EF17C7A0068C6ED /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		C714D2101EF18D9E0068C6ED /* ALAudioVideoCallVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALAudioVideoCallVC.h; path = ALAudioVideo/AudioVideo/ALAudioVideoCallVC.h; sourceTree = "<group>"; };
+		C714D2111EF18D9E0068C6ED /* ALAudioVideoCallVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALAudioVideoCallVC.m; path = ALAudioVideo/AudioVideo/ALAudioVideoCallVC.m; sourceTree = "<group>"; };
+		C714D2121EF18D9E0068C6ED /* ALAudioVideoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALAudioVideoUtils.h; path = ALAudioVideo/AudioVideo/ALAudioVideoUtils.h; sourceTree = "<group>"; };
+		C714D2131EF18D9E0068C6ED /* ALAudioVideoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALAudioVideoUtils.m; path = ALAudioVideo/AudioVideo/ALAudioVideoUtils.m; sourceTree = "<group>"; };
+		C714D2141EF18D9E0068C6ED /* AudioVideo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AudioVideo.storyboard; path = ALAudioVideo/AudioVideo/AudioVideo.storyboard; sourceTree = "<group>"; };
+		C714D2151EF18D9E0068C6ED /* AudioVideo.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = AudioVideo.xcassets; path = ALAudioVideo/AudioVideo/AudioVideo.xcassets; sourceTree = "<group>"; };
+		C714D21A1EF18E640068C6ED /* Applozic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Applozic.framework; sourceTree = "<group>"; };
+		C714D21D1EF19EEA0068C6ED /* ALAudioVideo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ALAudioVideo.entitlements; sourceTree = "<group>"; };
+		C714D2211EF1CE1E0068C6ED /* ALChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALChatManager.h; sourceTree = "<group>"; };
+		C714D2221EF1CE1E0068C6ED /* ALChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALChatManager.m; sourceTree = "<group>"; };
+		C714D2231EF1CE1E0068C6ED /* ApplozicLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplozicLoginViewController.h; sourceTree = "<group>"; };
+		C714D2241EF1CE1E0068C6ED /* ApplozicLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplozicLoginViewController.m; sourceTree = "<group>"; };
+		C714D2251EF1CE1E0068C6ED /* LaunchChatFromSimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchChatFromSimpleViewController.h; sourceTree = "<group>"; };
+		C714D2261EF1CE1E0068C6ED /* LaunchChatFromSimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchChatFromSimpleViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C714D1BF1EF176730068C6ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C714D21B1EF18E640068C6ED /* Applozic.framework in Frameworks */,
+				C714D20F1EF17C7A0068C6ED /* libc++.tbd in Frameworks */,
+				C714D20D1EF17C3F0068C6ED /* SystemConfiguration.framework in Frameworks */,
+				C714D20B1EF177EB0068C6ED /* CoreMedia.framework in Frameworks */,
+				C714D2091EF177E10068C6ED /* GLKit.framework in Frameworks */,
+				C714D2071EF177D40068C6ED /* CoreTelephony.framework in Frameworks */,
+				C714D2051EF177C80068C6ED /* AVFoundation.framework in Frameworks */,
+				C714D2031EF177AF0068C6ED /* VideoToolbox.framework in Frameworks */,
+				C714D2011EF177A00068C6ED /* AudioToolbox.framework in Frameworks */,
+				C714D1FD1EF1774D0068C6ED /* TwilioVideo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C714D1D81EF176740068C6ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C714D1E31EF176740068C6ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C714D1B91EF176730068C6ED = {
+			isa = PBXGroup;
+			children = (
+				C714D22A1EF1CEB90068C6ED /* Chat */,
+				C714D21A1EF18E640068C6ED /* Applozic.framework */,
+				C714D22B1EF26E1D0068C6ED /* ApplozicAudioVideo */,
+				C714D1FC1EF1774D0068C6ED /* TwilioVideo.framework */,
+				C714D1C41EF176730068C6ED /* ALAudioVideo */,
+				C714D1DE1EF176740068C6ED /* ALAudioVideoTests */,
+				C714D1E91EF176740068C6ED /* ALAudioVideoUITests */,
+				C714D1C31EF176730068C6ED /* Products */,
+				C714D1FF1EF177A00068C6ED /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C714D1C31EF176730068C6ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C714D1C21EF176730068C6ED /* ALAudioVideo.app */,
+				C714D1DB1EF176740068C6ED /* ALAudioVideoTests.xctest */,
+				C714D1E61EF176740068C6ED /* ALAudioVideoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C714D1C41EF176730068C6ED /* ALAudioVideo */ = {
+			isa = PBXGroup;
+			children = (
+				C714D21D1EF19EEA0068C6ED /* ALAudioVideo.entitlements */,
+				C714D1C81EF176730068C6ED /* AppDelegate.h */,
+				C714D1C91EF176730068C6ED /* AppDelegate.m */,
+				C714D1CE1EF176730068C6ED /* Main.storyboard */,
+				C714D1D11EF176730068C6ED /* Assets.xcassets */,
+				C714D1D31EF176730068C6ED /* LaunchScreen.storyboard */,
+				C714D1D61EF176730068C6ED /* Info.plist */,
+				C714D1C51EF176730068C6ED /* Supporting Files */,
+			);
+			path = ALAudioVideo;
+			sourceTree = "<group>";
+		};
+		C714D1C51EF176730068C6ED /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C714D1C61EF176730068C6ED /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C714D1DE1EF176740068C6ED /* ALAudioVideoTests */ = {
+			isa = PBXGroup;
+			children = (
+				C714D1DF1EF176740068C6ED /* ALAudioVideoTests.m */,
+				C714D1E11EF176740068C6ED /* Info.plist */,
+			);
+			path = ALAudioVideoTests;
+			sourceTree = "<group>";
+		};
+		C714D1E91EF176740068C6ED /* ALAudioVideoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C714D1EA1EF176740068C6ED /* ALAudioVideoUITests.m */,
+				C714D1EC1EF176740068C6ED /* Info.plist */,
+			);
+			path = ALAudioVideoUITests;
+			sourceTree = "<group>";
+		};
+		C714D1FF1EF177A00068C6ED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C714D20E1EF17C7A0068C6ED /* libc++.tbd */,
+				C714D20C1EF17C3F0068C6ED /* SystemConfiguration.framework */,
+				C714D20A1EF177EB0068C6ED /* CoreMedia.framework */,
+				C714D2081EF177E10068C6ED /* GLKit.framework */,
+				C714D2061EF177D40068C6ED /* CoreTelephony.framework */,
+				C714D2041EF177C80068C6ED /* AVFoundation.framework */,
+				C714D2021EF177AF0068C6ED /* VideoToolbox.framework */,
+				C714D2001EF177A00068C6ED /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C714D22A1EF1CEB90068C6ED /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				C714D2221EF1CE1E0068C6ED /* ALChatManager.m */,
+				C714D2241EF1CE1E0068C6ED /* ApplozicLoginViewController.m */,
+				C714D2251EF1CE1E0068C6ED /* LaunchChatFromSimpleViewController.h */,
+				C714D2261EF1CE1E0068C6ED /* LaunchChatFromSimpleViewController.m */,
+				C714D2231EF1CE1E0068C6ED /* ApplozicLoginViewController.h */,
+				C714D2211EF1CE1E0068C6ED /* ALChatManager.h */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		C714D22B1EF26E1D0068C6ED /* ApplozicAudioVideo */ = {
+			isa = PBXGroup;
+			children = (
+				C714D2101EF18D9E0068C6ED /* ALAudioVideoCallVC.h */,
+				C714D2111EF18D9E0068C6ED /* ALAudioVideoCallVC.m */,
+				C714D2121EF18D9E0068C6ED /* ALAudioVideoUtils.h */,
+				C714D2131EF18D9E0068C6ED /* ALAudioVideoUtils.m */,
+				C714D2141EF18D9E0068C6ED /* AudioVideo.storyboard */,
+				C714D2151EF18D9E0068C6ED /* AudioVideo.xcassets */,
+			);
+			name = ApplozicAudioVideo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C714D1C11EF176730068C6ED /* ALAudioVideo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C714D1EF1EF176740068C6ED /* Build configuration list for PBXNativeTarget "ALAudioVideo" */;
+			buildPhases = (
+				C714D1BE1EF176730068C6ED /* Sources */,
+				C714D1BF1EF176730068C6ED /* Frameworks */,
+				C714D1C01EF176730068C6ED /* Resources */,
+				C714D1FB1EF176A70068C6ED /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ALAudioVideo;
+			productName = ALAudioVideo;
+			productReference = C714D1C21EF176730068C6ED /* ALAudioVideo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C714D1DA1EF176740068C6ED /* ALAudioVideoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C714D1F21EF176740068C6ED /* Build configuration list for PBXNativeTarget "ALAudioVideoTests" */;
+			buildPhases = (
+				C714D1D71EF176740068C6ED /* Sources */,
+				C714D1D81EF176740068C6ED /* Frameworks */,
+				C714D1D91EF176740068C6ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C714D1DD1EF176740068C6ED /* PBXTargetDependency */,
+			);
+			name = ALAudioVideoTests;
+			productName = ALAudioVideoTests;
+			productReference = C714D1DB1EF176740068C6ED /* ALAudioVideoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C714D1E51EF176740068C6ED /* ALAudioVideoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C714D1F51EF176740068C6ED /* Build configuration list for PBXNativeTarget "ALAudioVideoUITests" */;
+			buildPhases = (
+				C714D1E21EF176740068C6ED /* Sources */,
+				C714D1E31EF176740068C6ED /* Frameworks */,
+				C714D1E41EF176740068C6ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C714D1E81EF176740068C6ED /* PBXTargetDependency */,
+			);
+			name = ALAudioVideoUITests;
+			productName = ALAudioVideoUITests;
+			productReference = C714D1E61EF176740068C6ED /* ALAudioVideoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C714D1BA1EF176730068C6ED /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = Adarsh;
+				TargetAttributes = {
+					C714D1C11EF176730068C6ED = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = C25JNDCBM4;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+					C714D1DA1EF176740068C6ED = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = C25JNDCBM4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C714D1C11EF176730068C6ED;
+					};
+					C714D1E51EF176740068C6ED = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = C25JNDCBM4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C714D1C11EF176730068C6ED;
+					};
+				};
+			};
+			buildConfigurationList = C714D1BD1EF176730068C6ED /* Build configuration list for PBXProject "ALAudioVideo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C714D1B91EF176730068C6ED;
+			productRefGroup = C714D1C31EF176730068C6ED /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C714D1C11EF176730068C6ED /* ALAudioVideo */,
+				C714D1DA1EF176740068C6ED /* ALAudioVideoTests */,
+				C714D1E51EF176740068C6ED /* ALAudioVideoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C714D1C01EF176730068C6ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C714D1D51EF176730068C6ED /* LaunchScreen.storyboard in Resources */,
+				C714D2191EF18D9E0068C6ED /* AudioVideo.xcassets in Resources */,
+				C714D2181EF18D9E0068C6ED /* AudioVideo.storyboard in Resources */,
+				C714D1D21EF176730068C6ED /* Assets.xcassets in Resources */,
+				C714D1D01EF176730068C6ED /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C714D1D91EF176740068C6ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C714D1E41EF176740068C6ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C714D1BE1EF176730068C6ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C714D2271EF1CE1E0068C6ED /* ALChatManager.m in Sources */,
+				C714D2171EF18D9E0068C6ED /* ALAudioVideoUtils.m in Sources */,
+				C714D1CA1EF176730068C6ED /* AppDelegate.m in Sources */,
+				C714D2281EF1CE1E0068C6ED /* ApplozicLoginViewController.m in Sources */,
+				C714D2161EF18D9E0068C6ED /* ALAudioVideoCallVC.m in Sources */,
+				C714D1C71EF176730068C6ED /* main.m in Sources */,
+				C714D2291EF1CE1E0068C6ED /* LaunchChatFromSimpleViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C714D1D71EF176740068C6ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C714D1E01EF176740068C6ED /* ALAudioVideoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C714D1E21EF176740068C6ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C714D1EB1EF176740068C6ED /* ALAudioVideoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C714D1DD1EF176740068C6ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C714D1C11EF176730068C6ED /* ALAudioVideo */;
+			targetProxy = C714D1DC1EF176740068C6ED /* PBXContainerItemProxy */;
+		};
+		C714D1E81EF176740068C6ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C714D1C11EF176730068C6ED /* ALAudioVideo */;
+			targetProxy = C714D1E71EF176740068C6ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C714D1CE1EF176730068C6ED /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C714D1CF1EF176730068C6ED /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C714D1D31EF176730068C6ED /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C714D1D41EF176730068C6ED /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C714D1ED1EF176740068C6ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C714D1EE1EF176740068C6ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C714D1F01EF176740068C6ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ALAudioVideo/ALAudioVideo.entitlements;
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = ALAudioVideo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "edb255db-d93d-4527-ad50-0087038ee0c8";
+				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
+			};
+			name = Debug;
+		};
+		C714D1F11EF176740068C6ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ALAudioVideo/ALAudioVideo.entitlements;
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = ALAudioVideo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "edb255db-d93d-4527-ad50-0087038ee0c8";
+				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
+			};
+			name = Release;
+		};
+		C714D1F31EF176740068C6ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ALAudioVideoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ALAudioVideoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALAudioVideo.app/ALAudioVideo";
+			};
+			name = Debug;
+		};
+		C714D1F41EF176740068C6ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ALAudioVideoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ALAudioVideoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALAudioVideo.app/ALAudioVideo";
+			};
+			name = Release;
+		};
+		C714D1F61EF176740068C6ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ALAudioVideoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ALAudioVideoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ALAudioVideo;
+			};
+			name = Debug;
+		};
+		C714D1F71EF176740068C6ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ALAudioVideoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ALAudioVideoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ALAudioVideo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C714D1BD1EF176730068C6ED /* Build configuration list for PBXProject "ALAudioVideo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C714D1ED1EF176740068C6ED /* Debug */,
+				C714D1EE1EF176740068C6ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C714D1EF1EF176740068C6ED /* Build configuration list for PBXNativeTarget "ALAudioVideo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C714D1F01EF176740068C6ED /* Debug */,
+				C714D1F11EF176740068C6ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C714D1F21EF176740068C6ED /* Build configuration list for PBXNativeTarget "ALAudioVideoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C714D1F31EF176740068C6ED /* Debug */,
+				C714D1F41EF176740068C6ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C714D1F51EF176740068C6ED /* Build configuration list for PBXNativeTarget "ALAudioVideoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C714D1F61EF176740068C6ED /* Debug */,
+				C714D1F71EF176740068C6ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C714D1BA1EF176730068C6ED /* Project object */;
+}
