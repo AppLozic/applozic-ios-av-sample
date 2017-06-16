@@ -1,4 +1,4 @@
-# applozic-ios-av-sample
+# applozic-ios-video-call-sample-code
 
 Project contains Applozic.framework supporting Audio, Video call with sample in Objective C.
 
@@ -21,7 +21,7 @@ Project contains Applozic.framework supporting Audio, Video call with sample in 
  - Copy paste [AudioVideo](https://github.com/AppLozic/applozic-ios-video-call-sample/tree/master/ALAudioVideo/ALAudioVideo/AudioVideo) folder from sample project and paste it into your root directory of your project. Go to Add Files to project, select all files present in Folder and add it to your project.
 
 #### 4) Follow basic integration steps:
-- After above steps, follow our documentaion page from stpes 2) onward for integration:
+- After above steps, follow our documentaion page from steps 2) onward for integration:
 
 https://www.applozic.com/docs/ios-chat-sdk.html#step-2-login-register-user
  
