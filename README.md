@@ -4,7 +4,7 @@ Project contains Applozic.framework supporting Audio, Video call with sample in 
 
 ## Integration Steps: 
 
-##### 1) navigate to your Xcode project's General settings page and add [Applozic.framework,Twillio.framework from [sample project root folder](https://github.com/AppLozic/applozic-ios-video-call-sample/tree/master/ALAudioVideo) as Embeded binaries.
+##### 1) navigate to your Xcode project's General settings page and add Applozic.framework,Twillio.framework from [sample project root folder](https://github.com/AppLozic/applozic-ios-video-call-sample/tree/master/ALAudioVideo) as Embeded binaries.
 
 #### 2) Add below libraries in Linked Frameworks and Libraries.
 
