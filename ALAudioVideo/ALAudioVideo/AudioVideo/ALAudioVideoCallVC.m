@@ -32,6 +32,7 @@
     UITapGestureRecognizer *tapGesture;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -466,11 +467,15 @@
 
 - (void)startPreview {
     // TVICameraCapturer is not supported with the Simulator.
-//    if ([PlatformUtils isSimulator]) {
-//        [self.previewView removeFromSuperview];
-//        return;
-//    }
-//    
+    if (TARGET_OS_SIMULATOR)
+    {
+        
+        NSLog(@"Video is not supported " );
+        
+        [self.previewView removeFromSuperview];
+        return;
+    }
+    
     self.camera = [[TVICameraCapturer alloc] initWithSource:TVICameraCaptureSourceFrontCamera delegate:self];
     self.localVideoTrack = [TVILocalVideoTrack trackWithCapturer:self.camera];
     if (!self.localVideoTrack) {
