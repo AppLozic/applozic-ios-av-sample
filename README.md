@@ -25,3 +25,6 @@ Project contains Applozic.framework supporting Audio, Video call with sample in 
 
 https://www.applozic.com/docs/ios-chat-sdk.html#step-2-login-register-user
  
+#### 5) Add below setting in ALChatManger.m's in ALDefaultChatViewSettings.
+
+    [ALApplozicSettings setAudioVideoClassName:@"ALAudioVideoCallVC"];
