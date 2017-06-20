@@ -2,6 +2,27 @@
 
 Project contains Applozic.framework supporting Audio, Video call with sample in Objective C.
 
+### Installing lfs
+
+i)  To fetch framowrk files(larger-file), you need to install lfs. You can install it by running bewlo command:
+
+```
+brew install git-lfs 
+```
+ii)  You can verify installation was successful, by running below command on terminal.
+
+```
+git lfs install
+```
+
+iii) Once you complete checkout of sample-repo, go to project's root folder and run below command:
+
+```
+git lfs pull
+```
+
+
+
 ## Integration Steps: 
 
 ##### 1) navigate to your Xcode project's General settings page and add Applozic.framework,Twillio.framework from [sample project root folder](https://github.com/AppLozic/applozic-ios-video-call-sample/tree/master/ALAudioVideo) as Embeded binaries.
@@ -24,7 +45,12 @@ Project contains Applozic.framework supporting Audio, Video call with sample in 
 - After above steps, follow our documentaion page from steps 2) onward for integration:
 
 https://www.applozic.com/docs/ios-chat-sdk.html#step-2-login-register-user
+
+#### 5) Notification setup:
+
+      
  
 #### 5) Add below setting in ALChatManger.m's in ALDefaultChatViewSettings.
 
     [ALApplozicSettings setAudioVideoClassName:@"ALAudioVideoCallVC"];
+    
