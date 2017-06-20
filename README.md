@@ -4,7 +4,7 @@ Project contains Applozic.framework supporting Audio, Video call with sample in 
 
 ### Installing lfs
 
-i)  To fetch framowrk files(larger-file), you need to install lfs. You can install it by running bewlo command:
+i)  To fetch framowrk files(larger-file), you need to install lfs. You can install it by running below command:
 
 ```
 brew install git-lfs 
