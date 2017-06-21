@@ -344,7 +344,7 @@
             [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                                  andReceiverId:self.receiverID
                                                 andContentType:AV_CALL_CONTENT_THREE
-                                                     andMsgText:self.roomID];
+                                                     andMsgText:@"CALL MISSED"];
         }
 
         [self.room disconnect];
