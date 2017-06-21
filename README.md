@@ -146,6 +146,8 @@ https://www.applozic.com/docs/ios-chat-sdk.html#step-2-login-register-user
     }
 }
  ```
+**NOTE: You need to upload VoIP Services Certificate in both development and distribution section on Applozic Dashboard**
+
 #### 6) Add below setting in ALChatManger.m's in ALDefaultChatViewSettings.
 
     [ALApplozicSettings setAudioVideoClassName:@"ALAudioVideoCallVC"];
