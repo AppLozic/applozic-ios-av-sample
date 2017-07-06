@@ -26,7 +26,6 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "ALUIConstant.h"
-#import "MessageReplyView.h"
 
 @protocol ALMediaBaseCellDelegate <NSObject>
 
@@ -39,11 +38,9 @@
 -(void) showSuggestionView:(NSURL *)fileURL andFrame:(CGRect)frame;
 -(void) showAnimationForMsgInfo:(BOOL)flag;
 -(void) processTapGesture:(ALMessage *)alMessage;
+
 @optional
 -(void) processUserChatView:(ALMessage *)alMessage;
--(void) processForwardMessage:(ALMessage *) message;
--(void) processMessageReply:(ALMessage *) message;
--(void) scrollToReplyMessage:(ALMessage *)alMessage;
 
 @end
 
@@ -60,19 +57,14 @@
 @property (nonatomic, retain) KAProgressLabel *progresLabel;
 @property (nonatomic, strong) UITextView *imageWithText;
 @property (retain, nonatomic) UILabel *mChannelMemberName;
-@property (retain, retain) UIView * replyParentView;
 
 @property (nonatomic, assign) id <ALMediaBaseCellDelegate> delegate;     
 
 -(instancetype)populateCell:(ALMessage*) alMessage viewSize:(CGSize)viewSize;
-@property (retain, nonatomic) MessageReplyView * replyUIView;
 -(void)setupProgress;
 -(void)dowloadRetryButtonAction;
 -(void)hidePlayButtonOnUploading;
 -(void)openUserChatVC;
--(void)processReplyOfChat:(ALMessage*)almessage andViewSize:(CGSize)viewSize;
-
--(BOOL)isMessageReplyMenuEnabled:(SEL) action;
 
 @property (nonatomic, strong) UILabel *sizeLabel;
 @property (nonatomic, strong) UIView *downloadRetryView;

@@ -19,6 +19,8 @@
 #import "ALMuteRequest.h"
 #import "ALAPIResponse.h"
 
+#define GROUP_FETCH_BATCH_SIZE @"100"
+
 @interface ALChannelClientService : NSObject
 
 +(void)getChannelInfo:(NSNumber *)channelKey orClientChannelKey:(NSString *)clientChannelKey withCompletion:(void(^)(NSError *error, ALChannel *channel)) completion;
@@ -57,6 +59,12 @@
                  withCompletion:(void (^)(id json, NSError * error))completion;
     
 -(void) muteChannel:(ALMuteRequest *)ALMuteRequest withCompletion:(void(^)(ALAPIResponse * response, NSError * error))completion;
+
+-(void)getChannelInfoByIdsOrClientIds:(NSMutableArray*)channelIds
+              orClinetChannelIds:(NSMutableArray*) clientChannelIds
+                  withCompletion:(void(^)(NSMutableArray * channelInfoList, NSError * error))completion;
+
+-(void)getAllChannelsForApplications:(NSNumber*)endTime withCompletion:(void(^)(NSMutableArray * channelInfoList, NSError * error))completion;
 
 
 @end

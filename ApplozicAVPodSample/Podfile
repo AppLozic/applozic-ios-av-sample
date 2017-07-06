@@ -1,0 +1,23 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'ApplozicAVPodSample' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for ApplozicAVPodSample
+  pod 'TwilioVideo', '~> 1.1.0'
+  #pod 'Applozic', :path => "/Users/Adarsh/Documents/Git/Applozic-Chat-iOS-Framework/"
+  pod 'Applozic', '~> 3.9.1'
+
+  target 'ApplozicAVPodSampleTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'ApplozicAVPodSampleUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

@@ -22,6 +22,7 @@
 @property NSString *statusMessage;
 @property NSString *encryptionKey;
 @property short pricingPackage;
+@property NSString* notificationSoundFileName;
 
 -(BOOL)isRegisteredSuccessfully;
 

@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 #import "ALMessage.h"
 #import "ALHyperLabel.h"
-#import "MessageReplyView.h"
 
 @protocol ALChatCellDelegate <NSObject>
 
@@ -19,14 +18,10 @@
 -(void) loadView:(UIViewController *)launch;
 -(void) showAnimation:(BOOL)flag;
 -(void) processALMessage:(ALMessage *) message;
--(void) processForwardMessage:(ALMessage *) message;
 
 @optional
 
--(void)processMessageReply:(ALMessage *) message;
 -(void)openUserChat:(ALMessage *)alMessage;
--(void)scrollToReplyMessage:(ALMessage*)message;
-
 
 @end
 
@@ -53,11 +48,5 @@
 @property (retain, nonatomic) UILabel *mChannelMemberName;
 
 @property (retain, nonatomic) UILabel *mNameLabel;
-
-@property (retain, nonatomic) MessageReplyView * replyUIView;
-
-@property (retain, nonatomic) UIView * replyParentView;
-
-
 
 @end

@@ -1,0 +1,804 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A4E14C1622B8DC2D1F4AE72 /* libPods-ApplozicAVPodSampleUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2F792357E492E395A64A41 /* libPods-ApplozicAVPodSampleUITests.a */; };
+		21BE633355A74446A461D3EB /* libPods-ApplozicAVPodSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 647947F0AEA6126F9782535E /* libPods-ApplozicAVPodSample.a */; };
+		2E70326A6D4F142111056702 /* libPods-ApplozicAVPodSampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCB9A65B322BB70A194EA1E /* libPods-ApplozicAVPodSampleTests.a */; };
+		C73BAC2D1F0D52E000E91FEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC2C1F0D52E000E91FEA /* main.m */; };
+		C73BAC301F0D52E000E91FEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC2F1F0D52E000E91FEA /* AppDelegate.m */; };
+		C73BAC331F0D52E000E91FEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC321F0D52E000E91FEA /* ViewController.m */; };
+		C73BAC361F0D52E100E91FEA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73BAC341F0D52E100E91FEA /* Main.storyboard */; };
+		C73BAC381F0D52E100E91FEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C73BAC371F0D52E100E91FEA /* Assets.xcassets */; };
+		C73BAC3B1F0D52E100E91FEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73BAC391F0D52E100E91FEA /* LaunchScreen.storyboard */; };
+		C73BAC461F0D52E100E91FEA /* ApplozicAVPodSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC451F0D52E100E91FEA /* ApplozicAVPodSampleTests.m */; };
+		C73BAC511F0D52E100E91FEA /* ApplozicAVPodSampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC501F0D52E100E91FEA /* ApplozicAVPodSampleUITests.m */; };
+		C73BAC711F0E0FA700E91FEA /* ALChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC6B1F0E0FA700E91FEA /* ALChatManager.m */; };
+		C73BAC721F0E0FA700E91FEA /* ApplozicLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC6C1F0E0FA700E91FEA /* ApplozicLoginViewController.m */; };
+		C73BAC731F0E0FA700E91FEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C73BAC6D1F0E0FA700E91FEA /* Assets.xcassets */; };
+		C73BAC741F0E0FA700E91FEA /* LaunchChatFromSimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC6E1F0E0FA700E91FEA /* LaunchChatFromSimpleViewController.m */; };
+		C73BAC7B1F0E0FBD00E91FEA /* ALAudioVideoCallVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC761F0E0FBD00E91FEA /* ALAudioVideoCallVC.m */; };
+		C73BAC7C1F0E0FBD00E91FEA /* ALAudioVideoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C73BAC781F0E0FBD00E91FEA /* ALAudioVideoUtils.m */; };
+		C73BAC7D1F0E0FBD00E91FEA /* AudioVideo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C73BAC791F0E0FBD00E91FEA /* AudioVideo.storyboard */; };
+		C73BAC7E1F0E0FBD00E91FEA /* AudioVideo.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C73BAC7A1F0E0FBD00E91FEA /* AudioVideo.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C73BAC421F0D52E100E91FEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C73BAC201F0D52E000E91FEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C73BAC271F0D52E000E91FEA;
+			remoteInfo = ApplozicAVPodSample;
+		};
+		C73BAC4D1F0D52E100E91FEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C73BAC201F0D52E000E91FEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C73BAC271F0D52E000E91FEA;
+			remoteInfo = ApplozicAVPodSample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1418E86A12E4129776EB8DBC /* Pods-ApplozicAVPodSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApplozicAVPodSampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ApplozicAVPodSampleTests/Pods-ApplozicAVPodSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		314593EE9799727729E83168 /* Pods-ApplozicAVPodSampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApplozicAVPodSampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ApplozicAVPodSampleUITests/Pods-ApplozicAVPodSampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		647947F0AEA6126F9782535E /* libPods-ApplozicAVPodSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ApplozicAVPodSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		666ADB47A137A59BB1D945E8 /* Pods-ApplozicAVPodSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApplozicAVPodSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-ApplozicAVPodSample/Pods-ApplozicAVPodSample.release.xcconfig"; sourceTree = "<group>"; };
+		6BFBA00C76D4676207CD8F03 /* Pods-ApplozicAVPodSampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApplozicAVPodSampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ApplozicAVPodSampleUITests/Pods-ApplozicAVPodSampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9F2F792357E492E395A64A41 /* libPods-ApplozicAVPodSampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ApplozicAVPodSampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2B0742DC0C78D0CF8B34CD9 /* Pods-ApplozicAVPodSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApplozicAVPodSample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ApplozicAVPodSample/Pods-ApplozicAVPodSample.debug.xcconfig"; sourceTree = "<group>"; };
+		C73BAC281F0D52E000E91FEA /* ApplozicAVPodSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApplozicAVPodSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C73BAC2C1F0D52E000E91FEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C73BAC2E1F0D52E000E91FEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C73BAC2F1F0D52E000E91FEA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C73BAC311F0D52E000E91FEA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C73BAC321F0D52E000E91FEA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C73BAC351F0D52E100E91FEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C73BAC371F0D52E100E91FEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C73BAC3A1F0D52E100E91FEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C73BAC3C1F0D52E100E91FEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C73BAC411F0D52E100E91FEA /* ApplozicAVPodSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplozicAVPodSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C73BAC451F0D52E100E91FEA /* ApplozicAVPodSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplozicAVPodSampleTests.m; sourceTree = "<group>"; };
+		C73BAC471F0D52E100E91FEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C73BAC4C1F0D52E100E91FEA /* ApplozicAVPodSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplozicAVPodSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C73BAC501F0D52E100E91FEA /* ApplozicAVPodSampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplozicAVPodSampleUITests.m; sourceTree = "<group>"; };
+		C73BAC521F0D52E100E91FEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C73BAC6A1F0E0FA600E91FEA /* ALChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALChatManager.h; path = ApplozicAVPodSample/ALChatManager.h; sourceTree = "<group>"; };
+		C73BAC6B1F0E0FA700E91FEA /* ALChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALChatManager.m; path = ApplozicAVPodSample/ALChatManager.m; sourceTree = "<group>"; };
+		C73BAC6C1F0E0FA700E91FEA /* ApplozicLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplozicLoginViewController.m; path = ApplozicAVPodSample/ApplozicLoginViewController.m; sourceTree = "<group>"; };
+		C73BAC6D1F0E0FA700E91FEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ApplozicAVPodSample/Assets.xcassets; sourceTree = "<group>"; };
+		C73BAC6E1F0E0FA700E91FEA /* LaunchChatFromSimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LaunchChatFromSimpleViewController.m; path = ApplozicAVPodSample/LaunchChatFromSimpleViewController.m; sourceTree = "<group>"; };
+		C73BAC6F1F0E0FA700E91FEA /* ApplozicLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplozicLoginViewController.h; path = ApplozicAVPodSample/ApplozicLoginViewController.h; sourceTree = "<group>"; };
+		C73BAC701F0E0FA700E91FEA /* LaunchChatFromSimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LaunchChatFromSimpleViewController.h; path = ApplozicAVPodSample/LaunchChatFromSimpleViewController.h; sourceTree = "<group>"; };
+		C73BAC751F0E0FBD00E91FEA /* ALAudioVideoCallVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALAudioVideoCallVC.h; path = ApplozicAVPodSample/AudioVideo/ALAudioVideoCallVC.h; sourceTree = "<group>"; };
+		C73BAC761F0E0FBD00E91FEA /* ALAudioVideoCallVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALAudioVideoCallVC.m; path = ApplozicAVPodSample/AudioVideo/ALAudioVideoCallVC.m; sourceTree = "<group>"; };
+		C73BAC771F0E0FBD00E91FEA /* ALAudioVideoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALAudioVideoUtils.h; path = ApplozicAVPodSample/AudioVideo/ALAudioVideoUtils.h; sourceTree = "<group>"; };
+		C73BAC781F0E0FBD00E91FEA /* ALAudioVideoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALAudioVideoUtils.m; path = ApplozicAVPodSample/AudioVideo/ALAudioVideoUtils.m; sourceTree = "<group>"; };
+		C73BAC791F0E0FBD00E91FEA /* AudioVideo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AudioVideo.storyboard; path = ApplozicAVPodSample/AudioVideo/AudioVideo.storyboard; sourceTree = "<group>"; };
+		C73BAC7A1F0E0FBD00E91FEA /* AudioVideo.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = AudioVideo.xcassets; path = ApplozicAVPodSample/AudioVideo/AudioVideo.xcassets; sourceTree = "<group>"; };
+		C73BAC801F0E307A00E91FEA /* ApplozicAVPodSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ApplozicAVPodSample.entitlements; sourceTree = "<group>"; };
+		CCC8EBFF35D105DD528A2D9E /* Pods-ApplozicAVPodSampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApplozicAVPodSampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ApplozicAVPodSampleTests/Pods-ApplozicAVPodSampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		DFCB9A65B322BB70A194EA1E /* libPods-ApplozicAVPodSampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ApplozicAVPodSampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C73BAC251F0D52E000E91FEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21BE633355A74446A461D3EB /* libPods-ApplozicAVPodSample.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C73BAC3E1F0D52E100E91FEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E70326A6D4F142111056702 /* libPods-ApplozicAVPodSampleTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C73BAC491F0D52E100E91FEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A4E14C1622B8DC2D1F4AE72 /* libPods-ApplozicAVPodSampleUITests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		595205D37F7922687B118B95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				647947F0AEA6126F9782535E /* libPods-ApplozicAVPodSample.a */,
+				DFCB9A65B322BB70A194EA1E /* libPods-ApplozicAVPodSampleTests.a */,
+				9F2F792357E492E395A64A41 /* libPods-ApplozicAVPodSampleUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B46702CC197A4968FCBC85C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2B0742DC0C78D0CF8B34CD9 /* Pods-ApplozicAVPodSample.debug.xcconfig */,
+				666ADB47A137A59BB1D945E8 /* Pods-ApplozicAVPodSample.release.xcconfig */,
+				1418E86A12E4129776EB8DBC /* Pods-ApplozicAVPodSampleTests.debug.xcconfig */,
+				CCC8EBFF35D105DD528A2D9E /* Pods-ApplozicAVPodSampleTests.release.xcconfig */,
+				314593EE9799727729E83168 /* Pods-ApplozicAVPodSampleUITests.debug.xcconfig */,
+				6BFBA00C76D4676207CD8F03 /* Pods-ApplozicAVPodSampleUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C73BAC1F1F0D52E000E91FEA = {
+			isa = PBXGroup;
+			children = (
+				C73BAC2A1F0D52E000E91FEA /* ApplozicAVPodSample */,
+				C73BAC441F0D52E100E91FEA /* ApplozicAVPodSampleTests */,
+				C73BAC4F1F0D52E100E91FEA /* ApplozicAVPodSampleUITests */,
+				C73BAC291F0D52E000E91FEA /* Products */,
+				8B46702CC197A4968FCBC85C /* Pods */,
+				595205D37F7922687B118B95 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C73BAC291F0D52E000E91FEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C73BAC281F0D52E000E91FEA /* ApplozicAVPodSample.app */,
+				C73BAC411F0D52E100E91FEA /* ApplozicAVPodSampleTests.xctest */,
+				C73BAC4C1F0D52E100E91FEA /* ApplozicAVPodSampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C73BAC2A1F0D52E000E91FEA /* ApplozicAVPodSample */ = {
+			isa = PBXGroup;
+			children = (
+				C73BAC801F0E307A00E91FEA /* ApplozicAVPodSample.entitlements */,
+				C73BAC7F1F0E0FDD00E91FEA /* chats */,
+				C73BAC2E1F0D52E000E91FEA /* AppDelegate.h */,
+				C73BAC2F1F0D52E000E91FEA /* AppDelegate.m */,
+				C73BAC311F0D52E000E91FEA /* ViewController.h */,
+				C73BAC321F0D52E000E91FEA /* ViewController.m */,
+				C73BAC341F0D52E100E91FEA /* Main.storyboard */,
+				C73BAC371F0D52E100E91FEA /* Assets.xcassets */,
+				C73BAC391F0D52E100E91FEA /* LaunchScreen.storyboard */,
+				C73BAC3C1F0D52E100E91FEA /* Info.plist */,
+				C73BAC2B1F0D52E000E91FEA /* Supporting Files */,
+			);
+			path = ApplozicAVPodSample;
+			sourceTree = "<group>";
+		};
+		C73BAC2B1F0D52E000E91FEA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C73BAC2C1F0D52E000E91FEA /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C73BAC441F0D52E100E91FEA /* ApplozicAVPodSampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				C73BAC451F0D52E100E91FEA /* ApplozicAVPodSampleTests.m */,
+				C73BAC471F0D52E100E91FEA /* Info.plist */,
+			);
+			path = ApplozicAVPodSampleTests;
+			sourceTree = "<group>";
+		};
+		C73BAC4F1F0D52E100E91FEA /* ApplozicAVPodSampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C73BAC501F0D52E100E91FEA /* ApplozicAVPodSampleUITests.m */,
+				C73BAC521F0D52E100E91FEA /* Info.plist */,
+			);
+			path = ApplozicAVPodSampleUITests;
+			sourceTree = "<group>";
+		};
+		C73BAC7F1F0E0FDD00E91FEA /* chats */ = {
+			isa = PBXGroup;
+			children = (
+				C73BAC751F0E0FBD00E91FEA /* ALAudioVideoCallVC.h */,
+				C73BAC761F0E0FBD00E91FEA /* ALAudioVideoCallVC.m */,
+				C73BAC771F0E0FBD00E91FEA /* ALAudioVideoUtils.h */,
+				C73BAC781F0E0FBD00E91FEA /* ALAudioVideoUtils.m */,
+				C73BAC791F0E0FBD00E91FEA /* AudioVideo.storyboard */,
+				C73BAC7A1F0E0FBD00E91FEA /* AudioVideo.xcassets */,
+				C73BAC6A1F0E0FA600E91FEA /* ALChatManager.h */,
+				C73BAC6B1F0E0FA700E91FEA /* ALChatManager.m */,
+				C73BAC6C1F0E0FA700E91FEA /* ApplozicLoginViewController.m */,
+				C73BAC6D1F0E0FA700E91FEA /* Assets.xcassets */,
+				C73BAC6E1F0E0FA700E91FEA /* LaunchChatFromSimpleViewController.m */,
+				C73BAC6F1F0E0FA700E91FEA /* ApplozicLoginViewController.h */,
+				C73BAC701F0E0FA700E91FEA /* LaunchChatFromSimpleViewController.h */,
+			);
+			name = chats;
+			path = ..;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C73BAC271F0D52E000E91FEA /* ApplozicAVPodSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C73BAC551F0D52E100E91FEA /* Build configuration list for PBXNativeTarget "ApplozicAVPodSample" */;
+			buildPhases = (
+				12D8E22EC7290FB013966C24 /* [CP] Check Pods Manifest.lock */,
+				C73BAC241F0D52E000E91FEA /* Sources */,
+				C73BAC251F0D52E000E91FEA /* Frameworks */,
+				C73BAC261F0D52E000E91FEA /* Resources */,
+				BBBD60833A03467B43261D14 /* [CP] Embed Pods Frameworks */,
+				E9719B640E4C9BE84805D203 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ApplozicAVPodSample;
+			productName = ApplozicAVPodSample;
+			productReference = C73BAC281F0D52E000E91FEA /* ApplozicAVPodSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C73BAC401F0D52E100E91FEA /* ApplozicAVPodSampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C73BAC581F0D52E100E91FEA /* Build configuration list for PBXNativeTarget "ApplozicAVPodSampleTests" */;
+			buildPhases = (
+				B4935CC4FA64EB07640F86BD /* [CP] Check Pods Manifest.lock */,
+				C73BAC3D1F0D52E100E91FEA /* Sources */,
+				C73BAC3E1F0D52E100E91FEA /* Frameworks */,
+				C73BAC3F1F0D52E100E91FEA /* Resources */,
+				57CD7B3DDA454548368404AE /* [CP] Embed Pods Frameworks */,
+				86C4F43DF1C94F0573D7BABF /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C73BAC431F0D52E100E91FEA /* PBXTargetDependency */,
+			);
+			name = ApplozicAVPodSampleTests;
+			productName = ApplozicAVPodSampleTests;
+			productReference = C73BAC411F0D52E100E91FEA /* ApplozicAVPodSampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C73BAC4B1F0D52E100E91FEA /* ApplozicAVPodSampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C73BAC5B1F0D52E100E91FEA /* Build configuration list for PBXNativeTarget "ApplozicAVPodSampleUITests" */;
+			buildPhases = (
+				3E70E7694F36A73805654A5A /* [CP] Check Pods Manifest.lock */,
+				C73BAC481F0D52E100E91FEA /* Sources */,
+				C73BAC491F0D52E100E91FEA /* Frameworks */,
+				C73BAC4A1F0D52E100E91FEA /* Resources */,
+				C97006B9425BB0E5ACD78BCE /* [CP] Embed Pods Frameworks */,
+				EF7136DE3FC8481763B394F9 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C73BAC4E1F0D52E100E91FEA /* PBXTargetDependency */,
+			);
+			name = ApplozicAVPodSampleUITests;
+			productName = ApplozicAVPodSampleUITests;
+			productReference = C73BAC4C1F0D52E100E91FEA /* ApplozicAVPodSampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C73BAC201F0D52E000E91FEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = Adarsh;
+				TargetAttributes = {
+					C73BAC271F0D52E000E91FEA = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = C25JNDCBM4;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+					C73BAC401F0D52E100E91FEA = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = C25JNDCBM4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C73BAC271F0D52E000E91FEA;
+					};
+					C73BAC4B1F0D52E100E91FEA = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = C25JNDCBM4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C73BAC271F0D52E000E91FEA;
+					};
+				};
+			};
+			buildConfigurationList = C73BAC231F0D52E000E91FEA /* Build configuration list for PBXProject "ApplozicAVPodSample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C73BAC1F1F0D52E000E91FEA;
+			productRefGroup = C73BAC291F0D52E000E91FEA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C73BAC271F0D52E000E91FEA /* ApplozicAVPodSample */,
+				C73BAC401F0D52E100E91FEA /* ApplozicAVPodSampleTests */,
+				C73BAC4B1F0D52E100E91FEA /* ApplozicAVPodSampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C73BAC261F0D52E000E91FEA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C73BAC7E1F0E0FBD00E91FEA /* AudioVideo.xcassets in Resources */,
+				C73BAC3B1F0D52E100E91FEA /* LaunchScreen.storyboard in Resources */,
+				C73BAC381F0D52E100E91FEA /* Assets.xcassets in Resources */,
+				C73BAC731F0E0FA700E91FEA /* Assets.xcassets in Resources */,
+				C73BAC361F0D52E100E91FEA /* Main.storyboard in Resources */,
+				C73BAC7D1F0E0FBD00E91FEA /* AudioVideo.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C73BAC3F1F0D52E100E91FEA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C73BAC4A1F0D52E100E91FEA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		12D8E22EC7290FB013966C24 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3E70E7694F36A73805654A5A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		57CD7B3DDA454548368404AE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApplozicAVPodSampleTests/Pods-ApplozicAVPodSampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86C4F43DF1C94F0573D7BABF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApplozicAVPodSampleTests/Pods-ApplozicAVPodSampleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B4935CC4FA64EB07640F86BD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BBBD60833A03467B43261D14 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApplozicAVPodSample/Pods-ApplozicAVPodSample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C97006B9425BB0E5ACD78BCE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApplozicAVPodSampleUITests/Pods-ApplozicAVPodSampleUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9719B640E4C9BE84805D203 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApplozicAVPodSample/Pods-ApplozicAVPodSample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF7136DE3FC8481763B394F9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApplozicAVPodSampleUITests/Pods-ApplozicAVPodSampleUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C73BAC241F0D52E000E91FEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C73BAC331F0D52E000E91FEA /* ViewController.m in Sources */,
+				C73BAC741F0E0FA700E91FEA /* LaunchChatFromSimpleViewController.m in Sources */,
+				C73BAC301F0D52E000E91FEA /* AppDelegate.m in Sources */,
+				C73BAC711F0E0FA700E91FEA /* ALChatManager.m in Sources */,
+				C73BAC721F0E0FA700E91FEA /* ApplozicLoginViewController.m in Sources */,
+				C73BAC7C1F0E0FBD00E91FEA /* ALAudioVideoUtils.m in Sources */,
+				C73BAC7B1F0E0FBD00E91FEA /* ALAudioVideoCallVC.m in Sources */,
+				C73BAC2D1F0D52E000E91FEA /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C73BAC3D1F0D52E100E91FEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C73BAC461F0D52E100E91FEA /* ApplozicAVPodSampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C73BAC481F0D52E100E91FEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C73BAC511F0D52E100E91FEA /* ApplozicAVPodSampleUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C73BAC431F0D52E100E91FEA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C73BAC271F0D52E000E91FEA /* ApplozicAVPodSample */;
+			targetProxy = C73BAC421F0D52E100E91FEA /* PBXContainerItemProxy */;
+		};
+		C73BAC4E1F0D52E100E91FEA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C73BAC271F0D52E000E91FEA /* ApplozicAVPodSample */;
+			targetProxy = C73BAC4D1F0D52E100E91FEA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C73BAC341F0D52E100E91FEA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C73BAC351F0D52E100E91FEA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C73BAC391F0D52E100E91FEA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C73BAC3A1F0D52E100E91FEA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C73BAC531F0D52E100E91FEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C73BAC541F0D52E100E91FEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C73BAC561F0D52E100E91FEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2B0742DC0C78D0CF8B34CD9 /* Pods-ApplozicAVPodSample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ApplozicAVPodSample/ApplozicAVPodSample.entitlements;
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ApplozicAVPodSample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "edb255db-d93d-4527-ad50-0087038ee0c8";
+				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
+			};
+			name = Debug;
+		};
+		C73BAC571F0D52E100E91FEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 666ADB47A137A59BB1D945E8 /* Pods-ApplozicAVPodSample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ApplozicAVPodSample/ApplozicAVPodSample.entitlements;
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ApplozicAVPodSample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "edb255db-d93d-4527-ad50-0087038ee0c8";
+				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
+			};
+			name = Release;
+		};
+		C73BAC591F0D52E100E91FEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1418E86A12E4129776EB8DBC /* Pods-ApplozicAVPodSampleTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ApplozicAVPodSampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ApplozicAVPodSampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ApplozicAVPodSample.app/ApplozicAVPodSample";
+			};
+			name = Debug;
+		};
+		C73BAC5A1F0D52E100E91FEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCC8EBFF35D105DD528A2D9E /* Pods-ApplozicAVPodSampleTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ApplozicAVPodSampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ApplozicAVPodSampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ApplozicAVPodSample.app/ApplozicAVPodSample";
+			};
+			name = Release;
+		};
+		C73BAC5C1F0D52E100E91FEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 314593EE9799727729E83168 /* Pods-ApplozicAVPodSampleUITests.debug.xcconfig */;
+			buildSettings = {
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ApplozicAVPodSampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ApplozicAVPodSampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ApplozicAVPodSample;
+			};
+			name = Debug;
+		};
+		C73BAC5D1F0D52E100E91FEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BFBA00C76D4676207CD8F03 /* Pods-ApplozicAVPodSampleUITests.release.xcconfig */;
+			buildSettings = {
+				DEVELOPMENT_TEAM = C25JNDCBM4;
+				INFOPLIST_FILE = ApplozicAVPodSampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ApplozicAVPodSampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ApplozicAVPodSample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C73BAC231F0D52E000E91FEA /* Build configuration list for PBXProject "ApplozicAVPodSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C73BAC531F0D52E100E91FEA /* Debug */,
+				C73BAC541F0D52E100E91FEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C73BAC551F0D52E100E91FEA /* Build configuration list for PBXNativeTarget "ApplozicAVPodSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C73BAC561F0D52E100E91FEA /* Debug */,
+				C73BAC571F0D52E100E91FEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C73BAC581F0D52E100E91FEA /* Build configuration list for PBXNativeTarget "ApplozicAVPodSampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C73BAC591F0D52E100E91FEA /* Debug */,
+				C73BAC5A1F0D52E100E91FEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C73BAC5B1F0D52E100E91FEA /* Build configuration list for PBXNativeTarget "ApplozicAVPodSampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C73BAC5C1F0D52E100E91FEA /* Debug */,
+				C73BAC5D1F0D52E100E91FEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C73BAC201F0D52E000E91FEA /* Project object */;
+}

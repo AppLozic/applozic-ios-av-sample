@@ -14,8 +14,6 @@
 
 -(void)customNavigationItemClicked:(id)sender withTag:(NSString*)tag;
 
--(UIView*)getCustomButtonView:(NSString*)tag;
-
 -(NSMutableArray*)getCustomButtons;
 
 @end

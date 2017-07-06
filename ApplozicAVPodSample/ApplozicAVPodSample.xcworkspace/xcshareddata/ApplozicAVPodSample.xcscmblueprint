@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0DFE338479C840CBC3A3F64FFA960740512EF858",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0DFE338479C840CBC3A3F64FFA960740512EF858" : 9223372036854775807,
+    "C8A2CBFAB93DBBF393AD223C7F000A7D2633515D" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E2632195-9769-4019-946C-9B4CDF4DEBB1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0DFE338479C840CBC3A3F64FFA960740512EF858" : "applozic-ios-video-call-sample\/",
+    "C8A2CBFAB93DBBF393AD223C7F000A7D2633515D" : "Applozic-Chat-iOS-Framework\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ApplozicAVPodSample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ApplozicAVPodSample\/ApplozicAVPodSample.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/AppLozic\/applozic-ios-video-call-sample.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0DFE338479C840CBC3A3F64FFA960740512EF858"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/AppLozic\/Applozic-Chat-iOS-Framework.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C8A2CBFAB93DBBF393AD223C7F000A7D2633515D"
+    }
+  ]
+}

@@ -17,6 +17,7 @@
 #import "ALMessageInfoResponse.h"
 
 #define NEW_MESSAGE_NOTIFICATION @"newMessageNotification"
+#define CONVERSATION_CALL_COMPLETED @"conversationCallCompleted"
 
 @interface ALMessageService : NSObject <NSURLConnectionDataDelegate>
 

@@ -77,6 +77,8 @@
 #define USER_PROFILE_TAB_TITLE @"com.applozic.userdefault.USER_PROFILE_TAB_TITLE"
 #define OPEN_CHAT_ON_USER_PROFILE_TAP @"com.applozic.userdefault.OPEN_CHAT_ON_USER_PROFILE_TAP"
 #define MESSAGE_REPLY_ENABLED @"com.applozic.userdefault.MESSAGE_REPLY_MESSAGE"
+#define AV_ENABLED @"com.applozic.userfefault.AV_ENABLED"
+
 
 
 #import <Foundation/Foundation.h>
@@ -319,6 +321,9 @@
 
 +(BOOL)isReplyOptionEnabled;
 +(void)replyOptionEnabled:(BOOL)flag;
+
++(BOOL)isAudioVideoEnabled;
++(void)setAudioVideoEnabled:(BOOL)flag;
 
 
 @end

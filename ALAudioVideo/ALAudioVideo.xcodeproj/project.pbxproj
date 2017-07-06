@@ -260,6 +260,7 @@
 				C714D1BF1EF176730068C6ED /* Frameworks */,
 				C714D1C01EF176730068C6ED /* Resources */,
 				C714D1FB1EF176A70068C6ED /* Embed Frameworks */,
+				C73BAC1E1F0D3E5300E91FEA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -390,6 +391,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C73BAC1E1F0D3E5300E91FEA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwilioVideo.framework/remove_archs\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C714D1BE1EF176730068C6ED /* Sources */ = {

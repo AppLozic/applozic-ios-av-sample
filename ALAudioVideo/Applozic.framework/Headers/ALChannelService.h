@@ -107,5 +107,11 @@
 
 -(ALChannelUserX *)loadChannelUserX:(NSNumber *)channelKey;
 
+-(void)getChannelInfoByIdsOrClientIds:(NSMutableArray*)channelIds
+                   orClinetChannelIds:(NSMutableArray*) clientChannelIds
+                       withCompletion:(void(^)(NSMutableArray* channelInfoList, NSError *error))completion;
+
+
+-(void)getAllChannelsForApplications:(NSNumber*)endTime withCompletion:(void(^)(NSMutableArray * channelInfoList, NSError * error))completion;
 
 @end
