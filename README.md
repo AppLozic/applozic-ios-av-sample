@@ -2,6 +2,15 @@
 
 Project contains Applozic.framework supporting Audio, Video call with sample in Objective C.
 
+## Using pod
+
+Add below pod dependency:
+```
+  pod 'TwilioVideo', '~> 1.1.0'
+  pod 'Applozic', '~> 3.9.1'
+```
+## Using Framework 
+
 ### Installing lfs
 
 i)  To fetch framowrk files(larger-file), you need to install lfs. You can install it by running below command:
@@ -151,4 +160,6 @@ https://www.applozic.com/docs/ios-chat-sdk.html#step-2-login-register-user
 #### 6) Add below setting in ALChatManger.m's in ALDefaultChatViewSettings.
 
     [ALApplozicSettings setAudioVideoClassName:@"ALAudioVideoCallVC"];
+    [ALApplozicSettings setAudioVideoEnabled:YES];
+
     
