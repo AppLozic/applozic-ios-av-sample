@@ -31,12 +31,9 @@ git lfs pull
 ```
 
 
+##### 2) navigate to your Xcode project's General settings page and add Applozic.framework,Twillio.framework from [sample project root folder](https://github.com/AppLozic/applozic-ios-video-call-sample/tree/master/ALAudioVideo) as Embeded binaries.
 
-## Integration Steps: 
-
-##### 1) navigate to your Xcode project's General settings page and add Applozic.framework,Twillio.framework from [sample project root folder](https://github.com/AppLozic/applozic-ios-video-call-sample/tree/master/ALAudioVideo) as Embeded binaries.
-
-#### 2) Add below libraries in Linked Frameworks and Libraries.
+#### 3) Add below libraries in Linked Frameworks and Libraries.
 
 - AudioToolbox.framework
 - VideoToolbox.framework
@@ -47,16 +44,19 @@ git lfs pull
 - SystemConfiguration.framework
 - libc++.tbd
 
-#### 3) Add Audio/Video code to your project.
+
+## Integration Steps: 
+
+#### 1) Add Audio/Video code to your project.
  - Copy paste [AudioVideo](https://github.com/AppLozic/applozic-ios-video-call-sample/tree/master/ALAudioVideo/ALAudioVideo/AudioVideo) folder from sample project and paste it into your root directory of your project. Go to Add Files to project, select all files present in Folder and add it to your project.
 
-#### 4) Follow basic integration steps:
+#### 2) Follow basic integration steps:
 - After above steps, follow our documentaion page from steps 2) onward for integration:
 
 https://www.applozic.com/docs/ios-chat-sdk.html#step-2-login-register-user
 
 
-#### 5) Notification setup:
+#### 3) Notification setup:
 
   Apart from basic notification setup done in [step 4](https://www.applozic.com/docs/ios-chat-sdk.html#step-4-push-notification-setup). Add below Pushkit delegates.
   
@@ -157,7 +157,7 @@ https://www.applozic.com/docs/ios-chat-sdk.html#step-2-login-register-user
  ```
 **NOTE: You need to upload VoIP Services Certificate in both development and distribution section on Applozic Dashboard**
 
-#### 6) Add below setting in ALChatManger.m's in ALDefaultChatViewSettings.
+#### 4) Add below setting in ALChatManger.m's in ALDefaultChatViewSettings.
 
     [ALApplozicSettings setAudioVideoClassName:@"ALAudioVideoCallVC"];
     [ALApplozicSettings setAudioVideoEnabled:YES];
