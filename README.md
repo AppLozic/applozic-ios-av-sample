@@ -2,16 +2,20 @@
 
 Project contains Applozic.framework supporting Audio, Video call with sample in Objective C.
 
-## Using pod
+## Installation 
+
+### Using cocoapods
 
 Add below pod dependency:
 ```
   pod 'TwilioVideo', '~> 1.1.0'
   pod 'Applozic', '~> 3.9.1'
 ```
-## Using Framework 
+NOTE: Continue follwing integration steps and skip using framework step.
+ 
+### Using Framework 
 
-### Installing lfs
+#### Installing lfs
 
 i)  To fetch framowrk files(larger-file), you need to install lfs. You can install it by running below command:
 
