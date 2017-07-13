@@ -63,7 +63,8 @@ https://www.applozic.com/docs/ios-chat-sdk.html#step-2-login-register-user
 #### 3) Notification setup:
 
   Apart from basic notification setup done in [step 4](https://www.applozic.com/docs/ios-chat-sdk.html#step-4-push-notification-setup). Add below Pushkit delegates.
-  
+
+#### Objective-C
   
  ``` 
   //=====================================
@@ -159,6 +160,94 @@ https://www.applozic.com/docs/ios-chat-sdk.html#step-2-login-register-user
     }
 }
  ```
+
+#### Swift
+
+```
+extension AppDelegate: PKPushRegistryDelegate {
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        let pushKitVOIP = PKPushRegistry(queue: DispatchQueue.main)
+        pushKitVOIP.desiredPushTypes = Set<PKPushType>([PKPushType.voIP])
+        pushKitVOIP.delegate = self
+    }
+
+    func pushRegistry(_ registry: PKPushRegistry, didUpdate credentials: PKPushCredentials, forType type: PKPushType) {
+        NSLog("PUSHKIT : VOIP_TOKEN_DATA : %@",credentials.token.description)
+
+        var hexToken: String = ""
+        for i in 0..<credentials.token.count {
+            hexToken += String(format: "%08x", credentials.token[i] as CVarArg)
+        }
+        NSLog("PUSHKIT : VOIP_TOKEN : %@",hexToken)
+
+        if let apnToken = ALUserDefaultsHandler.getApnDeviceToken(), apnToken == hexToken {
+            return
+        }
+        NSLog("PUSHKIT : VOIP_TOKEN_UPDATE_CALL")
+
+        let registerUserClientService = ALRegisterUserClientService()
+        registerUserClientService.updateApnDeviceToken(withCompletion: hexToken, withCompletion: {
+            response, error in
+            if error != nil {
+                NSLog("PUSHKIT : VOIP TOKEN : REGISTRATION ERROR :: %@", error.debugDescription)
+                return
+            }
+
+            NSLog("PUSHKIT : VOIP_TOKEN_UPDATE : %@", response?.description ?? "")
+        })
+    }
+
+    func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
+        NSLog("PUSHKIT : INVALID_PUSHKIT_TOKEN")
+    }
+
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, forType type: PKPushType) {
+        NSLog("PUSHKIT : INCOMING VOIP NOTIFICATION : %@",payload.dictionaryPayload.description)
+
+        let application = UIApplication.shared
+        let pushNotificationService = ALPushNotificationService()
+        pushNotificationService.notificationArrived(to: application, with: payload.dictionaryPayload)
+
+        let payloadDict = payload.dictionaryPayload["aps"] as? [String: Any]
+        let notifAlert = payloadDict?["alert"]
+        let notifSound = payloadDict?["sound"]
+
+        guard let alert = notifAlert as? String  else { return }
+
+        if #available(iOS 10.0, *) {
+            let center = UNUserNotificationCenter.current()
+            let content = UNMutableNotificationContent()
+            let messageContent = alert.components(separatedBy: ":")
+
+            content.title = messageContent.count > 0 ? messageContent[0]: alert
+            if notifSound != nil {
+                content.sound = UNNotificationSound.default()
+            }
+
+            content.body = messageContent.count > 1 ? messageContent[1]: alert
+            content.userInfo = payload.dictionaryPayload
+
+            let request = UNNotificationRequest(identifier: "VOIP_APNS", content: content, trigger: nil)
+            center.add(request, withCompletionHandler: {
+                error in
+                if error == nil {
+                    NSLog("PUSHKIT : Add NotificationRequest Succeeded!")
+                }
+            })
+        } else {
+            let localNotification = UILocalNotification()
+            localNotification.alertBody = alert
+            if notifSound != nil {
+                localNotification.soundName = UILocalNotificationDefaultSoundName
+            }
+
+            localNotification.userInfo = payload.dictionaryPayload
+            application.presentLocalNotificationNow(localNotification)
+        }
+    }
+}
+```
+
 **NOTE: You need to upload VoIP Services Certificate in both development and distribution section on Applozic Dashboard**
 
 #### 4) Add below setting in ALChatManger.m's in ALDefaultChatViewSettings.
