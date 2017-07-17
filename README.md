@@ -226,7 +226,7 @@ extension AppDelegate: PKPushRegistryDelegate {
 
             content.body = messageContent.count > 1 ? messageContent[1]: alert
             content.userInfo = payload.dictionaryPayload
-
+	    center.delegate = self
             let request = UNNotificationRequest(identifier: "VOIP_APNS", content: content, trigger: nil)
             center.add(request, withCompletionHandler: {
                 error in
