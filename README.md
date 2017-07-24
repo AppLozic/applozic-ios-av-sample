@@ -174,10 +174,7 @@ extension AppDelegate: PKPushRegistryDelegate {
     func pushRegistry(_ registry: PKPushRegistry, didUpdate credentials: PKPushCredentials, forType type: PKPushType) {
         NSLog("PUSHKIT : VOIP_TOKEN_DATA : %@",credentials.token.description)
 
-        var hexToken: String = ""
-        for i in 0..<credentials.token.count {
-            hexToken += String(format: "%08x", credentials.token[i] as CVarArg)
-        }
+        let hexToken = credentials.token.map { String(format: "%02x", $0) }.joined()
         NSLog("PUSHKIT : VOIP_TOKEN : %@",hexToken)
 
         if let apnToken = ALUserDefaultsHandler.getApnDeviceToken(), apnToken == hexToken {
