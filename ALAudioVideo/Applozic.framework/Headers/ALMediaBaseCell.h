@@ -38,6 +38,7 @@
 -(void) showSuggestionView:(NSURL *)fileURL andFrame:(CGRect)frame;
 -(void) showAnimationForMsgInfo:(BOOL)flag;
 -(void) processTapGesture:(ALMessage *)alMessage;
+-(void) processForwardMessage:(ALMessage *) message;
 
 @optional
 -(void) processUserChatView:(ALMessage *)alMessage;

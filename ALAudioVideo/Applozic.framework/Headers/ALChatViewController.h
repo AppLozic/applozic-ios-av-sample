@@ -39,6 +39,7 @@
 @property (nonatomic, strong) NSString * channelName;
 @property (nonatomic, strong) NSNumber * conversationId;
 @property (strong, nonatomic) ALMessage * alMessage;
+@property (nonatomic, strong) NSString * contactsGroupId;
 
 
 @property (nonatomic) BOOL refreshMainView;

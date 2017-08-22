@@ -37,6 +37,11 @@
                                            withCreatedAt:(NSNumber*)createdAt
                                            andChannelKey:(NSNumber *)channelKey
                                           conversationId:(NSNumber*)conversationId;
+
+-(NSMutableArray *)getAllMessagesWithAttachmentForContact:(NSString *)contactId
+                                            andChannelKey:(NSNumber *)channelKey
+                                onlyDownloadedAttachments: (BOOL )onlyDownloaded;
+
 -(NSMutableArray *)getPendingMessages;
 
 //update Message APIS

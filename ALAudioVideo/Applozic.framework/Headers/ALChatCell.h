@@ -18,6 +18,7 @@
 -(void) loadView:(UIViewController *)launch;
 -(void) showAnimation:(BOOL)flag;
 -(void) processALMessage:(ALMessage *) message;
+-(void) processForwardMessage:(ALMessage *) message;
 
 @optional
 

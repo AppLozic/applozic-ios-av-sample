@@ -24,6 +24,8 @@
 
 -(void)nativeNotification:(id)delegate;
 
+-(void)showNativeNotificationWithcompletionHandler:(void (^)(BOOL))handler;
+
 -(void)showGroupLeftMessage;
 
 +(void)showLocalNotification:(NSString *)text;

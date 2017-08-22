@@ -94,5 +94,8 @@
 
 -(void)updateRoleInChannelUserX:(NSNumber *)channelKey andUserId:(NSString *)userId withRoleType:(NSNumber*)role;
 
+-(NSMutableArray *)getListOfAllUsersInChannelByNameForContactsGroup:(NSString *)channelName;
+
+-(DB_CHANNEL *)getContactsGroupChannelByName:(NSString *)channelName;
 
 @end

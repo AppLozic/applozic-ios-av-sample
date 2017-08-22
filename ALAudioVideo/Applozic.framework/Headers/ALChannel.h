@@ -26,6 +26,7 @@ typedef enum
     BROADCAST = 5,
     OPEN = 6,
     GROUP_OF_TWO = 7,
+    CONTACT_GROUP = 9,
     BROADCAST_ONE_BY_ONE = 106
 } CHANNEL_TYPE;
 

@@ -44,6 +44,8 @@
 @property (strong, nonatomic) NSString * userIdToLaunch;
 @property (strong, nonatomic) NSNumber *channelKey;
 @property (strong, nonatomic) NSNumber * conversationId;
+@property (nonatomic, strong) NSString *contactsGroupId;
+
 
 -(void)insertChannelMessage:(NSNumber *)channelKey;
 - (IBAction)createBroadcastGroup:(id)sender;
