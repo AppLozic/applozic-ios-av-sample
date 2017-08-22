@@ -8,7 +8,7 @@ target 'ApplozicAVPodSample' do
   # Pods for ApplozicAVPodSample
   pod 'TwilioVideo', '~> 1.1.0'
   #pod 'Applozic', :path => "/Users/Adarsh/Documents/Git/Applozic-Chat-iOS-Framework/"
-  pod 'Applozic', '~> 3.9.1'
+  pod 'Applozic', '~> 4.1.0'
 
   target 'ApplozicAVPodSampleTests' do
     inherit! :search_paths
