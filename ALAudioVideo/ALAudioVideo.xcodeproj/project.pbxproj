@@ -580,10 +580,10 @@
 				);
 				INFOPLIST_FILE = ALAudioVideo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.samplevoicechat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "edb255db-d93d-4527-ad50-0087038ee0c8";
-				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
+				PROVISIONING_PROFILE = "2de26207-0ece-42d4-8ecc-824ccd38ef9c";
+				PROVISIONING_PROFILE_SPECIFIER = Samplevoicechat;
 			};
 			name = Debug;
 		};
@@ -599,10 +599,10 @@
 				);
 				INFOPLIST_FILE = ALAudioVideo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.samplevoicechat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "edb255db-d93d-4527-ad50-0087038ee0c8";
-				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
+				PROVISIONING_PROFILE = "2de26207-0ece-42d4-8ecc-824ccd38ef9c";
+				PROVISIONING_PROFILE_SPECIFIER = Samplevoicechat;
 			};
 			name = Release;
 		};

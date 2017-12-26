@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *cameraToggle;
 @property (weak, nonatomic) IBOutlet UILabel *audioTimerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *videoShare;
+@property (weak, nonatomic) IBOutlet UILabel *audioCallType;
 
 @property (strong, nonatomic) ALContact * alContact;
 @property (weak, nonatomic) ALMQTTConversationService * alMQTTObject;
@@ -64,3 +65,4 @@
 @property (nonatomic, strong) TVIParticipant *participant;
 
 @end
+
