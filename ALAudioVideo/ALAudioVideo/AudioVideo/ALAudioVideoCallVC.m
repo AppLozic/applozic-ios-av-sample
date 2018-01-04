@@ -607,10 +607,9 @@
         }
         else
         {
-            [self.audioCallType setHidden:YES];
-            
             [self.previewView setHidden:NO];
         }
+        [self.audioCallType setHidden:YES];
     }
 }
 
