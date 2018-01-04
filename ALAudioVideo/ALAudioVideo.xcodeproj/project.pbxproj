@@ -582,7 +582,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "edb255db-d93d-4527-ad50-0087038ee0c8";
+				PROVISIONING_PROFILE = "58ee6f37-048f-4dbc-b054-c32831ec85d2";
 				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
 			};
 			name = Debug;
@@ -601,7 +601,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "edb255db-d93d-4527-ad50-0087038ee0c8";
+				PROVISIONING_PROFILE = "58ee6f37-048f-4dbc-b054-c32831ec85d2";
 				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
 			};
 			name = Release;

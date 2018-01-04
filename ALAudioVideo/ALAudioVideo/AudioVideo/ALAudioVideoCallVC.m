@@ -49,13 +49,13 @@
     
     // Using the PHP server to provide access tokens? Make sure the tokenURL is pointing to the correct location -
     // the default is http://localhost:8000/token.php
-//    self.tokenUrl = @"http://localhost:8000/token.php";
+    //    self.tokenUrl = @"http://localhost:8000/token.php";
     self.tokenUrl = [NSString stringWithFormat:@"%@/twilio/token",[ALUserDefaultsHandler getBASEURL]];
     
     
-      
+    
     [self startPreview];
-
+    
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animate)];
     
     buttonHide = NO;
@@ -109,7 +109,16 @@
                                                     userInfo:nil
                                                      repeats:YES];
     }
-
+    
+    [self.audioCallType setHidden:NO];
+    [self.audioCallType setTextColor: [UIColor whiteColor]];
+    if(self.callForAudio){
+        self.audioCallType.text = [self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] ?NSLocalizedStringWithDefaultValue(@"callAudioOutgoing", nil,[NSBundle mainBundle], @"Outgoing audio call", @""): NSLocalizedStringWithDefaultValue(@"callAudioIncoming", nil,[NSBundle mainBundle], @"Incoming audio call", @"");
+    }else{
+        self.audioCallType.text = [self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] ?NSLocalizedStringWithDefaultValue(@"callVideoOutgoing", nil,[NSBundle mainBundle], @"Outgoing video call", @""): NSLocalizedStringWithDefaultValue(@"callVideoIncoming", nil,[NSBundle mainBundle], @"Incoming video call", @"");
+        
+    }
+    
     [self.previewView setHidden:YES];
     [self buttonVisiblityForCallType:YES];
     [ALAudioVideoBaseVC setChatRoomEngage:YES];
@@ -144,7 +153,7 @@
 //==============================================================================================================================
 
 - (IBAction)toggleVideoShare:(id)sender {
- 
+    
     if (self.localVideoTrack.enabled)
     {
         [self.videoShare setImage:[UIImage imageNamed:@"video_strip.png"] forState:UIControlStateNormal];
@@ -178,7 +187,7 @@
     if([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] && !self.participant)
     {
         //        SELF CALLED AND SELF REJECT : SEND MISSED MSG : WITHOUT TALK
-
+        
         NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_MISSED"
                                                                      andCallAudio:self.callForAudio
                                                                         andRoomId:self.roomID];
@@ -186,17 +195,17 @@
         [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                              andReceiverId:self.receiverID
                                             andContentType:AV_CALL_CONTENT_TWO
-                                                 andMsgText:self.roomID];
+                                                andMsgText:self.roomID];
         
         [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                              andReceiverId:self.receiverID
                                             andContentType:AV_CALL_CONTENT_THREE
-                                                 andMsgText:@"CALL MISSED"];
+                                                andMsgText:@"CALL MISSED"];
     }
     else if ([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]] && !self.participant)
     {
         //        SELF IS RECEIVER AND REJECT CALL : SEND REJECT MSG : WITHOUT TALK
-
+        
         NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_REJECTED"
                                                                      andCallAudio:self.callForAudio
                                                                         andRoomId:self.roomID];
@@ -204,11 +213,11 @@
         [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                              andReceiverId:self.receiverID
                                             andContentType:AV_CALL_CONTENT_TWO
-                                                 andMsgText:self.roomID];
+                                                andMsgText:self.roomID];
     }
     else
     {
-       [self sendCallEndMessage];
+        [self sendCallEndMessage];
     }
     
     [self dismissAVViewController:YES];
@@ -315,8 +324,8 @@
     [ALUtilityClass movementAnimation:self.loudSpeaker andHide:buttonHide];
     if (!self.callForAudio)
     {
-       [ALUtilityClass movementAnimation:self.cameraToggle andHide:buttonHide];
-       [ALUtilityClass movementAnimation:self.videoShare andHide:buttonHide];
+        [ALUtilityClass movementAnimation:self.cameraToggle andHide:buttonHide];
+        [ALUtilityClass movementAnimation:self.videoShare andHide:buttonHide];
     }
 }
 
@@ -339,14 +348,14 @@
             [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                                  andReceiverId:self.receiverID
                                                 andContentType:AV_CALL_CONTENT_TWO
-                                                     andMsgText:self.roomID];
+                                                    andMsgText:self.roomID];
             
             [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                                  andReceiverId:self.receiverID
                                                 andContentType:AV_CALL_CONTENT_THREE
-                                                     andMsgText:@"CALL MISSED"];
+                                                    andMsgText:@"CALL MISSED"];
         }
-
+        
         [self.room disconnect];
         [self dismissViewControllerAnimated:YES completion:nil];
         
@@ -362,6 +371,7 @@
     NSInteger hours = elapsedTime / 3600;
     NSInteger minutes = elapsedTime / 60;
     NSInteger seconds = ((int)elapsedTime) % 60;
+    [self.audioCallType setHidden:YES];
     self.audioTimerLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)hours, (long)minutes, (long)seconds];
 }
 
@@ -440,7 +450,7 @@
         [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                              andReceiverId:self.receiverID
                                             andContentType:AV_CALL_CONTENT_TWO
-                                                 andMsgText:self.roomID];
+                                                andMsgText:self.roomID];
         
         self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0
                                                       target:self
@@ -457,7 +467,7 @@
         [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                              andReceiverId:self.receiverID
                                             andContentType:AV_CALL_CONTENT_TWO
-                                                 andMsgText:self.roomID];
+                                                andMsgText:self.roomID];
     }
 }
 
@@ -545,14 +555,14 @@
     // Connect to the Room using the options we provided.
     self.room = [TwilioVideo connectWithOptions:connectOptions delegate:self];
     
-   // [self logMessage:[NSString stringWithFormat:@"Attempting to connect to room %@", self.roomTextField.text]];
+    // [self logMessage:[NSString stringWithFormat:@"Attempting to connect to room %@", self.roomTextField.text]];
 }
 
 
 // Reset the client ui status
 - (void)showRoomUI:(BOOL)inRoom
 {
-//    [UIApplication sharedApplication].idleTimerDisabled = inRoom;
+    //    [UIApplication sharedApplication].idleTimerDisabled = inRoom;
     [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
@@ -587,8 +597,10 @@
         self.participant.delegate = self;
     }
     
+    
     if (self.participant)
     {
+        
         if (self.callForAudio)
         {
             [self startAudioTimer];
@@ -597,6 +609,7 @@
         {
             [self.previewView setHidden:NO];
         }
+        [self.audioCallType setHidden:YES];
     }
 }
 
@@ -625,6 +638,7 @@
         self.participant.delegate = self;
     }
     [self logMessage:[NSString stringWithFormat:@"Room %@ participant %@ connected", room.name, participant.identity]];
+    
     
     if(count < 60)
     {
@@ -668,8 +682,8 @@
     [self logMessage:[NSString stringWithFormat:@"Participant %@ added video track.", participant.identity]];
     
     /*if (self.participant == participant && !self.callForAudio) {
-        [videoTrack attach:self.remoteView];
-    }*/
+     [videoTrack attach:self.remoteView];
+     }*/
     
     
     if (self.participant == participant && !self.callForAudio) {
@@ -683,7 +697,7 @@
     
     if (self.participant == participant) {
         [videoTrack removeRenderer:self.remoteView];
-       [self.remoteView removeFromSuperview];
+        [self.remoteView removeFromSuperview];
     }
 }
 
@@ -781,3 +795,4 @@
 
 
 @end
+
