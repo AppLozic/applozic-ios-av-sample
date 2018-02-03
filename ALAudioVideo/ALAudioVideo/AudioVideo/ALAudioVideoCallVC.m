@@ -36,6 +36,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setAudioOutputSpeaker:NO];
+    
     // Do any additional setup after loading the view.
     [ALAudioVideoBaseVC setChatRoomEngage:YES];
     
@@ -225,17 +228,22 @@
 
 - (IBAction)loudSpeakerAction:(id)sender
 {
+    
     if (!speakerEnable)
     {
+        // [self setSpeaker :YES];
+        [self setAudioOutputSpeaker:YES];
         speakerEnable = YES;
         [self.loudSpeaker setImage:[UIImage imageNamed:@"loudspeaker_solid.png"] forState:UIControlStateNormal];
     }
     else
     {
+        [self setAudioOutputSpeaker:NO];
         speakerEnable = NO;
         [self.loudSpeaker setImage:[UIImage imageNamed:@"loudspeaker_strip.png"] forState:UIControlStateNormal];
     }
 }
+
 
 - (IBAction)micMuteAction:(id)sender
 {
@@ -271,7 +279,7 @@
 
 //==============================================================================================================================
 #pragma mark - SUPPORT/HELPER METHODS
-//==============================================================================================================================
+//=============== ===============================================================================================================
 
 - (void)handleDataConnectivity
 {
@@ -791,6 +799,17 @@
 - (void)cameraCapturer:(TVICameraCapturer *)capturer didStartWithSource:(TVICameraCaptureSource)source {
     self.previewView.mirror= (source == TVICameraCaptureSourceFrontCamera);
 }
+
+
+- (void)setAudioOutputSpeaker:(BOOL)enabled {
+    TVIAudioController *audioController = [TVIAudioController sharedController];
+    if(enabled){
+        [audioController setAudioOutput:TVIAudioOutputVoiceChatSpeaker];
+    }else{
+        [audioController setAudioOutput:TVIAudioOutputVoiceChatDefault];
+    }
+}
+
 
 
 
