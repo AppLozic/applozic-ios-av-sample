@@ -37,7 +37,13 @@
 {
     [super viewDidLoad];
     
-    [self setAudioOutputSpeaker:NO];
+    if(self.callForAudio){
+        speakerEnable = NO;
+        [self setAudioOutputSpeaker:NO];
+    }else{
+        speakerEnable = YES;
+        [self setAudioOutputSpeaker:YES];
+    }
     
     // Do any additional setup after loading the view.
     [ALAudioVideoBaseVC setChatRoomEngage:YES];
@@ -56,13 +62,11 @@
     self.tokenUrl = [NSString stringWithFormat:@"%@/twilio/token",[ALUserDefaultsHandler getBASEURL]];
     
     
-    
     [self startPreview];
     
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animate)];
     
     buttonHide = NO;
-    speakerEnable = NO;
     frontCameraEnable = NO;
     micEnable = NO;
     self.audioTimerLabel.text = @"";
