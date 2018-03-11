@@ -289,19 +289,32 @@
 {
     if ([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]])
     {
-        endTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
-        long int timeDuration = (endTime.integerValue - startTime.integerValue);
-        self.callDuration = [NSString stringWithFormat:@"%li",timeDuration];
-        /* TODO : CHECK MSG SHOULD BE REFELECT IN UI AS CURRENTLY NOT COMING ALSO SOMETIME DURATION IS WRONG */
-        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_END"
-                                                                     andCallAudio:self.callForAudio
-                                                                        andRoomId:self.roomID];
-        
-        [dictionary setObject:self.callDuration forKey:@"CALL_DURATION"];
-        [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
-                                             andReceiverId:self.receiverID
-                                            andContentType:AV_CALL_CONTENT_THREE
-                                                andMsgText:@"CALL ENDED"];
+    
+        if(startTime.integerValue >0){
+            endTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
+            long int timeDuration = (endTime.integerValue - startTime.integerValue);
+            self.callDuration = [NSString stringWithFormat:@"%li",timeDuration];
+            /* TODO : CHECK MSG SHOULD BE REFELECT IN UI AS CURRENTLY NOT COMING ALSO SOMETIME DURATION IS WRONG */
+            NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_END"
+                                                                         andCallAudio:self.callForAudio
+                                                                            andRoomId:self.roomID];
+            
+            [dictionary setObject:self.callDuration forKey:@"CALL_DURATION"];
+            [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
+                                                 andReceiverId:self.receiverID
+                                                andContentType:AV_CALL_CONTENT_THREE
+                                                    andMsgText:@"CALL ENDED"];
+        }else{
+            NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_REJECTED"
+                                                                         andCallAudio:self.callForAudio
+                                                                            andRoomId:self.roomID];
+            
+            [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
+                                                 andReceiverId:self.receiverID
+                                                andContentType:AV_CALL_CONTENT_TWO
+                                                    andMsgText:self.roomID];
+        }
+      
     }
     
     if (self.callForAudio)
