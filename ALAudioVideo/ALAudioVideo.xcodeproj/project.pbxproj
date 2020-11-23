@@ -3,10 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1822971D256BF6C90085A570 /* TwilioVideo.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18229717256BF6B40085A570 /* TwilioVideo.xcframework */; };
+		1822971E256BF6C90085A570 /* TwilioVideo.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18229717256BF6B40085A570 /* TwilioVideo.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		184981A9256703850099EC8D /* Applozic.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1833F45A2566D17D0090E0DD /* Applozic.xcframework */; };
+		184981AA256703850099EC8D /* Applozic.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1833F45A2566D17D0090E0DD /* Applozic.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		188C9B1F2566F060002086B4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2081EF177E10068C6ED /* GLKit.framework */; };
 		C714D1C71EF176730068C6ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1C61EF176730068C6ED /* main.m */; };
 		C714D1CA1EF176730068C6ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1C91EF176730068C6ED /* AppDelegate.m */; };
 		C714D1D01EF176730068C6ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C714D1CE1EF176730068C6ED /* Main.storyboard */; };
@@ -14,13 +19,10 @@
 		C714D1D51EF176730068C6ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C714D1D31EF176730068C6ED /* LaunchScreen.storyboard */; };
 		C714D1E01EF176740068C6ED /* ALAudioVideoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1DF1EF176740068C6ED /* ALAudioVideoTests.m */; };
 		C714D1EB1EF176740068C6ED /* ALAudioVideoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1EA1EF176740068C6ED /* ALAudioVideoUITests.m */; };
-		C714D1FD1EF1774D0068C6ED /* TwilioVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D1FC1EF1774D0068C6ED /* TwilioVideo.framework */; };
-		C714D1FE1EF1774D0068C6ED /* TwilioVideo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C714D1FC1EF1774D0068C6ED /* TwilioVideo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C714D2011EF177A00068C6ED /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2001EF177A00068C6ED /* AudioToolbox.framework */; };
 		C714D2031EF177AF0068C6ED /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2021EF177AF0068C6ED /* VideoToolbox.framework */; };
 		C714D2051EF177C80068C6ED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2041EF177C80068C6ED /* AVFoundation.framework */; };
 		C714D2071EF177D40068C6ED /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2061EF177D40068C6ED /* CoreTelephony.framework */; };
-		C714D2091EF177E10068C6ED /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2081EF177E10068C6ED /* GLKit.framework */; };
 		C714D20B1EF177EB0068C6ED /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D20A1EF177EB0068C6ED /* CoreMedia.framework */; };
 		C714D20D1EF17C3F0068C6ED /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D20C1EF17C3F0068C6ED /* SystemConfiguration.framework */; };
 		C714D20F1EF17C7A0068C6ED /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D20E1EF17C7A0068C6ED /* libc++.tbd */; };
@@ -28,8 +30,6 @@
 		C714D2171EF18D9E0068C6ED /* ALAudioVideoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D2131EF18D9E0068C6ED /* ALAudioVideoUtils.m */; };
 		C714D2181EF18D9E0068C6ED /* AudioVideo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C714D2141EF18D9E0068C6ED /* AudioVideo.storyboard */; };
 		C714D2191EF18D9E0068C6ED /* AudioVideo.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C714D2151EF18D9E0068C6ED /* AudioVideo.xcassets */; };
-		C714D21B1EF18E640068C6ED /* Applozic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D21A1EF18E640068C6ED /* Applozic.framework */; };
-		C714D21C1EF18E640068C6ED /* Applozic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C714D21A1EF18E640068C6ED /* Applozic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C714D2271EF1CE1E0068C6ED /* ALChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D2221EF1CE1E0068C6ED /* ALChatManager.m */; };
 		C714D2281EF1CE1E0068C6ED /* ApplozicLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D2241EF1CE1E0068C6ED /* ApplozicLoginViewController.m */; };
 		C714D2291EF1CE1E0068C6ED /* LaunchChatFromSimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D2261EF1CE1E0068C6ED /* LaunchChatFromSimpleViewController.m */; };
@@ -53,14 +53,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C714D1FB1EF176A70068C6ED /* Embed Frameworks */ = {
+		184981AD256703850099EC8D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C714D21C1EF18E640068C6ED /* Applozic.framework in Embed Frameworks */,
-				C714D1FE1EF1774D0068C6ED /* TwilioVideo.framework in Embed Frameworks */,
+				184981AA256703850099EC8D /* Applozic.xcframework in Embed Frameworks */,
+				1822971E256BF6C90085A570 /* TwilioVideo.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,6 +68,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18229717256BF6B40085A570 /* TwilioVideo.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TwilioVideo.xcframework; path = ALAudioVideo/TwilioVideo.xcframework; sourceTree = "<group>"; };
+		1833F45A2566D17D0090E0DD /* Applozic.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Applozic.xcframework; path = ALAudioVideo/Applozic.xcframework; sourceTree = "<group>"; };
+		188C9B202566F067002086B4 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		C714D1C21EF176730068C6ED /* ALAudioVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALAudioVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C714D1C61EF176730068C6ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C714D1C81EF176730068C6ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,7 +85,6 @@
 		C714D1E61EF176740068C6ED /* ALAudioVideoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ALAudioVideoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C714D1EA1EF176740068C6ED /* ALAudioVideoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALAudioVideoUITests.m; sourceTree = "<group>"; };
 		C714D1EC1EF176740068C6ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C714D1FC1EF1774D0068C6ED /* TwilioVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwilioVideo.framework; sourceTree = "<group>"; };
 		C714D2001EF177A00068C6ED /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C714D2021EF177AF0068C6ED /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		C714D2041EF177C80068C6ED /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -97,7 +99,6 @@
 		C714D2131EF18D9E0068C6ED /* ALAudioVideoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALAudioVideoUtils.m; path = ALAudioVideo/AudioVideo/ALAudioVideoUtils.m; sourceTree = "<group>"; };
 		C714D2141EF18D9E0068C6ED /* AudioVideo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AudioVideo.storyboard; path = ALAudioVideo/AudioVideo/AudioVideo.storyboard; sourceTree = "<group>"; };
 		C714D2151EF18D9E0068C6ED /* AudioVideo.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = AudioVideo.xcassets; path = ALAudioVideo/AudioVideo/AudioVideo.xcassets; sourceTree = "<group>"; };
-		C714D21A1EF18E640068C6ED /* Applozic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Applozic.framework; sourceTree = "<group>"; };
 		C714D21D1EF19EEA0068C6ED /* ALAudioVideo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ALAudioVideo.entitlements; sourceTree = "<group>"; };
 		C714D2211EF1CE1E0068C6ED /* ALChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALChatManager.h; sourceTree = "<group>"; };
 		C714D2221EF1CE1E0068C6ED /* ALChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALChatManager.m; sourceTree = "<group>"; };
@@ -112,16 +113,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C714D21B1EF18E640068C6ED /* Applozic.framework in Frameworks */,
 				C714D20F1EF17C7A0068C6ED /* libc++.tbd in Frameworks */,
 				C714D20D1EF17C3F0068C6ED /* SystemConfiguration.framework in Frameworks */,
 				C714D20B1EF177EB0068C6ED /* CoreMedia.framework in Frameworks */,
-				C714D2091EF177E10068C6ED /* GLKit.framework in Frameworks */,
 				C714D2071EF177D40068C6ED /* CoreTelephony.framework in Frameworks */,
 				C714D2051EF177C80068C6ED /* AVFoundation.framework in Frameworks */,
 				C714D2031EF177AF0068C6ED /* VideoToolbox.framework in Frameworks */,
+				188C9B1F2566F060002086B4 /* GLKit.framework in Frameworks */,
+				1822971D256BF6C90085A570 /* TwilioVideo.xcframework in Frameworks */,
+				184981A9256703850099EC8D /* Applozic.xcframework in Frameworks */,
 				C714D2011EF177A00068C6ED /* AudioToolbox.framework in Frameworks */,
-				C714D1FD1EF1774D0068C6ED /* TwilioVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,9 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				C714D22A1EF1CEB90068C6ED /* Chat */,
-				C714D21A1EF18E640068C6ED /* Applozic.framework */,
 				C714D22B1EF26E1D0068C6ED /* ApplozicAudioVideo */,
-				C714D1FC1EF1774D0068C6ED /* TwilioVideo.framework */,
 				C714D1C41EF176730068C6ED /* ALAudioVideo */,
 				C714D1DE1EF176740068C6ED /* ALAudioVideoTests */,
 				C714D1E91EF176740068C6ED /* ALAudioVideoUITests */,
@@ -211,6 +210,7 @@
 		C714D1FF1EF177A00068C6ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				188C9B202566F067002086B4 /* CallKit.framework */,
 				C714D20E1EF17C7A0068C6ED /* libc++.tbd */,
 				C714D20C1EF17C3F0068C6ED /* SystemConfiguration.framework */,
 				C714D20A1EF177EB0068C6ED /* CoreMedia.framework */,
@@ -239,6 +239,8 @@
 		C714D22B1EF26E1D0068C6ED /* ApplozicAudioVideo */ = {
 			isa = PBXGroup;
 			children = (
+				18229717256BF6B40085A570 /* TwilioVideo.xcframework */,
+				1833F45A2566D17D0090E0DD /* Applozic.xcframework */,
 				C714D2101EF18D9E0068C6ED /* ALAudioVideoCallVC.h */,
 				C714D2111EF18D9E0068C6ED /* ALAudioVideoCallVC.m */,
 				C714D2121EF18D9E0068C6ED /* ALAudioVideoUtils.h */,
@@ -259,8 +261,7 @@
 				C714D1BE1EF176730068C6ED /* Sources */,
 				C714D1BF1EF176730068C6ED /* Frameworks */,
 				C714D1C01EF176730068C6ED /* Resources */,
-				C714D1FB1EF176A70068C6ED /* Embed Frameworks */,
-				C73BAC1E1F0D3E5300E91FEA /* ShellScript */,
+				184981AD256703850099EC8D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -318,8 +319,6 @@
 				TargetAttributes = {
 					C714D1C11EF176730068C6ED = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = C25JNDCBM4;
-						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -348,6 +347,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -391,22 +391,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C73BAC1E1F0D3E5300E91FEA /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwilioVideo.framework/remove_archs\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C714D1BE1EF176730068C6ED /* Sources */ = {
@@ -477,6 +461,7 @@
 		C714D1ED1EF176740068C6ED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -515,7 +500,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -527,6 +512,7 @@
 		C714D1EE1EF176740068C6ED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -559,7 +545,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -573,17 +559,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ALAudioVideo/ALAudioVideo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = C25JNDCBM4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ALAudioVideo/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.customer.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "58ee6f37-048f-4dbc-b054-c32831ec85d2";
-				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
+				PROVISIONING_PROFILE_SPECIFIER = "global Customer Demo";
 			};
 			name = Debug;
 		};
@@ -592,17 +584,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ALAudioVideo/ALAudioVideo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = C25JNDCBM4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ALAudioVideo/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.customer.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "58ee6f37-048f-4dbc-b054-c32831ec85d2";
-				PROVISIONING_PROFILE_SPECIFIER = "voice chat profile";
+				PROVISIONING_PROFILE_SPECIFIER = "global Customer Demo";
 			};
 			name = Release;
 		};
@@ -612,7 +610,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = C25JNDCBM4;
 				INFOPLIST_FILE = ALAudioVideoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ALAudioVideoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALAudioVideo.app/ALAudioVideo";
@@ -625,7 +627,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = C25JNDCBM4;
 				INFOPLIST_FILE = ALAudioVideoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ALAudioVideoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ALAudioVideo.app/ALAudioVideo";
@@ -637,7 +643,11 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = C25JNDCBM4;
 				INFOPLIST_FILE = ALAudioVideoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ALAudioVideoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = ALAudioVideo;
@@ -649,7 +659,11 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = C25JNDCBM4;
 				INFOPLIST_FILE = ALAudioVideoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.applozic.voicechat.ALAudioVideoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = ALAudioVideo;

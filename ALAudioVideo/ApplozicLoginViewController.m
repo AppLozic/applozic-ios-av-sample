@@ -170,15 +170,17 @@
     [user setUserId:[self.userIdField text]];
     [user setEmail:[self.emailField text]];
     [user setPassword:[self.passwordField text]];
-    
+    [user setAuthenticationTypeId:(short)APPLOZIC];
+
     [self.mActivityIndicator startAnimating];
     
     [ALUserDefaultsHandler setUserId:user.userId];
     [ALUserDefaultsHandler setEmailId:user.email];
     [ALUserDefaultsHandler setPassword:user.password];
+    [ALUserDefaultsHandler setUserAuthenticationTypeId:(short)APPLOZIC];
 
     ALChatManager * chatManager = [[ALChatManager alloc] init];
-    [chatManager registerUserWithCompletion:user withHandler:^(ALRegistrationResponse *rResponse, NSError *error) {
+    [chatManager connectUserWithCompletion:user withHandler:^(ALRegistrationResponse *rResponse, NSError *error) {
         
         if (!error)
         {

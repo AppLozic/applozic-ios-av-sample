@@ -100,7 +100,7 @@
     [user setEmail:[ALUserDefaultsHandler getEmailId]];
 
     ALChatManager * chatManager = [[ALChatManager alloc] init];
-    [chatManager registerUserAndLaunchChat:user andFromController:self forUser:nil withGroupId:nil];
+    [chatManager connectUserAndLaunchChat:user andFromController:self forUser:nil withGroupId:nil];
 
     //Adding sample contacts...
     [self insertInitialContacts];
@@ -179,7 +179,7 @@
 {
     ALMessage * customMessage = [ALMessageService createCustomTextMessageEntitySendTo:to withText:text];
     
-    [ALMessageService sendMessages:customMessage withCompletion:^(NSString *message, NSError *error) {
+    [[ALMessageService sharedInstance] sendMessages:customMessage withCompletion:^(NSString *message, NSError *error) {
         if(error)
         {
              NSLog(@"Custom Message Send Error: %@", error);
@@ -232,7 +232,7 @@
                                                                     andReceiverId:@"receiverId"
                                                                    andMessageText:@"MESG WITH META DATA"];
     
-    [ALMessageService sendMessages:messageWithMetaData withCompletion:^(NSString *message, NSError *error) {
+    [[ALMessageService sharedInstance] sendMessages:messageWithMetaData withCompletion:^(NSString *message, NSError *error) {
         
         if(error)
         {
@@ -374,7 +374,7 @@
 
 - (IBAction)turnNotification:(id)sender
 {
-    short mode = (self.notificationSwitch.on ? NOTIFICATION_ENABLE : NOTIFICATION_DISABLE);
+    short mode = (self.notificationSwitch.on ? AL_NOTIFICATION_ENABLE : AL_NOTIFICATION_DISABLE);
     //    [ALUserDefaultsHandler setNotificationMode:mode];
     NSLog(@"NOTIFICATION MODE :: %hd",mode);
     [ALRegisterUserClientService updateNotificationMode:mode withCompletion:^(ALRegistrationResponse *response, NSError *error) {

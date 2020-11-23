@@ -38,7 +38,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [ALAudioVideoBaseVC setChatRoomEngage:YES];
-    
+
     self.receiverID = self.userID;
     
     self.alMQTTObject = [ALMQTTConversationService sharedInstance];
@@ -46,13 +46,8 @@
     
     // Configure access token manually for testing, if desired! Create one manually in the console
     self.accessToken = @"TWILIO_ACCESS_TOKEN";
-    
-    // Using the PHP server to provide access tokens? Make sure the tokenURL is pointing to the correct location -
-    // the default is http://localhost:8000/token.php
-    //    self.tokenUrl = @"http://localhost:8000/token.php";
+
     self.tokenUrl = [NSString stringWithFormat:@"%@/twilio/token",[ALUserDefaultsHandler getBASEURL]];
-    
-    
     
     [self startPreview];
     
@@ -184,7 +179,7 @@
 
 - (IBAction)callRejectAction:(id)sender
 {
-    if([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] && !self.participant)
+    if([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] && !self.remoteParticipant)
     {
         //        SELF CALLED AND SELF REJECT : SEND MISSED MSG : WITHOUT TALK
         
@@ -202,7 +197,7 @@
                                             andContentType:AV_CALL_CONTENT_THREE
                                                 andMsgText:@"CALL MISSED"];
     }
-    else if ([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]] && !self.participant)
+    else if ([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]] && !self.remoteParticipant)
     {
         //        SELF IS RECEIVER AND REJECT CALL : SEND REJECT MSG : WITHOUT TALK
         
@@ -278,7 +273,7 @@
     [super handleDataConnectivity];
     BOOL flag = [self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]];
     
-    if (flag && self.participant)
+    if (flag && self.remoteParticipant)
     {
         [self dismissAVViewController:YES];
         [ALNotificationView showNotification:@"No Internet Connectivity"];
@@ -289,7 +284,7 @@
 {
     if ([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]])
     {
-    
+
         if(startTime.integerValue >0){
             endTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
             long int timeDuration = (endTime.integerValue - startTime.integerValue);
@@ -314,7 +309,7 @@
                                                 andContentType:AV_CALL_CONTENT_TWO
                                                     andMsgText:self.roomID];
         }
-      
+
     }
     
     if (self.callForAudio)
@@ -498,46 +493,74 @@
         [self.previewView removeFromSuperview];
         return;
     }
-    
-    self.camera = [[TVICameraCapturer alloc] initWithSource:TVICameraCaptureSourceFrontCamera delegate:self];
-    self.localVideoTrack = [TVILocalVideoTrack trackWithCapturer:self.camera];
-    if (!self.localVideoTrack) {
-        [self logMessage:@"Failed to add video track"];
+
+    AVCaptureDevice *frontCamera = [TVICameraSource captureDeviceForPosition:AVCaptureDevicePositionFront];
+    AVCaptureDevice *backCamera = [TVICameraSource captureDeviceForPosition:AVCaptureDevicePositionBack];
+
+    if (frontCamera != nil || backCamera != nil) {
+        self.camera = [[TVICameraSource alloc] initWithDelegate:self];
+        self.localVideoTrack = [TVILocalVideoTrack trackWithSource:self.camera
+                                                           enabled:YES
+                                                              name:@"Camera"];
+        if (!self.localVideoTrack) {
+            [self logMessage:@"Failed to add video track"];
+        } else {
+            [self.localVideoTrack addRenderer:self.previewView];
+            [self logMessage:@"Video track created"];
+
+            if (frontCamera != nil && backCamera != nil) {
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(flipCamera)];
+                [self.previewView addGestureRecognizer:tap];
+            }
+
+            [self.camera startCaptureWithDevice:frontCamera != nil ? frontCamera : backCamera completion:^(AVCaptureDevice *device, TVIVideoFormat *format, NSError *error) {
+                if (error != nil) {
+                    [self logMessage:[NSString stringWithFormat:@"Error selecting capture device.\ncode = %lu error = %@", error.code, error.localizedDescription]];
+                } else {
+                    self.previewView.mirror = (device.position == AVCaptureDevicePositionFront);
+                }
+            }];
+        }
+
     } else {
-        // Add renderer to video track for local preview
-        [self.localVideoTrack addRenderer:self.previewView];
-        
-        [self logMessage:@"Video track created"];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                              action:@selector(flipCamera)];
-        [self.previewView addGestureRecognizer:tap];
+        [self logMessage:@"No front or back capture device found!"];
     }
 }
-
 
 - (void)flipCamera {
-    if (self.camera.source == TVICameraCaptureSourceFrontCamera) {
-        [self.camera selectSource:TVICameraCaptureSourceBackCameraWide];
+
+    AVCaptureDevice *newDevice = nil;
+    if (self.camera.device.position == AVCaptureDevicePositionFront) {
+        newDevice = [TVICameraSource captureDeviceForPosition:AVCaptureDevicePositionBack];
     } else {
-        [self.camera selectSource:TVICameraCaptureSourceFrontCamera];
+        newDevice = [TVICameraSource captureDeviceForPosition:AVCaptureDevicePositionFront];
+    }
+    if (newDevice) {
+        [self.camera selectCaptureDevice:newDevice completion:^(AVCaptureDevice *device, TVIVideoFormat *format, NSError *error) {
+            if (error != nil) {
+                [self logMessage:[NSString stringWithFormat:@"Error selecting capture device.\ncode = %lu error = %@", error.code, error.localizedDescription]];
+            } else {
+                self.previewView.mirror = (device.position == AVCaptureDevicePositionFront);
+            }
+        }];
     }
 }
 
-- (void)prepareLocalMedia
-{
-    
+- (void)prepareLocalMedia {
     // We will share local audio and video when we connect to room.
-    
+
     // Create an audio track.
     if (!self.localAudioTrack) {
-        self.localAudioTrack = [TVILocalAudioTrack track];
-        
+        self.localAudioTrack = [TVILocalAudioTrack trackWithOptions:nil
+                                                            enabled:YES
+                                                               name:@"Microphone"];
+
         if (!self.localAudioTrack) {
             [self logMessage:@"Failed to add audio track"];
         }
     }
-    
+
     // Create a video track which captures from the camera.
     if (!self.localVideoTrack) {
         [self startPreview];
@@ -555,38 +578,40 @@
     
     TVIConnectOptions *connectOptions = [TVIConnectOptions optionsWithToken:self.accessToken
                                                                       block:^(TVIConnectOptionsBuilder * _Nonnull builder) {
-                                                                          
-                                                                          // Use the local media that we prepared earlier.
-                                                                          builder.audioTracks = self.localAudioTrack ? @[ self.localAudioTrack ] : @[ ];
-                                                                          builder.videoTracks = self.localVideoTrack ? @[ self.localVideoTrack ] : @[ ];
-                                                                          
-                                                                          // The name of the Room where the Client will attempt to connect to. Please note that if you pass an empty
-                                                                          // Room `name`, the Client will create one for you. You can get the name or sid from any connected Room.
-                                                                          builder.roomName = self.roomID;
-                                                                      }];
+
+        // Use the local media that we prepared earlier.
+        builder.audioTracks = self.localAudioTrack ? @[ self.localAudioTrack ] : @[ ];
+        builder.videoTracks = self.localVideoTrack ? @[ self.localVideoTrack ] : @[ ];
+        builder.networkPrivacyPolicy = TVILocalNetworkPrivacyPolicyAllowAll;
+
+        // The name of the Room where the Client will attempt to connect to. Please note that if you pass an empty
+        // Room `name`, the Client will create one for you. You can get the name or sid from any connected Room.
+        builder.roomName = self.roomID;
+    }];
     
     // Connect to the Room using the options we provided.
-    self.room = [TwilioVideo connectWithOptions:connectOptions delegate:self];
-    
-    // [self logMessage:[NSString stringWithFormat:@"Attempting to connect to room %@", self.roomTextField.text]];
+    self.room = [TwilioVideoSDK connectWithOptions:connectOptions delegate:self];
+
+    [self logMessage:[NSString stringWithFormat:@"Attempting to connect to room %@", self.room.name]];
+
 }
 
 
 // Reset the client ui status
 - (void)showRoomUI:(BOOL)inRoom
 {
-    //    [UIApplication sharedApplication].idleTimerDisabled = inRoom;
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    [UIApplication sharedApplication].idleTimerDisabled = inRoom;
 }
 
 - (void)cleanupRemoteParticipant {
     
-    if (self.participant) {
-        if ([self.participant.videoTracks count] > 0 &&  !self.callForAudio) {
-            [self.participant.videoTracks[0] removeRenderer:self.remoteView];
+    if (self.remoteParticipant) {
+        if ([self.remoteParticipant.videoTracks count] > 0) {
+            TVIRemoteVideoTrack *videoTrack = self.remoteParticipant.remoteVideoTracks[0].remoteTrack;
+            [videoTrack removeRenderer:self.remoteView];
             [self.remoteView removeFromSuperview];
         }
-        self.participant = nil;
+        self.remoteParticipant = nil;
     }
 }
 
@@ -605,21 +630,15 @@
     
     [self logMessage:[NSString stringWithFormat:@"Connected to room %@ as %@", room.name, room.localParticipant.identity]];
     
-    if (room.participants.count > 0) {
-        self.participant = room.participants[0];
-        self.participant.delegate = self;
+    if (room.remoteParticipants.count > 0) {
+        self.remoteParticipant = room.remoteParticipants[0];
+        self.remoteParticipant.delegate = self;
     }
-    
-    
-    if (self.participant)
-    {
-        
-        if (self.callForAudio)
-        {
+
+    if (self.remoteParticipant) {
+        if (self.callForAudio) {
             [self startAudioTimer];
-        }
-        else
-        {
+        } else {
             [self.previewView setHidden:NO];
         }
         [self.audioCallType setHidden:YES];
@@ -641,17 +660,27 @@
     self.room = nil;
     
     [self showRoomUI:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)room:(TVIRoom *)room participantDidConnect:(TVIParticipant *)participant {
-    
+- (void)room:(TVIRoom *)room isReconnectingWithError:(NSError *)error {
+    NSString *message = [NSString stringWithFormat:@"Reconnecting due to %@", error.localizedDescription];
+    [self logMessage:message];
+}
+
+- (void)didReconnectToRoom:(TVIRoom *)room {
+    [self logMessage:@"Reconnected to room"];
+}
+
+- (void)room:(TVIRoom *)room participantDidConnect:(TVIRemoteParticipant *)participant {
+
     // HERE RECEIVER USER CONNECT
-    if (!self.participant) {
-        self.participant = participant;
-        self.participant.delegate = self;
+    if (!self.remoteParticipant) {
+        self.remoteParticipant = participant;
+        self.remoteParticipant.delegate = self;
     }
+
     [self logMessage:[NSString stringWithFormat:@"Room %@ participant %@ connected", room.name, participant.identity]];
-    
     
     if(count < 60)
     {
@@ -673,10 +702,10 @@
     }
 }
 
-- (void)room:(TVIRoom *)room participantDidDisconnect:(TVIParticipant *)participant {
-    
+- (void)room:(TVIRoom *)room participantDidDisconnect:(TVIRemoteParticipant *)participant {
+
     // HERE RECEIVER USER DIS-CONNECT
-    if (self.participant == participant) {
+    if (self.remoteParticipant == participant) {
         [self sendCallEndMessage];
         [self cleanupRemoteParticipant];
     }
@@ -687,61 +716,135 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-//==============================================================================================================================
-#pragma mark - TVIParticipantDelegate : AUDIO/VIDEO : ENABLE/DISABLE
-//==============================================================================================================================
+#pragma mark - TVIRemoteParticipantDelegate
 
-- (void)participant:(TVIParticipant *)participant addedVideoTrack:(TVIVideoTrack *)videoTrack {
-    [self logMessage:[NSString stringWithFormat:@"Participant %@ added video track.", participant.identity]];
-    
-    /*if (self.participant == participant && !self.callForAudio) {
-     [videoTrack attach:self.remoteView];
-     }*/
-    
-    
-    if (self.participant == participant && !self.callForAudio) {
+- (void)remoteParticipant:(TVIRemoteParticipant *)participant
+     didPublishVideoTrack:(TVIRemoteVideoTrackPublication *)publication {
+
+    // Remote Participant has offered to share the video Track.
+
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ published %@ video track .",
+                      participant.identity, publication.trackName]];
+}
+
+- (void)remoteParticipant:(TVIRemoteParticipant *)participant
+   didUnpublishVideoTrack:(TVIRemoteVideoTrackPublication *)publication {
+
+    // Remote Participant has stopped sharing the video Track.
+
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ unpublished %@ video track.",
+                      participant.identity, publication.trackName]];
+}
+
+- (void)remoteParticipant:(TVIRemoteParticipant *)participant
+     didPublishAudioTrack:(TVIRemoteAudioTrackPublication *)publication {
+
+    // Remote Participant has offered to share the audio Track.
+
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ published %@ audio track.",
+                      participant.identity, publication.trackName]];
+}
+
+- (void)remoteParticipant:(TVIRemoteParticipant *)participant
+   didUnpublishAudioTrack:(TVIRemoteAudioTrackPublication *)publication {
+
+    // Remote Participant has stopped sharing the audio Track.
+
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ unpublished %@ audio track.",
+                      participant.identity, publication.trackName]];
+}
+
+- (void)didSubscribeToVideoTrack:(TVIRemoteVideoTrack *)videoTrack
+                     publication:(TVIRemoteVideoTrackPublication *)publication
+                  forParticipant:(TVIRemoteParticipant *)participant {
+
+    // We are subscribed to the remote Participant's audio Track. We will start receiving the
+    // remote Participant's video frames now.
+
+    [self logMessage:[NSString stringWithFormat:@"Subscribed to %@ video track for Participant %@",
+                      publication.trackName, participant.identity]];
+
+    if (self.remoteParticipant == participant) {
         [self setupRemoteView];
         [videoTrack addRenderer:self.remoteView];
     }
 }
 
-- (void)participant:(TVIParticipant *)participant removedVideoTrack:(TVIVideoTrack *)videoTrack {
-    [self logMessage:[NSString stringWithFormat:@"Participant %@ removed video track.", participant.identity]];
-    
-    if (self.participant == participant) {
+- (void)didUnsubscribeFromVideoTrack:(TVIRemoteVideoTrack *)videoTrack
+                         publication:(TVIRemoteVideoTrackPublication *)publication
+                      forParticipant:(TVIRemoteParticipant *)participant {
+
+    // We are unsubscribed from the remote Participant's video Track. We will no longer receive the
+    // remote Participant's video.
+
+    [self logMessage:[NSString stringWithFormat:@"Unsubscribed from %@ video track for Participant %@",
+                      publication.trackName, participant.identity]];
+
+    if (self.remoteParticipant == participant) {
         [videoTrack removeRenderer:self.remoteView];
         [self.remoteView removeFromSuperview];
     }
 }
 
-- (void)participant:(TVIParticipant *)participant addedAudioTrack:(TVIAudioTrack *)audioTrack {
-    [self logMessage:[NSString stringWithFormat:@"Participant %@ added audio track.", participant.identity]];
+- (void)didSubscribeToAudioTrack:(TVIRemoteAudioTrack *)audioTrack
+                     publication:(TVIRemoteAudioTrackPublication *)publication
+                  forParticipant:(TVIRemoteParticipant *)participant {
+
+    // We are subscribed to the remote Participant's audio Track. We will start receiving the
+    // remote Participant's audio now.
+
+    [self logMessage:[NSString stringWithFormat:@"Subscribed to %@ audio track for Participant %@",
+                      publication.trackName, participant.identity]];
 }
 
-- (void)participant:(TVIParticipant *)participant removedAudioTrack:(TVIAudioTrack *)audioTrack {
-    [self logMessage:[NSString stringWithFormat:@"Participant %@ removed audio track.", participant.identity]];
+- (void)didUnsubscribeFromAudioTrack:(TVIRemoteAudioTrack *)audioTrack
+                         publication:(TVIRemoteAudioTrackPublication *)publication
+                      forParticipant:(TVIRemoteParticipant *)participant {
+
+    // We are unsubscribed from the remote Participant's audio Track. We will no longer receive the
+    // remote Participant's audio.
+
+    [self logMessage:[NSString stringWithFormat:@"Unsubscribed from %@ audio track for Participant %@",
+                      publication.trackName, participant.identity]];
 }
 
-- (void)participant:(TVIParticipant *)participant enabledTrack:(TVITrack *)track {
-    NSString *type = @"";
-    if ([track isKindOfClass:[TVIAudioTrack class]]) {
-        type = @"audio";
-    } else {
-        type = @"video";
-    }
-    [self logMessage:[NSString stringWithFormat:@"Participant %@ enabled %@ track.", participant.identity, type]];
+- (void)remoteParticipant:(TVIRemoteParticipant *)participant
+      didEnableVideoTrack:(TVIRemoteVideoTrackPublication *)publication {
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ enabled %@ video track.",
+                      participant.identity, publication.trackName]];
 }
 
-- (void)participant:(TVIParticipant *)participant disabledTrack:(TVITrack *)track {
-    NSString *type = @"";
-    if ([track isKindOfClass:[TVIAudioTrack class]]) {
-        type = @"audio";
-    } else {
-        type = @"video";
-    }
-    [self logMessage:[NSString stringWithFormat:@"Participant %@ disabled %@ track.", participant.identity, type]];
+- (void)remoteParticipant:(TVIRemoteParticipant *)participant
+     didDisableVideoTrack:(TVIRemoteVideoTrackPublication *)publication {
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ disabled %@ video track.",
+                      participant.identity, publication.trackName]];
 }
 
+- (void)remoteParticipant:(TVIRemoteParticipant *)participant
+      didEnableAudioTrack:(TVIRemoteAudioTrackPublication *)publication {
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ enabled %@ audio track.",
+                      participant.identity, publication.trackName]];
+}
+
+- (void)remoteParticipant:(TVIRemoteParticipant *)participant
+     didDisableAudioTrack:(TVIRemoteAudioTrackPublication *)publication {
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ disabled %@ audio track.",
+                      participant.identity, publication.trackName]];
+}
+
+- (void)didFailToSubscribeToAudioTrack:(TVIRemoteAudioTrackPublication *)publication
+                                 error:(NSError *)error
+                        forParticipant:(TVIRemoteParticipant *)participant {
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ failed to subscribe to %@ audio track.",
+                      participant.identity, publication.trackName]];
+}
+
+- (void)didFailToSubscribeToVideoTrack:(TVIRemoteVideoTrackPublication *)publication
+                                 error:(NSError *)error
+                        forParticipant:(TVIRemoteParticipant *)participant {
+    [self logMessage:[NSString stringWithFormat:@"Participant %@ failed to subscribe to %@ video track.",
+                      participant.identity, publication.trackName]];
+}
 
 - (void)setupRemoteView {
     // Creating `TVIVideoView` programmatically
@@ -792,6 +895,18 @@
     [self.view addConstraint:height];
 }
 
+- (void)dealloc {
+    self.localAudioTrack = nil;
+    self.localVideoTrack = nil;
+    self.room = nil;
+
+    // We are done with camera
+    if (self.camera) {
+        [self.camera stopCapture];
+        self.camera = nil;
+    }
+}
+
 #pragma mark - TVIVideoViewDelegate
 
 - (void)videoView:(TVIVideoView *)view videoDimensionsDidChange:(CMVideoDimensions)dimensions {
@@ -799,13 +914,10 @@
     [self.view setNeedsLayout];
 }
 
-#pragma mark - TVICameraCapturerDelegate
+#pragma mark - TVICameraSourceDelegate
 
-- (void)cameraCapturer:(TVICameraCapturer *)capturer didStartWithSource:(TVICameraCaptureSource)source {
-    self.previewView.mirror= (source == TVICameraCaptureSourceFrontCamera);
+- (void)cameraSource:(TVICameraSource *)source didFailWithError:(NSError *)error {
+    [self logMessage:[NSString stringWithFormat:@"Capture failed with error.\ncode = %lu error = %@", error.code, error.localizedDescription]];
 }
 
-
-
 @end
-
