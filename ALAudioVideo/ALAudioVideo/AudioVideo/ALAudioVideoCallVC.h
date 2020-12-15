@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "ALAudioVideoUtils.h"
 #import <Applozic/Applozic.h>
 #import <TwilioVideo/TwilioVideo.h>
@@ -32,6 +33,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *videoShare;
 @property (weak, nonatomic) IBOutlet UILabel *audioCallType;
 
+@property (strong, nonatomic) NSUUID * uuid;
+@property (nonatomic) BOOL isFromCallKit;
+
 @property (strong, nonatomic) ALContact * alContact;
 @property (weak, nonatomic) ALMQTTConversationService * alMQTTObject;
 
@@ -44,6 +48,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *callView;
 @property (weak, nonatomic) IBOutlet TVIVideoView *previewView;
+
+-(void)disconnectRoom;
 
 //==============================================================================================================================
 #pragma mark Video SDK components

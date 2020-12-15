@@ -11,6 +11,7 @@
 #import <Applozic/Applozic.h>
 #import "ApplozicLoginViewController.h"
 #import <UserNotifications/UserNotifications.h>
+#import "ALAudioVideoCallHandler.h"
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
@@ -30,7 +31,8 @@
     // Register for Applozic notification tap actions and network change notifications
     ALAppLocalNotifications *localNotification = [ALAppLocalNotifications appLocalNotificationHandler];
     [localNotification dataConnectionNotificationHandler];
-
+    ALAudioVideoCallHandler * handler = [ALAudioVideoCallHandler shared];
+    [handler dataConnectionNotificationHandler];
 
     if ([ALUserDefaultsHandler isLoggedIn])
     {

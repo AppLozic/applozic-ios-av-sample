@@ -247,6 +247,27 @@ NS_SWIFT_NAME(participantDidConnect(room:participant:));
 NS_SWIFT_NAME(participantDidDisconnect(room:participant:));
 
 /**
+ *  @brief This method is invoked when a Remote Participant is reconnecting to the Room after a signaling connection disruption.
+ *
+ *  @param room The Room to which a Remote Participant is reconnecting.
+ *  @param participant The Remote Participant who is reconnecting to the Room.
+ *
+ *  @discussion It can take up to 15 seconds for our signaling backend to detect that a RemoteParticipant's connection has been
+ *  disrupted due to a network degradation or handoff.
+ */
+- (void)room:(nonnull TVIRoom *)room participantIsReconnecting:(nonnull TVIRemoteParticipant *)participant
+NS_SWIFT_NAME(participantIsReconnecting(room:participant:));
+
+/**
+ *  @brief This method is invoked when a Remote Participant has reconnected to the Room after a signaling connection disruption.
+ *
+ *  @param room The Room to which a Remote Participant has reconnected.
+ *  @param participant The Remote Participant who has reconnected to the Room.
+ */
+- (void)room:(nonnull TVIRoom *)room participantDidReconnect:(nonnull TVIRemoteParticipant *)participant
+NS_SWIFT_NAME(participantDidReconnect(room:participant:));
+
+/**
  *  @brief This method is invoked when recording of media being shared to a Room has started.
  *
  *  @param room The Room for which recording has been started.

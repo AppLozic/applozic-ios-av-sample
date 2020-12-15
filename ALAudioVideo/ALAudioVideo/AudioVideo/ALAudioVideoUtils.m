@@ -13,34 +13,43 @@
 
 + (void)retrieveAccessTokenFromURL:(NSString *)tokenURLStr
                         completion:(void (^)(NSString* token, NSError *err)) completionHandler {
-    tokenURLStr = [NSString stringWithFormat:@"%@?identity=%@&device=%@",tokenURLStr,
-                   [ALUserDefaultsHandler getUserId], [ALUserDefaultsHandler getDeviceKeyString]];
-    
-    NSURL *tokenURL = [NSURL URLWithString:tokenURLStr];
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
-    NSURLSessionDataTask *task = [session dataTaskWithURL:tokenURL
-                                        completionHandler: ^(NSData * _Nullable data,
-                                                             NSURLResponse * _Nullable response,
-                                                             NSError * _Nullable error) {
-        NSError *err = error;
-        NSString *accessToken;
-        NSString *identity;
-        if (!err) {
-            if (data != nil) {
-                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                                     options:0
-                                                                       error:&err];
-                if (!err) {
-                    accessToken = json[@"token"];
-                    identity = json[@"identity"];
-                    NSLog(@"Logged in as %@",identity);
-                }
-            }
+
+    NSString * theUrlString = [NSString stringWithFormat:@"%@", tokenURLStr];
+
+
+    NSString * theParamString = [NSString stringWithFormat:@"identity=%@&device=%@",[ALUserDefaultsHandler getUserId], [ALUserDefaultsHandler getDeviceKeyString]];
+
+    NSMutableURLRequest *theRequest = [ALRequestHandler createGETRequestWithUrlString:theUrlString paramString:theParamString];
+
+    [ALResponseHandler authenticateAndProcessRequest:theRequest andTag:@"AV_CALL_ACCESS_TOKEN" WithCompletionHandler:^(id theJson, NSError *theError) {
+        if (theError) {
+            completionHandler(nil, theError);
+            return;
         }
-        completionHandler(accessToken, err);
+
+        NSDictionary *json = theJson;
+        if (!json) {
+            NSError *responseError = [NSError errorWithDomain:@"Applozic"
+                                                         code:1
+                                                     userInfo:@{NSLocalizedDescriptionKey : @"Failed to convert the json"}];
+            completionHandler(nil, responseError);
+            return;
+        }
+
+        if ([[json valueForKey:@"status"] isEqualToString:@"error"]) {
+            NSError *responseError = [NSError errorWithDomain:@"Applozic"
+                                                         code:1
+                                                     userInfo:@{NSLocalizedDescriptionKey : @"Failed to generate access token for audio video call"}];
+
+            completionHandler(nil, responseError);
+            return;
+        }
+
+        NSString *accessToken = [json valueForKey:@"token"];
+
+        ALSLog(ALLoggerSeverityInfo, @"Response for CALL ACCESS TOKEN :: %@", (NSString *)theJson);
+        completionHandler(accessToken, nil);
     }];
-    [task resume];
 }
 
 @end

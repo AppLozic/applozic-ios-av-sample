@@ -97,23 +97,6 @@ NS_SWIFT_NAME(IceOptionsBuilder)
  */
 @property (nonatomic, assign) TVIIceTransportPolicy transportPolicy;
 
-/**
- *  @brief Whether to abort if ICE servers time out.
- *
- *  @discussion If fetching ICE servers times out (due to a restrictive network or a slow network proxy), then, by default,
- *  the Video SDK will fallback to using hard-coded STUN servers and continue connecting to the Room.
- *  Setting this property to true will instead abort with error 53500, "Unable to acquire configuration".
- *  Defaults to 'NO'.
- */
-@property (nonatomic, assign) BOOL abortOnIceServersTimeout
-DEPRECATED_MSG_ATTRIBUTE("As of 3.5.0 this property is deprecated and setting it has no effect.");
-
-/**
- *  @brief The timeout to wait (before aborting) when acquiring ICE servers. Defaults to 3 seconds.
- */
-@property (nonatomic, assign) NSTimeInterval iceServersTimeout
-DEPRECATED_MSG_ATTRIBUTE("As of 3.5.0 this property is deprecated and setting it has no effect.");
-
 - (null_unspecified instancetype)init __attribute__((unavailable("Use a TVIIceOptionsBuilderBlock instead.")));
 
 @end
@@ -146,23 +129,6 @@ NS_SWIFT_NAME(IceOptions)
  *  @brief The transport policy to use. Defaults to `TVIIceTransportPolicyAll`.
  */
 @property (nonatomic, assign, readonly) TVIIceTransportPolicy transportPolicy;
-
-/**
- *  @brief Whether to abort if ICE servers time out.
- *
- *  @discussion If fetching ICE servers times out (due to a restrictive network or a slow network proxy), then, by default,
- *  the Video SDK will fallback to using hard-coded STUN servers and continue connecting to the Room.
- *  Setting this property to true will instead abort with error 53500, "Unable to acquire configuration".
- *  Defaults to 'NO'.
- */
-@property (nonatomic, assign, readonly) BOOL abortOnIceServersTimeout
-DEPRECATED_MSG_ATTRIBUTE("As of 3.5.0 this property is deprecated and setting it has no effect.");
-
-/**
- *  @brief The timeout to wait (before aborting) when acquiring ICE servers. Defaults to 3 seconds.
- */
-@property (nonatomic, assign, readonly) NSTimeInterval iceServersTimeout
-DEPRECATED_MSG_ATTRIBUTE("As of 3.5.0 this property is deprecated and setting it has no effect.");
 
 /**
  *  @brief Creates a default `TVIIceOptions` instance.

@@ -60,6 +60,16 @@ typedef NS_ENUM(NSInteger, TVINetworkQualityLevel) {
 NS_SWIFT_NAME(NetworkQualityLevel);
 
 /**
+ * Enumeration indicating the state of the signaling connection for a TVIParticipant.
+ */
+typedef NS_ENUM (NSUInteger, TVIParticipantState) {
+    TVIParticipantStateConnected = 0,  ///< The Participant has connected to signaling.
+    TVIParticipantStateReconnecting,   ///< The Participant is attempting to reconnect to signaling.
+    TVIParticipantStateDisconnected    ///< The Participant has disconnected from signaling
+}
+NS_SWIFT_NAME(Participant.State);
+
+/**
  *  `TVIParticipant` is the base class from which Local and Remote Participants are derived.
  */
 NS_SWIFT_NAME(Participant)
@@ -75,6 +85,11 @@ NS_SWIFT_NAME(Participant)
  *  useful for debugging purposes.
  */
 @property (nonatomic, copy, readonly, nullable) NSString *sid;
+
+/**
+ *  @brief The signaling connection state of the Participant.
+ */
+@property (nonatomic, assign, readonly) TVIParticipantState state;
 
 /**
  *  @brief The Participant's Network Quality Level

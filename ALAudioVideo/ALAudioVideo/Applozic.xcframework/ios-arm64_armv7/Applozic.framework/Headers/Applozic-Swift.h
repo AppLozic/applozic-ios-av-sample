@@ -331,6 +331,17 @@ SWIFT_CLASS("_TtC8Applozic18ALLoadingIndicator")
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
+
+SWIFT_CLASS("_TtC8Applozic13ALPhotoPicker")
+@interface ALPhotoPicker : NSObject
+@property (nonatomic, weak) id <ALCustomPickerDelegate> _Nullable delegate;
+- (nonnull instancetype)initWithSelectionLimit:(NSInteger)selectionLimit loadingTitle:(NSString * _Nonnull)loadingTitle OBJC_DESIGNATED_INITIALIZER;
+- (void)openGalleryFrom:(UIViewController * _Nonnull)controller SWIFT_AVAILABILITY(ios,introduced=14);
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 @class UIImage;
 
 SWIFT_CLASS("_TtC8Applozic28ALPreviewPhotoViewController")
@@ -858,6 +869,17 @@ SWIFT_CLASS("_TtC8Applozic18ALLoadingIndicator")
 - (void)set:(UIColor * _Nonnull)color;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
+
+
+SWIFT_CLASS("_TtC8Applozic13ALPhotoPicker")
+@interface ALPhotoPicker : NSObject
+@property (nonatomic, weak) id <ALCustomPickerDelegate> _Nullable delegate;
+- (nonnull instancetype)initWithSelectionLimit:(NSInteger)selectionLimit loadingTitle:(NSString * _Nonnull)loadingTitle OBJC_DESIGNATED_INITIALIZER;
+- (void)openGalleryFrom:(UIViewController * _Nonnull)controller SWIFT_AVAILABILITY(ios,introduced=14);
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 
 @class UIImage;
 

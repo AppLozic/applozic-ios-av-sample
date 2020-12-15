@@ -24,11 +24,6 @@ NS_SWIFT_NAME(RemoteParticipant)
 @interface TVIRemoteParticipant : TVIParticipant
 
 /**
- *  @brief Indicates if the Participant is connected to the Room.
- */
-@property (nonatomic, assign, readonly, getter=isConnected) BOOL connected;
-
-/**
  *  @brief The Remote Participant's delegate. Set this property to be notified about Participant events such as tracks being
  *  added or removed.
  */

@@ -9,7 +9,6 @@
 #import "ALChatViewController.h"
 #import "ALContactCell.h"
 #import "ALNewContactsViewController.h"
-#import "ALVOIPNotificationHandler.h"
 
 @protocol ALMessagesViewDelegate <NSObject>
 

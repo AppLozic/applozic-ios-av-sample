@@ -5,6 +5,7 @@ import AVFoundation
 @_exported import Applozic
 import Foundation
 import Photos
+import PhotosUI
 import Security
 import Swift
 import UIKit
@@ -178,6 +179,18 @@ extension ALTemplateMessagesView : UIKit.UICollectionViewDelegate, UIKit.UIColle
   @objc public func messageAtIndexPath(indexPath: Foundation.IndexPath) -> Applozic.ALMessage?
   @objc public func searchMessage(with key: Swift.String, _ completion: @escaping ((Swift.Bool) -> Swift.Void))
   @objc deinit
+}
+@objc public class ALPhotoPicker : ObjectiveC.NSObject {
+  @objc weak public var delegate: Applozic.ALCustomPickerDelegate?
+  @objc public init(selectionLimit: Swift.Int, loadingTitle: Swift.String)
+  @available(iOS 14, *)
+  @objc public func openGallery(from controller: UIKit.UIViewController)
+  @objc deinit
+  @objc override dynamic public init()
+}
+@available(iOS 14, *)
+extension ALPhotoPicker : PhotosUI.PHPickerViewControllerDelegate {
+  public func picker(_ picker: PhotosUI.PHPickerViewController, didFinishPicking results: [PhotosUI.PHPickerResult])
 }
 @_hasMissingDesignatedInitializers @objc(ALJWT) public class _JWT : ObjectiveC.NSObject {
   @objc public var header: [Swift.String : Any] {

@@ -68,6 +68,13 @@
 +(NSURL *)getApplicationDirectoryWithFilePath:(NSString*) path;
 +(NSData *)compressImage:(NSData *) data;
 +(UIImage *)getImageFromFilePath:(NSString *)filePath;
++(NSURL *)moveFileToDocumentsWithFileURL:(NSURL *)url;
 
 +(void)showRetryUIAlertControllerWithButtonClickCompletionHandler:(void (^)(BOOL clicked)) completion;
+
++(UIAlertController *)displayLoadingAlertControllerWithText:(NSString *)loadingText;
+
++(void)dismissAlertController:(UIAlertController *)alertController
+               withCompletion:(void (^)(BOOL dismissed)) completion;
+
 @end
