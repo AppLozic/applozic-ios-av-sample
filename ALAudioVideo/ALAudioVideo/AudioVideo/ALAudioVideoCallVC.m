@@ -15,7 +15,6 @@
 @property (weak, nonatomic) NSTimer * audioTimer;
 @property (strong, nonatomic) NSString * callDuration;
 @property (nonatomic) BOOL userClickDisconnectButton;
-@property (strong, nonatomic) TVIDefaultAudioDevice *audioDevice;
 
 @end
 
@@ -40,8 +39,6 @@
     // Do any additional setup after loading the view.
     [ALAudioVideoBaseVC setChatRoomEngage:YES];
     self.receiverID = self.userID;
-    self.audioDevice = [TVIDefaultAudioDevice audioDevice];
-    self.audioDevice.enabled = YES;
     [self setAudioOutputSpeaker:NO];
     self.alMQTTObject = [ALMQTTConversationService sharedInstance];
     [self.alMQTTObject subscribeToConversation];
@@ -891,32 +888,13 @@
     }
     self.localAudioTrack = nil;
     self.localVideoTrack = nil;
-    self.audioDevice = nil;
     self.camera = nil;
     self.room = nil;
 }
 
 - (void)setAudioOutputSpeaker:(BOOL)enabled {
-
-    self.audioDevice.block =  ^ {
-        // We will execute `kTVIDefaultAVAudioSessionConfigurationBlock` first.
-        kTVIDefaultAVAudioSessionConfigurationBlock();
-
-        // Overwrite the audio route
-        AVAudioSession *session = [AVAudioSession sharedInstance];
-        NSError *error = nil;
-        if (![session setMode:AVAudioSessionModeVoiceChat error:&error]) {
-            NSLog(@"AVAudiosession setMode %@",error);
-        }
-        AVAudioSessionPortOverride portMode = AVAudioSessionPortOverrideNone;
-        if (enabled) {
-            portMode = AVAudioSessionPortOverrideSpeaker;
-        }
-        if (![session overrideOutputAudioPort:portMode error:&error]) {
-            NSLog(@"AVAudiosession overrideOutputAudioPort %@",error);
-        }
-    };
-    self.audioDevice.block();
+    ALCallKitManager * callKitManager = [ALCallKitManager sharedManager];
+    [callKitManager setAudioOutputSpeaker:enabled];
 }
 
 -(void)disconnectRoom {

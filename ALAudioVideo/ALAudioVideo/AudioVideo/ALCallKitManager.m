@@ -31,12 +31,15 @@
         [self.callKitProvider setDelegate:self queue:nil];
         self.callKitCallController = [[CXCallController alloc] initWithQueue:dispatch_get_main_queue()];
         self.callListModels = [[NSMutableDictionary alloc] init];
+        self.audioDevice = [TVIDefaultAudioDevice audioDevice];
+        TwilioVideoSDK.audioDevice = self.audioDevice;
     }
     return self;
 }
 
 - (void)dealloc {
     [self.callKitProvider invalidate];
+    self.audioDevice = nil;
 }
 
 // Report new call receieved can be used for reporting new calls.
@@ -225,7 +228,7 @@
             if (error) {
                 completion(error);
             } else {
-                if (!self.activeCallViewController) {
+                if (self.activeCallViewController) {
                     [self.activeCallViewController disconnectRoom];
                     [self.activeCallViewController dismissViewControllerAnimated:YES completion:^{
                         [self removeModelWithCallUUID:self.activeCallModel.callUUID.UUIDString];
@@ -329,21 +332,43 @@
     self->startTime = nil;
 }
 
+- (void)setAudioOutputSpeaker:(BOOL)enabled {
+
+    self.audioDevice.block =  ^ {
+        // We will execute `kTVIDefaultAVAudioSessionConfigurationBlock` first.
+        kTVIDefaultAVAudioSessionConfigurationBlock();
+
+        // Overwrite the audio route
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        NSError *error = nil;
+        if (![session setMode:AVAudioSessionModeVoiceChat error:&error]) {
+            NSLog(@"AVAudiosession setMode %@",error);
+        }
+        AVAudioSessionPortOverride portMode = AVAudioSessionPortOverrideNone;
+        if (enabled) {
+            portMode = AVAudioSessionPortOverrideSpeaker;
+        }
+        if (![session overrideOutputAudioPort:portMode error:&error]) {
+            NSLog(@"AVAudiosession overrideOutputAudioPort %@",error);
+        }
+    };
+    self.audioDevice.block();
+}
+
 #pragma mark - CXProviderDelegate
 - (void)providerDidReset:(CXProvider *)provider {
     NSLog(@"providerDidReset:@");
 
-    self.activeCallModel = nil;
+    //Clearing all the resource and disconnecting from room
     self.callListModels = [[NSMutableDictionary alloc] init];
-    self.activeCallViewController = nil;
-    ALPushAssist *pushassist = [[ALPushAssist alloc]init];
-    if (pushassist.topViewController && [pushassist.topViewController isKindOfClass:[ALAudioVideoCallVC class]]) {
-        ALAudioVideoCallVC *audioVideoVC = ((ALAudioVideoCallVC *)pushassist.topViewController);
-        if (audioVideoVC && audioVideoVC.room) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [audioVideoVC dismissAVViewController:YES];
-            });
-        }
+    if (self.activeCallViewController) {
+        [self.activeCallViewController disconnectRoom];
+        [self.activeCallViewController dismissViewControllerAnimated:YES
+                                                          completion:^{
+            self.activeCallModel = nil;
+            self.activeCallViewController = nil;
+            [self clear];
+        }];
     }
 }
 
@@ -353,6 +378,7 @@
 
 - (void)provider:(CXProvider *)provider didActivateAudioSession:(AVAudioSession *)audioSession {
     NSLog(@"provider:didActivateAudioSession:@");
+    self.audioDevice.enabled = YES;
 }
 
 - (void)provider:(CXProvider *)provider didDeactivateAudioSession:(AVAudioSession *)audioSession {
@@ -365,6 +391,12 @@
 
 - (void)provider:(CXProvider *)provider performStartCallAction:(CXStartCallAction *)action {
     NSLog(@"provider:performStartCallAction:@");
+
+    // Stop the audio unit by setting isEnabled to `false`.
+    self.audioDevice.enabled = NO;
+
+    // Configure the AVAudioSession by executign the audio device's `block`.
+    self.audioDevice.block();
 
     [self sendMessageAndEndActiveCallWithCompletion:^(NSError *error) {
         if (error) {
@@ -385,6 +417,12 @@
 
 - (void)provider:(CXProvider *)provider performAnswerCallAction:(CXAnswerCallAction *)action {
     NSLog(@"provider:performAnswerCallAction:@");
+
+    // Stop the audio unit by setting isEnabled to `false`.
+    self.audioDevice.enabled = NO;
+
+    // Configure the AVAudioSession by executign the audio device's `block`.
+    self.audioDevice.block();
 
     [self sendMessageAndEndActiveCallWithCompletion:^(NSError *error) {
         if (error) {

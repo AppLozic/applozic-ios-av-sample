@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSMutableDictionary<NSString *, ALAVCallModel *> *callListModels;
 @property (strong, nonatomic) ALAVCallModel *activeCallModel;
 @property (strong, nonatomic) ALAudioVideoCallVC *activeCallViewController;
+@property (strong, nonatomic) TVIDefaultAudioDevice *audioDevice;
 
 + (id)sharedManager;
 
@@ -42,12 +43,15 @@
 
 // Send end call with model
 -(void)sendEndCallWithCallModel:(ALAVCallModel *)callModel
-                  withCompletion:(void(^)(NSError * error))completion;
+                 withCompletion:(void(^)(NSError * error))completion;
 
 // End the active call view controller and report to callKit Provider
 -(void)endActiveCallVCWithCallReason:(CXCallEndedReason)reason
                           withRoomID:(NSString *)roomId
                         withCallUUID:(NSUUID *)callUUID;
+// Audio output
+- (void)setAudioOutputSpeaker:(BOOL)enabled;
+
 - (void)clear;
 @end
 
