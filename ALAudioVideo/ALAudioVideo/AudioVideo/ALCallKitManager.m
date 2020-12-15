@@ -446,25 +446,35 @@
     NSLog(@"provider:performEndCallAction:@");
     NSString * callUUIDString = [action.callUUID UUIDString];
     
-    if (!self.activeCallModel) {
-        if (self.callListModels.count > 0 &&
-            [self.callListModels valueForKey:callUUIDString]) {
-            ALAVCallModel *callModel = [self.callListModels valueForKey:callUUIDString];
-            [self sendEndCallWithCallModel:callModel withCompletion:^(NSError *error) {
-                if (error) {
-                    [action fail];
+    if (self.callListModels.count > 0 &&
+        [self.callListModels valueForKey:callUUIDString]) {
+        ALAVCallModel *callModel = [self.callListModels valueForKey:callUUIDString];
+        [self sendEndCallWithCallModel:callModel withCompletion:^(NSError *error) {
+            if (error) {
+                [action fail];
+            } else {
+                if (self.activeCallViewController) {
+                    [self.activeCallViewController disconnectRoom];
+                    [self.activeCallViewController dismissViewControllerAnimated:YES
+                                                                      completion:^{
+                        self.activeCallModel = nil;
+                        self.activeCallViewController = nil;
+                        [self removeModelWithCallUUID:callUUIDString];
+                        [self clear];
+                        [action fulfill];
+                    }];
                 } else {
+                    self.activeCallModel = nil;
                     [self removeModelWithCallUUID:callUUIDString];
                     [self clear];
                     [action fulfill];
                 }
-            }];
-        } else {
-            [action fail];
-        }
+            }
+        }];
     } else {
         [action fail];
     }
+    
 }
 
 @end
