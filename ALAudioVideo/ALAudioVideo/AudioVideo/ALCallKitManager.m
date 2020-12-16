@@ -24,8 +24,7 @@
         configuration.supportsVideo = YES;
         configuration.maximumCallGroups = 1;
         configuration.maximumCallsPerCallGroup = 1;
-        //TODO: uncomment this
-        // configuration.ringtoneSound = @"Marimba.m4r";
+        configuration.ringtoneSound = @"Marimba.m4r";
         configuration.supportedHandleTypes = [[NSSet alloc] initWithObjects:[NSNumber numberWithInt:(int)CXHandleTypeGeneric], nil];
         self.callKitProvider = [[CXProvider alloc] initWithConfiguration:configuration];
         [self.callKitProvider setDelegate:self queue:nil];
@@ -474,7 +473,7 @@
     } else {
         [action fail];
     }
-    
+
 }
 
 @end

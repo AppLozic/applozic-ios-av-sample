@@ -161,7 +161,7 @@
             if (parts.count > 1) {
                 NSString *uuidString = parts[0];
                 NSUUID * uuid = [[NSUUID alloc] initWithUUIDString:uuidString];
-                [callkit endActiveCallVCWithCallReason:CXCallEndedReasonAnsweredElsewhere withRoomID:roomId withCallUUID:uuid];
+                [callkit endActiveCallVCWithCallReason:CXCallEndedReasonDeclinedElsewhere withRoomID:roomId withCallUUID:uuid];
             }
         }
         else if ([msgType isEqualToString:@"CALL_MISSED"])
@@ -172,7 +172,7 @@
             if (parts.count > 1) {
                 NSString *uuidString = parts[0];
                 NSUUID * uuid = [[NSUUID alloc] initWithUUIDString:uuidString];
-                [callkit endActiveCallVCWithCallReason:CXCallEndedReasonAnsweredElsewhere withRoomID:roomId withCallUUID:uuid];
+                [callkit endActiveCallVCWithCallReason:CXCallEndedReasonRemoteEnded withRoomID:roomId withCallUUID:uuid];
             }
         } else if ([msgType isEqualToString:@"CALL_END"]) {
             ALCallKitManager *callkit = [ALCallKitManager sharedManager];
@@ -180,7 +180,7 @@
             if (parts.count > 1) {
                 NSString *uuidString = parts[0];
                 NSUUID * uuid = [[NSUUID alloc] initWithUUIDString:uuidString];
-                [callkit endActiveCallVCWithCallReason:CXCallEndedReasonAnsweredElsewhere withRoomID:roomId withCallUUID:uuid];
+                [callkit endActiveCallVCWithCallReason:CXCallEndedReasonRemoteEnded withRoomID:roomId withCallUUID:uuid];
             }
         }
     }
