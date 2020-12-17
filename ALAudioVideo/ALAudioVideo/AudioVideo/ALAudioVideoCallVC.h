@@ -34,7 +34,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *audioCallType;
 
 @property (strong, nonatomic) NSUUID * uuid;
-@property (nonatomic) BOOL isFromCallKit;
 
 @property (strong, nonatomic) ALContact * alContact;
 @property (weak, nonatomic) ALMQTTConversationService * alMQTTObject;

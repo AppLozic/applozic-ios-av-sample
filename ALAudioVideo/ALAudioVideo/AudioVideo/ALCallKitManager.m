@@ -284,7 +284,6 @@
         audioVideoCallVC.callForAudio = callModel.callForAudio;
         audioVideoCallVC.baseRoomId = callModel.roomId;
         audioVideoCallVC.uuid = callModel.callUUID;
-        audioVideoCallVC.isFromCallKit = YES;
         audioVideoCallVC.modalPresentationStyle = UIModalPresentationFullScreen;
         if (fromStartCall) {
             [self.callKitProvider reportOutgoingCallWithUUID:callUUID startedConnectingAtDate:nil];

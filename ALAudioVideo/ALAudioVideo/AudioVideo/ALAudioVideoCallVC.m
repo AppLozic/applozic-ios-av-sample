@@ -39,7 +39,16 @@
     // Do any additional setup after loading the view.
     [ALAudioVideoBaseVC setChatRoomEngage:YES];
     self.receiverID = self.userID;
-    [self setAudioOutputSpeaker:NO];
+    if (self.callForAudio) {
+        speakerEnable = NO;
+        [self setAudioOutputSpeaker:speakerEnable];
+    } else {
+        speakerEnable = YES;
+        [self setAudioOutputSpeaker:speakerEnable];
+    }
+
+    [self.loudSpeaker setImage:[UIImage imageNamed:(speakerEnable ? @"loudspeaker_solid.png" : @"loudspeaker_strip")] forState:UIControlStateNormal];
+
     self.alMQTTObject = [ALMQTTConversationService sharedInstance];
     [self.alMQTTObject subscribeToConversation];
     
@@ -57,7 +66,6 @@
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animate)];
     
     buttonHide = NO;
-    speakerEnable = NO;
     frontCameraEnable = NO;
     micEnable = NO;
     self.audioTimerLabel.text = @"";
@@ -99,10 +107,8 @@
     }
     else
     {
-        if (self.isFromCallKit){
-            [self handleCallButtonVisiblity];
-            [self buttonVisiblityForCallType:NO];
-        }
+        [self handleCallButtonVisiblity];
+        [self buttonVisiblityForCallType:NO];
     }
     
     [self.audioCallType setHidden:NO];
@@ -176,42 +182,14 @@
 
 - (IBAction)callRejectAction:(id)sender
 {
-
-    if (!self.room) {
-        /// Room is not connected due to access token error
-        ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
-        [callkitManager reportOutgoingCall:self.uuid withCXCallEndedReason:CXCallEndedReasonFailed];
-        [callkitManager clear];
-        [self dismissViewControllerAnimated:YES completion:nil];
-        return;
+    if (self.callForAudio) {
+        [self.audioTimer invalidate];
     }
 
-    if ([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] && !self.remoteParticipant) {
-        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_MISSED"
-                                                                     andCallAudio:self.callForAudio
-                                                                        andRoomId:self.roomID];
-        [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
-                                             andReceiverId:self.receiverID
-                                            andContentType:AV_CALL_CONTENT_TWO
-                                                andMsgText:self.roomID withCompletion:^(NSError *error) {
-
-            [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
-                                                 andReceiverId:self.receiverID
-                                                andContentType:AV_CALL_CONTENT_THREE
-                                                    andMsgText:@"CALL MISSED" withCompletion:^(NSError *error) {
-                [self.room disconnect];
-            }];
-        }];
-    } else {
-        if (self.callForAudio) {
-            [self.audioTimer invalidate];
-        }
-
-        ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
-        [callkitManager performEndCallAction:self.uuid withCompletion:^(NSError *error) {
-            [self dismissAVViewController:YES];
-        }];
-    }
+    ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
+    [callkitManager performEndCallAction:self.uuid
+                          withCompletion:^(NSError *error) {
+    }];
 }
 
 - (IBAction)loudSpeakerAction:(id)sender
