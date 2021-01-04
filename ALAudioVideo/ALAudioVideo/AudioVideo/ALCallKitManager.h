@@ -15,7 +15,7 @@
 @property (strong, nonatomic) ALAudioVideoCallVC *activeCallViewController;
 @property (strong, nonatomic) TVIDefaultAudioDevice *audioDevice;
 
-+ (id)sharedManager;
++ (ALCallKitManager *)sharedManager;
 
 // Report new call receieved
 - (void)reportNewIncomingCall:(NSUUID *)callUUID

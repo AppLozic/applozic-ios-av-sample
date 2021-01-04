@@ -122,10 +122,6 @@
     
     [self.previewView setHidden:YES];
     [ALAudioVideoBaseVC setChatRoomEngage:YES];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleDataConnectivity)
-                                                 name:@"NETWORK_DISCONNECTED"
-                                               object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -241,26 +237,6 @@
     }
     [self flipCamera];
 }
-
-//==============================================================================================================================
-#pragma mark - SUPPORT/HELPER METHODS
-//==============================================================================================================================
-
-- (void)handleDataConnectivity
-{
-    [super handleDataConnectivity];
-    BOOL flag = [self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]];
-    
-    if (flag && self.remoteParticipant)
-    {
-        [ALNotificationView showNotification:@"No Internet Connectivity"];
-        ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
-        [callkitManager performEndCallAction:self.uuid withCompletion:^(NSError *error) {
-            [self dismissAVViewController:YES];
-        }];
-    }
-}
-
 
 -(void)animate
 {

@@ -7,7 +7,7 @@
     NSNumber *startTime;
 }
 
-+ (id)sharedManager {
++ (ALCallKitManager *)sharedManager {
     static ALCallKitManager *sharedMyManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -68,6 +68,7 @@
         self.callListModels[callUUIDString] = callModel;
         [self.callKitProvider reportNewIncomingCallWithUUID:callUUID update:callUpdate completion:^(NSError * error) {
             if (error) {
+                NSLog(@"Error in callKitProvider reportNewIncomingCall: %@", error.localizedDescription);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self removeModelWithCallUUID:callUUIDString];
                 });
@@ -103,6 +104,7 @@
     CXTransaction *transaction = [[CXTransaction alloc] initWithAction:startCallAction];
     [self.callKitCallController requestTransaction:transaction completion:^(NSError *error) {
         if (error) {
+            NSLog(@"Error in perfromStartCallAction for CXStartCallAction: %@", error.localizedDescription);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self removeModelWithCallUUID:callUUIDString];
             });
@@ -196,6 +198,7 @@
     [self.callKitCallController requestTransaction:transaction completion:^(NSError *error) {
         if (error) {
             NSLog(@"EndCallAction transaction request failed: %@", [error localizedDescription]);
+            completion(error);
         } else {
             NSLog(@"EndCallAction transaction request successful");
             [self sendMessageAndEndActiveCallWithCompletion:^(NSError *error) {
@@ -297,7 +300,6 @@
         completion(NO);
 
     }
-
 }
 
 -(void) reportOutgoingCall:(NSUUID *)callUUID withCXCallEndedReason:(CXCallEndedReason) reason {
@@ -398,6 +400,7 @@
 
     [self sendMessageAndEndActiveCallWithCompletion:^(NSError *error) {
         if (error) {
+            NSLog(@"Error in provider:performStartCallAction: %@", error.localizedDescription);
             [action fail];
         } else {
             [self presentCallVCWithCallUUIDString:action.callUUID
@@ -424,6 +427,7 @@
 
     [self sendMessageAndEndActiveCallWithCompletion:^(NSError *error) {
         if (error) {
+            NSLog(@"Error in provider:performAnswerCallAction: %@", error.localizedDescription);
             [action fail];
         } else {
             [self presentCallVCWithCallUUIDString:action.callUUID
@@ -433,6 +437,7 @@
                     startTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
                     [action fulfill];
                 } else {
+                    NSLog(@"PerformAnswerCallAction is failed");
                     [action fail];
                 }
             }];
@@ -449,6 +454,7 @@
         ALAVCallModel *callModel = [self.callListModels valueForKey:callUUIDString];
         [self sendEndCallWithCallModel:callModel withCompletion:^(NSError *error) {
             if (error) {
+                NSLog(@"Error in provider:performEndCallAction: %@", error.localizedDescription);
                 [action fail];
             } else {
                 if (self.activeCallViewController) {
@@ -470,6 +476,7 @@
             }
         }];
     } else {
+        NSLog(@"Provider:performEndCallAction failed");
         [action fail];
     }
 
