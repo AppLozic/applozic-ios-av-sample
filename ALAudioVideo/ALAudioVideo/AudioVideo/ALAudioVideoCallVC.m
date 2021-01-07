@@ -14,7 +14,6 @@
 @property (weak, nonatomic) NSTimer * timer;
 @property (weak, nonatomic) NSTimer * audioTimer;
 @property (strong, nonatomic) NSString * callDuration;
-@property (nonatomic) BOOL userClickDisconnectButton;
 
 @end
 
@@ -159,7 +158,6 @@
 }
 
 - (IBAction)callAcceptRejectAction:(id)sender {
-    self.userClickDisconnectButton = YES;
     [self callRejectAction:sender];
 }
 
@@ -569,18 +567,11 @@
 - (void)room:(TVIRoom *)room didDisconnectWithError:(nullable NSError *)error {
     [self logMessage:[NSString stringWithFormat:@"Disconnected from room %@, error = %@", room.name, error]];
     int reason = CXCallEndedReasonRemoteEnded;
-    if (!self.userClickDisconnectButton) {
-        if (error.code != TVIErrorRoomRoomCompletedError) {
-            reason = CXCallEndedReasonFailed;
-        }
-    }
-
     ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
     [callkitManager reportOutgoingCall:self.uuid withCXCallEndedReason:reason];
 
     [self cleanupRemoteParticipant];
     self.room = nil;
-    self.userClickDisconnectButton = NO;
     [self showRoomUI:NO];
     [self clearRoom];
     [self dismissViewControllerAnimated:YES completion:nil];

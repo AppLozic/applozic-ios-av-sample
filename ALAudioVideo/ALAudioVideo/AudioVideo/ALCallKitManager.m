@@ -130,7 +130,7 @@
         NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_MISSED"
                                                                      andCallAudio:callModel.callForAudio
                                                                         andRoomId:callModel.roomId];
-        
+
         [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                              andReceiverId:callModel.userId
                                             andContentType:AV_CALL_CONTENT_TWO
@@ -191,23 +191,17 @@
 // Perform the call end from local view controller.
 -(void)performEndCallAction:(NSUUID *)callUUID
              withCompletion:(void(^)(NSError *error))completion {
-
     CXEndCallAction *endCallAction = [[CXEndCallAction alloc] initWithCallUUID:callUUID];
     CXTransaction *transaction = [[CXTransaction alloc] initWithAction:endCallAction];
-
     [self.callKitCallController requestTransaction:transaction completion:^(NSError *error) {
         if (error) {
             NSLog(@"EndCallAction transaction request failed: %@", [error localizedDescription]);
-            completion(error);
         } else {
             NSLog(@"EndCallAction transaction request successful");
-            [self sendMessageAndEndActiveCallWithCompletion:^(NSError *error) {
-                completion(error);
-            }];
         }
+        completion(error);
     }];
 }
-
 
 - (BOOL)isCallActive:(NSUUID *)callUUID {
     if (!callUUID) {
@@ -306,6 +300,8 @@
 
     // Check if call call is active
     if ([self isCallActive:callUUID]) {
+        self.activeCallModel = nil;
+        [self clear];
         [self.callKitProvider reportCallWithUUID:callUUID endedAtDate:nil reason:reason];
     }
 }
@@ -448,7 +444,7 @@
 - (void)provider:(CXProvider *)provider performEndCallAction:(CXEndCallAction *)action {
     NSLog(@"provider:performEndCallAction:@");
     NSString * callUUIDString = [action.callUUID UUIDString];
-    
+
     if (self.callListModels.count > 0 &&
         [self.callListModels valueForKey:callUUIDString]) {
         ALAVCallModel *callModel = [self.callListModels valueForKey:callUUIDString];
