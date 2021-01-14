@@ -99,6 +99,9 @@
     
     if([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]])
     {
+        /// When calling to user will show status as Calling.
+        NSString * callingStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallIngStatusInfo", nil,[NSBundle mainBundle], @"Calling", @"");
+        [self showCallStatus:YES withCallStatusInfo:callingStatusInfo];
         [self handleCallButtonVisiblity]; //  WHEN SOMEONE IS CALLING
         [self connectButtonPressed];
         soundPath = [[NSURL URLWithString:@"/System/Library/Audio/UISounds/nano/ringback_tone_aus.caf"] path];
@@ -106,6 +109,9 @@
     }
     else
     {
+        /// On the receiver end once the call is clicked for answering will show connnecting status.
+        NSString * connectingStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallConnectingStatusInfo", nil,[NSBundle mainBundle], @"Connecting...", @"");
+        [self showCallStatus:YES withCallStatusInfo:connectingStatusInfo];
         [self handleCallButtonVisiblity];
         [self buttonVisiblityForCallType:NO];
     }
@@ -332,6 +338,26 @@
     }
 }
 
+// Show and hide views based on show flag and call status info
+-(void) showCallStatus:(BOOL) show withCallStatusInfo:(NSString *)callStatusInfo {
+    [self.callStatus setHidden:!show];
+    if (callStatusInfo) {
+        self.callStatus.text = callStatusInfo;
+        /// Hide profile View and call type and only show the call status view in case of video call.
+        if (!self.callForAudio &&
+            self.remoteParticipant) {
+            [self.callView setHidden:NO];
+            self.callView.backgroundColor = [UIColor clearColor];
+            [self.userProfile setHidden:YES];
+            [self.audioCallType setHidden:YES];
+        }
+    }
+    /// Hide the audio timer label in case of audio call
+    if (self.callForAudio) {
+        [self.audioTimerLabel setHidden:show];
+    }
+}
+
 //==============================================================================================================================
 #pragma mark - TWILIO : Public
 //==============================================================================================================================
@@ -525,7 +551,8 @@
 - (void)cleanupRemoteParticipant {
     
     if (self.remoteParticipant) {
-        if ([self.remoteParticipant.videoTracks count] > 0) {
+        if (!self.callForAudio &&
+            [self.remoteParticipant.videoTracks count] > 0) {
             TVIRemoteVideoTrack *videoTrack = self.remoteParticipant.remoteVideoTracks[0].remoteTrack;
             [videoTrack removeRenderer:self.remoteView];
             [self.remoteView removeFromSuperview];
@@ -553,8 +580,9 @@
         self.remoteParticipant = room.remoteParticipants[0];
         self.remoteParticipant.delegate = self;
     }
-
     if (self.remoteParticipant) {
+        // Hide the call status view when room is connected
+        [self showCallStatus:NO withCallStatusInfo:nil];
         if (self.callForAudio) {
             [self startAudioTimer];
         } else {
@@ -566,6 +594,11 @@
 
 - (void)room:(TVIRoom *)room didDisconnectWithError:(nullable NSError *)error {
     [self logMessage:[NSString stringWithFormat:@"Disconnected from room %@, error = %@", room.name, error]];
+
+    // Show the call status when disconncted from room
+    NSString * callEndStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallEndStatusInfo", nil,[NSBundle mainBundle], @"Call End", @"");
+    [self showCallStatus:YES withCallStatusInfo:callEndStatusInfo];
+
     int reason = CXCallEndedReasonRemoteEnded;
     ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
     [callkitManager reportOutgoingCall:self.uuid withCXCallEndedReason:reason];
@@ -587,10 +620,15 @@
 - (void)room:(TVIRoom *)room isReconnectingWithError:(NSError *)error {
     NSString *message = [NSString stringWithFormat:@"Reconnecting due to %@", error.localizedDescription];
     [self logMessage:message];
+    // Show the reconnecting to room
+    NSString * callReconnectingStatusInfo = NSLocalizedStringWithDefaultValue(@"ALReconnectingCallStatusInfo", nil,[NSBundle mainBundle], @"Reconnecting...", @"");
+    [self showCallStatus:YES withCallStatusInfo:callReconnectingStatusInfo];
 }
 
 - (void)didReconnectToRoom:(TVIRoom *)room {
     [self logMessage:@"Reconnected to room"];
+    // Hide the call status view on room reconnected
+    [self showCallStatus:NO withCallStatusInfo:nil];
 }
 
 - (void)room:(TVIRoom *)room participantDidConnect:(TVIRemoteParticipant *)participant {
@@ -600,6 +638,8 @@
         self.remoteParticipant = participant;
         self.remoteParticipant.delegate = self;
     }
+    // Hide the call status view when participant connected
+    [self showCallStatus:NO withCallStatusInfo:nil];
 
     ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
     [callkitManager reportOutgoingCall:self.uuid];
@@ -684,7 +724,9 @@
     [self logMessage:[NSString stringWithFormat:@"Subscribed to %@ video track for Participant %@",
                       publication.trackName, participant.identity]];
 
-    if (self.remoteParticipant == participant) {
+    // Setup the remote view only in case of video call
+    if (!self.callForAudio &&
+        self.remoteParticipant == participant) {
         [self setupRemoteView];
         [videoTrack addRenderer:self.remoteView];
     }
@@ -700,7 +742,9 @@
     [self logMessage:[NSString stringWithFormat:@"Unsubscribed from %@ video track for Participant %@",
                       publication.trackName, participant.identity]];
 
-    if (self.remoteParticipant == participant) {
+    // Remove the remote view only in case of video call
+    if (!self.callForAudio &&
+        self.remoteParticipant == participant) {
         [videoTrack removeRenderer:self.remoteView];
         [self.remoteView removeFromSuperview];
     }
@@ -773,7 +817,7 @@
     // UIViewContentModeScaleAspectFit is the default mode when you create `TVIVideoView` programmatically.
     self.remoteView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view insertSubview:remoteView atIndex:0];
-    
+
     if(!self.callForAudio){
         [self.callView setHidden:YES];
     }

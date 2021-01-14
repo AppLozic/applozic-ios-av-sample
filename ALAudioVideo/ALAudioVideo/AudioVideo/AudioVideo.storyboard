@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -49,14 +49,26 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr2-01-dKQ">
+                                        <rect key="frame" x="50" y="277" width="220" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="TOn-te-TFL"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="vVN-dS-PTG" firstAttribute="top" secondItem="yKZ-X4-Exp" secondAttribute="bottom" constant="8" symbolic="YES" id="1ag-wE-DZk"/>
                                     <constraint firstItem="yKZ-X4-Exp" firstAttribute="centerX" secondItem="vVN-dS-PTG" secondAttribute="centerX" id="F6v-MK-6o9"/>
                                     <constraint firstItem="vVN-dS-PTG" firstAttribute="centerY" secondItem="Yij-Rf-hmf" secondAttribute="centerY" id="FmK-Of-YTC"/>
+                                    <constraint firstItem="gr2-01-dKQ" firstAttribute="top" secondItem="yKZ-X4-Exp" secondAttribute="bottom" constant="15" id="HEb-kf-Slf"/>
                                     <constraint firstItem="Df0-Qo-nzu" firstAttribute="centerX" secondItem="yKZ-X4-Exp" secondAttribute="centerX" id="N37-nt-XVL"/>
                                     <constraint firstItem="yKZ-X4-Exp" firstAttribute="top" secondItem="Df0-Qo-nzu" secondAttribute="bottom" constant="8" symbolic="YES" id="YUW-rB-2k8"/>
+                                    <constraint firstItem="gr2-01-dKQ" firstAttribute="leading" secondItem="Yij-Rf-hmf" secondAttribute="leading" constant="50" id="ZVP-LU-yrO"/>
+                                    <constraint firstAttribute="trailing" secondItem="gr2-01-dKQ" secondAttribute="trailing" constant="50" id="ZyG-vH-iQG"/>
                                     <constraint firstItem="yKZ-X4-Exp" firstAttribute="centerX" secondItem="Yij-Rf-hmf" secondAttribute="centerX" id="eSJ-AD-MNR"/>
                                 </constraints>
                             </view>
@@ -191,6 +203,7 @@
                         <outlet property="callAccept" destination="d5D-kT-gE7" id="k0T-y6-ADy"/>
                         <outlet property="callAcceptReject" destination="bBc-5K-tYo" id="ktm-GS-a9C"/>
                         <outlet property="callReject" destination="w0d-EL-Aam" id="MfI-h1-mxs"/>
+                        <outlet property="callStatus" destination="gr2-01-dKQ" id="zgX-mR-xpi"/>
                         <outlet property="callView" destination="Yij-Rf-hmf" id="ib4-6T-K8j"/>
                         <outlet property="cameraToggle" destination="Do0-fZ-DJb" id="8dD-kS-VAL"/>
                         <outlet property="loudSpeaker" destination="u5p-R6-YTl" id="CKg-G2-kzw"/>
