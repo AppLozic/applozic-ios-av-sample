@@ -100,7 +100,7 @@
     if([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]])
     {
         /// When calling to user will show status as Calling.
-        NSString * callingStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallIngStatusInfo", nil,[NSBundle mainBundle], @"Calling", @"");
+        NSString * callingStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallingStatusInfo", nil,[NSBundle mainBundle], @"Calling", @"");
         [self showCallStatus:YES withCallStatusInfo:callingStatusInfo];
         [self handleCallButtonVisiblity]; //  WHEN SOMEONE IS CALLING
         [self connectButtonPressed];
@@ -109,7 +109,7 @@
     }
     else
     {
-        /// On the receiver end once the call is clicked for answering will show connnecting status.
+        /// On the receiver end once the call is clicked for answering will show Connecting status.
         NSString * connectingStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallConnectingStatusInfo", nil,[NSBundle mainBundle], @"Connecting...", @"");
         [self showCallStatus:YES withCallStatusInfo:connectingStatusInfo];
         [self handleCallButtonVisiblity];
