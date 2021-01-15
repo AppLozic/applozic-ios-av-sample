@@ -13,6 +13,7 @@
 		183F6EF42587A52E006C1401 /* ALAVCallModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F6EF32587A52E006C1401 /* ALAVCallModel.m */; };
 		18522F87257A44E600EB41C0 /* ALVOIPNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 18522F83257A44E600EB41C0 /* ALVOIPNotificationHandler.m */; };
 		18522F88257A44E600EB41C0 /* ALCallKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18522F84257A44E600EB41C0 /* ALCallKitManager.m */; };
+		18594B3825A8CF4100870027 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18594B3725A8CF4100870027 /* Localizable.strings */; };
 		188C9B1F2566F060002086B4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2081EF177E10068C6ED /* GLKit.framework */; };
 		1895AC90258906C4004264A6 /* Applozic.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1849C9E52588E314009D0030 /* Applozic.xcframework */; };
 		1895AC91258906C4004264A6 /* Applozic.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1849C9E52588E314009D0030 /* Applozic.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -82,6 +83,7 @@
 		18522F84257A44E600EB41C0 /* ALCallKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALCallKitManager.m; path = ALAudioVideo/AudioVideo/ALCallKitManager.m; sourceTree = "<group>"; };
 		18522F85257A44E600EB41C0 /* ALVOIPNotificationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALVOIPNotificationHandler.h; path = ALAudioVideo/AudioVideo/ALVOIPNotificationHandler.h; sourceTree = "<group>"; };
 		18522F86257A44E600EB41C0 /* ALCallKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALCallKitManager.h; path = ALAudioVideo/AudioVideo/ALCallKitManager.h; sourceTree = "<group>"; };
+		18594B3725A8CF4100870027 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		188C9B202566F067002086B4 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		C714D1C21EF176730068C6ED /* ALAudioVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALAudioVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C714D1C61EF176730068C6ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				C714D1C61EF176730068C6ED /* main.m */,
+				18594B3725A8CF4100870027 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 			files = (
 				C714D1D51EF176730068C6ED /* LaunchScreen.storyboard in Resources */,
 				C714D2191EF18D9E0068C6ED /* AudioVideo.xcassets in Resources */,
+				18594B3825A8CF4100870027 /* Localizable.strings in Resources */,
 				C714D2181EF18D9E0068C6ED /* AudioVideo.storyboard in Resources */,
 				C714D1D21EF176730068C6ED /* Assets.xcassets in Resources */,
 				C714D1D01EF176730068C6ED /* Main.storyboard in Resources */,

@@ -33,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *videoShare;
 @property (weak, nonatomic) IBOutlet UILabel *audioCallType;
 
+@property (weak, nonatomic) IBOutlet UILabel *callStatus;
+
 @property (strong, nonatomic) NSUUID * uuid;
 
 @property (strong, nonatomic) ALContact * alContact;
