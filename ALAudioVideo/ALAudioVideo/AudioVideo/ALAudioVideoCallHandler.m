@@ -7,12 +7,10 @@
 //
 
 #import "ALAudioVideoCallHandler.h"
-#import "Applozic/ALUtilityClass.h"
 #import "ALCallKitManager.h"
 #import "ALVOIPNotificationHandler.h"
-@implementation ALAudioVideoCallHandler
 
-static NSString *const ALDidSelectStartCallOption = @"ALDidSelectStartCallOption";
+@implementation ALAudioVideoCallHandler
 
 +(ALAudioVideoCallHandler *)shared
 {
@@ -26,11 +24,12 @@ static NSString *const ALDidSelectStartCallOption = @"ALDidSelectStartCallOption
     return audioVideoCallHandler;
 }
 
-
 -(void) dataConnectionNotificationHandler {
 
+    /// Enable the audio video call
+    [ALApplozicSettings setAudioVideoEnabled:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSelectCallOptionHandler:)
-                                                 name:ALDidSelectStartCallOption
+                                                 name:ALDidSelectStartCallOptionKey
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transferVOIPMessage:)
                                                  name:NEW_MESSAGE_NOTIFICATION
@@ -45,8 +44,8 @@ static NSString *const ALDidSelectStartCallOption = @"ALDidSelectStartCallOption
         return;
     }
 
-    NSString *callForUserId = [callUserInfo valueForKey:@"USER_ID"];
-    NSNumber * isAudioCall = [callUserInfo valueForKey:@"CALL_FOR_AUDIO"];
+    NSString *callForUserId = [callUserInfo valueForKey:ALCallForAudioKey];
+    NSNumber * isAudioCall = [callUserInfo valueForKey:ALAudioVideoCallForUserIdKey];
 
     NSUUID * uuid = [NSUUID UUID];
     NSString * roomID =  [NSString stringWithFormat:@"%@:%@", uuid.UUIDString,
@@ -63,9 +62,8 @@ static NSString *const ALDidSelectStartCallOption = @"ALDidSelectStartCallOption
 -(void)transferVOIPMessage:(NSNotification *)notification {
     NSMutableArray * messageArray = notification.object;
     ALVOIPNotificationHandler * voipHandler = [ALVOIPNotificationHandler sharedManager];
-    ALPushAssist * assist = [[ALPushAssist alloc] init];
     for (ALMessage *msg in messageArray) {
-        [voipHandler handleAVMsg:msg andViewController:assist.topViewController];
+        [voipHandler handleAVMsg:msg];
     }
 }
 

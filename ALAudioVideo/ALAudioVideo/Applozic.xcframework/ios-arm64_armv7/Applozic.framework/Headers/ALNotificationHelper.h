@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Applozic/Applozic.h>
+#import "Applozic.h"
 
 @interface ALNotificationHelper : NSObject
 

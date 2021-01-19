@@ -13,11 +13,11 @@
 #import <TwilioVideo/TwilioVideo.h>
 #import <AVFoundation/AVFoundation.h>
 
-#define CALL_DIALED @"CALL_DIALED"
-#define CALL_ANSWERED @"CALL_ANSWERED"
-#define CALL_REJECTED @"CALL_REJECTED"
-#define CALL_MISSED @"CALL_MISSED"
-#define CALL_END @"CALL_END"
+extern NSString * const AL_CALL_DIALED;
+extern NSString * const AL_CALL_ANSWERED;
+extern NSString * const AL_CALL_REJECTED;
+extern NSString * const AL_CALL_MISSED;
+extern NSString * const AL_CALL_END;
 
 @interface ALAudioVideoCallVC : ALAudioVideoBaseVC <TVIRemoteParticipantDelegate, TVIRoomDelegate, TVIVideoViewDelegate, TVICameraSourceDelegate>
 
@@ -36,8 +36,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *callStatus;
 
 @property (strong, nonatomic) NSUUID * uuid;
-
-@property (strong, nonatomic) ALContact * alContact;
+@property (strong, nonatomic) NSString *imageURL;
+@property (strong, nonatomic) NSString *displayName;
 @property (weak, nonatomic) ALMQTTConversationService * alMQTTObject;
 
 - (IBAction)callAcceptRejectAction:(id)sender;

@@ -12,15 +12,7 @@
 
 @interface ALVOIPNotificationHandler : NSObject
 
-@property (nonatomic, strong) UIViewController *presenterVC;
-
 +(instancetype)sharedManager;
-
--(void)launchAVViewController:(NSString *)userID
-                 andLaunchFor:(NSNumber *)type
-                     orRoomId:(NSString *)roomId
-                 andCallAudio:(BOOL)flag
-            andViewController:(UIViewController *)viewSelf;
 
 +(void)sendMessageWithMetaData:(NSMutableDictionary *)dictionary
                  andReceiverId:(NSString *)userId
@@ -32,7 +24,7 @@
                        andCallAudio:(BOOL)flag
                           andRoomId:(NSString *)metaRoomID;
 
--(void)handleAVMsg:(ALMessage *)alMessage andViewController:(UIViewController *)viewSelf;
+-(void)handleAVMsg:(ALMessage *)alMessage;
 
 
 @end

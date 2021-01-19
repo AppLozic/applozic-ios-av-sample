@@ -72,7 +72,7 @@ static NSString *const AL_AUTHENTICATION_TOKEN_VALID_UPTO_MINS = @"com.applozic.
 static NSString *const AL_INITIAL_MESSAGE_LIST_CALL = @"com.applozic.userdefault.AL_INITIAL_MESSAGE_LIST_CALL";
 static NSString *const AL_LOGGED_IN_USER_DEACTIVATED = @"com.applozic.userdefault.AL_LOGGED_IN_USER_DEACTIVATED";
 static NSString *const AL_CHANNEL_LIST_LAST_GENERATED_TIME = @"com.applozic.userdefault.AL_CHANNEL_LIST_LAST_GENERATED_TIME";
-
+static NSString *const AL_VOIP_DEVICE_TOKEN = @"com.applozic.userdefault.VOIP_DEVICE_TOKEN";
 
 #import <Foundation/Foundation.h>
 #import "ALApplozicSettings.h"
@@ -287,4 +287,6 @@ static NSString *const AL_CHANNEL_LIST_LAST_GENERATED_TIME = @"com.applozic.user
 +(void)setChannelListLastSyncGeneratedTime:(NSNumber *)lastSyncGeneratedTime;
 +(NSNumber *)getChannelListLastSyncGeneratedTime;
 
++(void)setVOIPDeviceToken:(NSString *)VOIPDeviceToken;
++(NSString*) getVOIPDeviceToken;
 @end

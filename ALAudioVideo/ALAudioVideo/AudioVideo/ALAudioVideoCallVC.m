@@ -9,6 +9,12 @@
 #import "ALAudioVideoCallVC.h"
 #import "ALCallKitManager.h"
 
+NSString * const AL_CALL_DIALED = @"CALL_DIALED";
+NSString * const AL_CALL_ANSWERED = @"CALL_ANSWERED";
+NSString * const AL_CALL_REJECTED = @"CALL_REJECTED";
+NSString * const AL_CALL_MISSED = @"CALL_MISSED";
+NSString * const AL_CALL_END = @"CALL_END";
+
 @interface ALAudioVideoCallVC ()
 
 @property (weak, nonatomic) NSTimer * timer;
@@ -84,13 +90,11 @@
         self.userProfile.layer.cornerRadius = self.userProfile.frame.size.width/2;
         self.userProfile.layer.masksToBounds = YES;
     });
-    
-    ALContactService * contactService = [[ALContactService alloc] init];
-    self.alContact = [contactService loadContactByKey:@"userId" value:self.receiverID];
-    [self.UserDisplayName setText:[self.alContact getDisplayName]];
-    if (self.alContact.contactImageUrl.length)
+
+    [self.UserDisplayName setText:self.displayName];
+    if (self.imageURL.length)
     {
-        [ALUtilityClass setImageFromURL:self.alContact.contactImageUrl andImageView:self.userProfile];
+        [ALUtilityClass setImageFromURL:self.imageURL andImageView:self.userProfile];
     }
     
     [self.callAcceptReject setHidden:YES];
@@ -273,7 +277,7 @@
         {
             // SELF IS CALLED/RECEIVER AND TIMEOUT (count > 60) : SEND MISSED MSG
 
-            NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_MISSED"
+            NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_MISSED
                                                                          andCallAudio:self.callForAudio
                                                                             andRoomId:self.roomID];
             [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
@@ -392,7 +396,7 @@
 {
     if([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]])
     {
-        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_DIALED"
+        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_DIALED
                                                                      andCallAudio:self.callForAudio
                                                                         andRoomId:self.roomID];
         [self doConnect];
@@ -410,7 +414,7 @@
     }
     else
     {
-        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_ANSWERED"
+        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_ANSWERED
                                                                      andCallAudio:self.callForAudio
                                                                         andRoomId:self.roomID];
         [self doConnect];

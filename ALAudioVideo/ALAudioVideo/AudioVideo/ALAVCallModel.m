@@ -14,7 +14,9 @@
                         roomId:(NSString *)roomId
                       callUUID:(NSUUID *)callUUID
                  launchForType:(NSNumber *)launchFor
-                  callForAudio:(BOOL)audioCall {
+                  callForAudio:(BOOL)audioCall
+           withUserDisplayName:(nonnull NSString *)displayName
+                  withImageURL:(nonnull NSString *)imageURL {
     self = [super init];
     if (self) {
         self.userId = userId;
@@ -22,6 +24,8 @@
         self.callUUID = callUUID;
         self.launchFor = launchFor;
         self.callForAudio = audioCall;
+        self.displayName = displayName;
+        self.imageURL = imageURL;
     }
     return self;
 }

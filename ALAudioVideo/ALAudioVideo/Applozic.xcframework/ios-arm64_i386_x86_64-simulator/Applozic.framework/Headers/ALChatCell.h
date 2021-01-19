@@ -25,6 +25,7 @@
 -(void) showAnimation:(BOOL)flag;
 -(void) processALMessage:(ALMessage *) message;
 -(void) processForwardMessage:(ALMessage *) message;
+-(void)messageReport:(ALMessage *)alMessage;
 
 @optional
 

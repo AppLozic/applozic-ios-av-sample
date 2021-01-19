@@ -15,13 +15,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSUUID *callUUID;
 @property (strong, nonatomic) NSString *roomId;
 @property (nonatomic, strong) NSNumber *launchFor;
+@property (strong, nonatomic) NSString *imageURL;
+@property (strong, nonatomic) NSString *displayName;
 @property (nonatomic) BOOL callForAudio;
 
 - (instancetype)initWithUserId:(NSString *)userId
                         roomId:(NSString *)roomId
                       callUUID:(NSUUID *)callUUID
                  launchForType:(NSNumber *)launchFor
-                  callForAudio:(BOOL)audioCall;
+                  callForAudio:(BOOL)audioCall
+           withUserDisplayName:(NSString *)displayName
+                  withImageURL:(NSString *)imageURL;
+
 @end
 
 NS_ASSUME_NONNULL_END

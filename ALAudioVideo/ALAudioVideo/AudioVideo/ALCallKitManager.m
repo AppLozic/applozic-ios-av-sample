@@ -20,7 +20,12 @@
 {
     self = [super init];
     if (self) {
-        CXProviderConfiguration *configuration = [[CXProviderConfiguration alloc] initWithLocalizedName:NSLocalizedStringWithDefaultValue(@"appName", nil, [NSBundle mainBundle], @"Applozic", @"")];
+        CXProviderConfiguration *configuration;
+        if (@available(iOS 14.0, *)) {
+            configuration = [[CXProviderConfiguration alloc] init];
+        } else {
+            configuration = [[CXProviderConfiguration alloc] initWithLocalizedName:NSLocalizedStringWithDefaultValue(@"appName", nil, [NSBundle mainBundle], @"Applozic", @"")];
+        }
         configuration.supportsVideo = YES;
         configuration.maximumCallGroups = 1;
         configuration.maximumCallsPerCallGroup = 1;
@@ -46,13 +51,14 @@
                    withUserId:(NSString *)userId
              withCallForAudio:(BOOL)callForAudio
                    withRoomId:(NSString *)roomId
-                withLaunchFor:(NSNumber *)launchFor {
+                withLaunchFor:(NSNumber *)launchFor
+          withUserDisplayName:(NSString *)displayName
+                 withImageURL:(NSString *)imageURL {
+    
     CXCallUpdate *callUpdate = [[CXCallUpdate alloc] init];
-    ALContactDBService * contactDB = [ALContactDBService new];
-    ALContact *alContact = [contactDB loadContactByKey:@"userId" value:userId];
-
-    if (alContact.userId) {
-        CXHandle * handle = [[CXHandle alloc] initWithType:CXHandleTypeGeneric value:alContact.getDisplayName];
+    
+    if (userId) {
+        CXHandle * handle = [[CXHandle alloc] initWithType:CXHandleTypeGeneric value:displayName];
         callUpdate.remoteHandle = handle;
         callUpdate.supportsDTMF = YES;
         callUpdate.supportsHolding = NO;
@@ -64,7 +70,7 @@
                                                                   roomId:roomId
                                                                 callUUID:callUUID
                                                            launchForType:launchFor
-                                                            callForAudio:callForAudio];
+                                                            callForAudio:callForAudio withUserDisplayName:displayName withImageURL:imageURL];
         self.callListModels[callUUIDString] = callModel;
         [self.callKitProvider reportNewIncomingCallWithUUID:callUUID update:callUpdate completion:^(NSError * error) {
             if (error) {
@@ -85,21 +91,22 @@
              withCallForAudio:(BOOL)callForAudio
                    withRoomId:(NSString *)roomId
                 withLaunchFor:(NSNumber *)launchFor {
-
+    
     ALContactDBService * contactDB = [ALContactDBService new];
     ALContact *alContact = [contactDB loadContactByKey:@"userId" value:userId];
-
-    CXHandle * handle = [[CXHandle alloc] initWithType:CXHandleTypeGeneric value:alContact.getDisplayName];
+    
+    NSString * displayName = alContact.getDisplayName;
+    CXHandle * handle = [[CXHandle alloc] initWithType:CXHandleTypeGeneric value:displayName];
     CXStartCallAction *startCallAction = [[CXStartCallAction alloc] initWithCallUUID:callUUID handle:handle];
     startCallAction.video = !callForAudio;
     startCallAction.contactIdentifier = userId;
-
+    
     NSString *callUUIDString = callUUID.UUIDString;
     ALAVCallModel *callModel = [[ALAVCallModel alloc] initWithUserId:userId
                                                               roomId:roomId
                                                             callUUID:callUUID
                                                        launchForType:launchFor
-                                                        callForAudio:callForAudio];
+                                                        callForAudio:callForAudio withUserDisplayName:displayName withImageURL:alContact.contactImageUrl];
     self.callListModels[callUUIDString] = callModel;
     CXTransaction *transaction = [[CXTransaction alloc] initWithAction:startCallAction];
     [self.callKitCallController requestTransaction:transaction completion:^(NSError *error) {
@@ -127,10 +134,10 @@
     if ([callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] && !startTime)
     {
         //        SELF CALLED AND SELF REJECT : SEND MISSED MSG : WITHOUT TALK
-        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_MISSED"
+        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_MISSED
                                                                      andCallAudio:callModel.callForAudio
                                                                         andRoomId:callModel.roomId];
-
+        
         [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                              andReceiverId:callModel.userId
                                             andContentType:AV_CALL_CONTENT_TWO
@@ -147,10 +154,10 @@
     else if ([callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]] && !startTime)
     {
         //        SELF IS RECEIVER AND REJECT CALL : SEND REJECT MSG : WITHOUT TALK
-        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_REJECTED"
+        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_REJECTED
                                                                      andCallAudio:callModel.callForAudio
                                                                         andRoomId:callModel.roomId];
-
+        
         [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                              andReceiverId:callModel.userId
                                             andContentType:AV_CALL_CONTENT_TWO
@@ -159,18 +166,18 @@
             return;
         }];
     } else {
-
+        
         if ([callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] ||
             [callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]]) {
-
+            
             if (startTime.integerValue >0) {
                 NSNumber *endTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
                 long int timeDuration = (endTime.integerValue - startTime.integerValue);
                 NSString *callDuration = [NSString stringWithFormat:@"%li",timeDuration];
-                NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_END"
+                NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_END
                                                                              andCallAudio:callModel.callForAudio
                                                                                 andRoomId:callModel.roomId];
-
+                
                 [dictionary setObject:callDuration forKey:@"CALL_DURATION"];
                 [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
                                                      andReceiverId:callModel.userId
@@ -281,6 +288,9 @@
         audioVideoCallVC.callForAudio = callModel.callForAudio;
         audioVideoCallVC.baseRoomId = callModel.roomId;
         audioVideoCallVC.uuid = callModel.callUUID;
+        audioVideoCallVC.displayName = callModel.displayName;
+        audioVideoCallVC.imageURL = callModel.imageURL;
+
         audioVideoCallVC.modalPresentationStyle = UIModalPresentationFullScreen;
         if (fromStartCall) {
             [self.callKitProvider reportOutgoingCallWithUUID:callUUID startedConnectingAtDate:nil];
@@ -292,12 +302,12 @@
         }];
     } else {
         completion(NO);
-
+        
     }
 }
 
 -(void) reportOutgoingCall:(NSUUID *)callUUID withCXCallEndedReason:(CXCallEndedReason) reason {
-
+    
     // Check if call call is active
     if ([self isCallActive:callUUID]) {
         self.activeCallModel = nil;
@@ -329,11 +339,11 @@
 }
 
 - (void)setAudioOutputSpeaker:(BOOL)enabled {
-
+    
     self.audioDevice.block =  ^ {
         // We will execute `kTVIDefaultAVAudioSessionConfigurationBlock` first.
         kTVIDefaultAVAudioSessionConfigurationBlock();
-
+        
         // Overwrite the audio route
         AVAudioSession *session = [AVAudioSession sharedInstance];
         NSError *error = nil;
@@ -354,7 +364,7 @@
 #pragma mark - CXProviderDelegate
 - (void)providerDidReset:(CXProvider *)provider {
     NSLog(@"providerDidReset:@");
-
+    
     //Clearing all the resource and disconnecting from room
     self.callListModels = [[NSMutableDictionary alloc] init];
     if (self.activeCallViewController) {
@@ -387,13 +397,13 @@
 
 - (void)provider:(CXProvider *)provider performStartCallAction:(CXStartCallAction *)action {
     NSLog(@"provider:performStartCallAction:@");
-
+    
     // Stop the audio unit by setting isEnabled to `false`.
     self.audioDevice.enabled = NO;
-
+    
     // Configure the AVAudioSession by executign the audio device's `block`.
     self.audioDevice.block();
-
+    
     [self sendMessageAndEndActiveCallWithCompletion:^(NSError *error) {
         if (error) {
             NSLog(@"Error in provider:performStartCallAction: %@", error.localizedDescription);
@@ -414,13 +424,13 @@
 
 - (void)provider:(CXProvider *)provider performAnswerCallAction:(CXAnswerCallAction *)action {
     NSLog(@"provider:performAnswerCallAction:@");
-
+    
     // Stop the audio unit by setting isEnabled to `false`.
     self.audioDevice.enabled = NO;
-
+    
     // Configure the AVAudioSession by executign the audio device's `block`.
     self.audioDevice.block();
-
+    
     [self sendMessageAndEndActiveCallWithCompletion:^(NSError *error) {
         if (error) {
             NSLog(@"Error in provider:performAnswerCallAction: %@", error.localizedDescription);
@@ -444,11 +454,13 @@
 - (void)provider:(CXProvider *)provider performEndCallAction:(CXEndCallAction *)action {
     NSLog(@"provider:performEndCallAction:@");
     NSString * callUUIDString = [action.callUUID UUIDString];
-
+    
     if (self.callListModels.count > 0 &&
         [self.callListModels valueForKey:callUUIDString]) {
+        UIBackgroundTaskIdentifier identifer = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
         ALAVCallModel *callModel = [self.callListModels valueForKey:callUUIDString];
         [self sendEndCallWithCallModel:callModel withCompletion:^(NSError *error) {
+            [[UIApplication sharedApplication] endBackgroundTask:identifer];
             if (error) {
                 NSLog(@"Error in provider:performEndCallAction: %@", error.localizedDescription);
                 [action fail];
@@ -475,7 +487,7 @@
         NSLog(@"Provider:performEndCallAction failed");
         [action fail];
     }
-
+    
 }
 
 @end

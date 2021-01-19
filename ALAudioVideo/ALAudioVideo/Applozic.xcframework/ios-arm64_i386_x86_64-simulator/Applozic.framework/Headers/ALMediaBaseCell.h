@@ -41,6 +41,7 @@
 -(void) processForwardMessage:(ALMessage *) message;
 -(void) handleTapGestureForKeyBoard;
 -(void) deleteMessasgeforAll:(ALMessage *) message;
+-(void)messageReport:(ALMessage *)alMessage;
 
 @optional
 
