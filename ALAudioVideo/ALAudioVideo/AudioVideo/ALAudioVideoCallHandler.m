@@ -44,8 +44,8 @@
         return;
     }
 
-    NSString *callForUserId = [callUserInfo valueForKey:ALCallForAudioKey];
-    NSNumber * isAudioCall = [callUserInfo valueForKey:ALAudioVideoCallForUserIdKey];
+    NSString *callForUserId = [callUserInfo valueForKey:ALAudioVideoCallForUserIdKey];
+    NSNumber * isAudioCall = [callUserInfo valueForKey:ALCallForAudioKey];
 
     NSUUID * uuid = [NSUUID UUID];
     NSString * roomID =  [NSString stringWithFormat:@"%@:%@", uuid.UUIDString,

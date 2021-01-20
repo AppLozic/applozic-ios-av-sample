@@ -295,14 +295,24 @@
         if (fromStartCall) {
             [self.callKitProvider reportOutgoingCallWithUUID:callUUID startedConnectingAtDate:nil];
         }
-        [pushAssist.topViewController presentViewController:audioVideoCallVC animated:YES completion:^{
-            self.activeCallModel = callModel;
-            self.activeCallViewController = audioVideoCallVC;
-            completion(YES);
-        }];
+
+        if (!pushAssist.topViewController) {
+            completion(NO);
+            return;
+        }
+        [UIView transitionWithView:pushAssist.topViewController.view
+                          duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+            [pushAssist.topViewController presentViewController:audioVideoCallVC
+                                                       animated:YES
+                                                     completion:^{
+                self.activeCallModel = callModel;
+                self.activeCallViewController = audioVideoCallVC;
+                completion(YES);
+            }];
+        } completion:nil];
     } else {
         completion(NO);
-        
     }
 }
 
