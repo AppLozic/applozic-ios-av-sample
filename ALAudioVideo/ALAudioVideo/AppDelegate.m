@@ -171,6 +171,17 @@
     }];
 }
 
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
+
+    NSLog(@"RECEIVED_NOTIFICATION_WITH_COMPLETION :: %@", userInfo);
+    ALPushNotificationService *pushNotificationService = [[ALPushNotificationService alloc] init];
+    if ([pushNotificationService isApplozicNotification:userInfo]) {
+        [pushNotificationService notificationArrivedToApplication:application withDictionary:userInfo];
+        completionHandler(UIBackgroundFetchResultNewData);
+        return;
+    }
+    completionHandler(UIBackgroundFetchResultNewData);
+}
 
 //============================================================================================================================
 #pragma mark : UNUserNotificationCenterDelegate : REMOTE NOTIFICATIONS

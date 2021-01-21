@@ -100,7 +100,7 @@ NSString * const AL_CALL_END = @"CALL_END";
     [self.callAcceptReject setHidden:YES];
     self.roomID = self.baseRoomId;
     count = 0;
-    
+    [self buttonVisiblityForCallType:NO];
     if([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]])
     {
         /// When calling to user will show status as Calling.
@@ -117,7 +117,6 @@ NSString * const AL_CALL_END = @"CALL_END";
         NSString * connectingStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallConnectingStatusInfo", nil,[NSBundle mainBundle], @"Connecting...", @"");
         [self showCallStatus:YES withCallStatusInfo:connectingStatusInfo];
         [self handleCallButtonVisiblity];
-        [self buttonVisiblityForCallType:NO];
     }
     
     [self.audioCallType setHidden:NO];
