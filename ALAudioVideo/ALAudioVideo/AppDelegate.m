@@ -227,7 +227,9 @@
     if ([pushNotificationService isApplozicNotification:userInfoPayload]) {
         [pushNotificationService processPushNotification:userInfoPayload];
         completion();
+        return;
     }
+    completion();
 }
 
 @end

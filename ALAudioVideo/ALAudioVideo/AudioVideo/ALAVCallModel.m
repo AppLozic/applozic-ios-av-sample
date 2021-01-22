@@ -30,4 +30,36 @@
     return self;
 }
 
+-(void)setUnansweredCallTimerActive:(BOOL)unansweredCallTimerActive {
+    if (unansweredCallTimerActive) {
+        self.unansweredCallBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+        self.unansweredTimer = [NSTimer scheduledTimerWithTimeInterval:60.0
+                                                                target:self
+                                                              selector:@selector(callEndTimer:)
+                                                              userInfo:nil
+                                                               repeats:NO];
+    } else {
+        [self invalidateCallUnansweredNotifying];
+    }
+}
+
+-(void)callEndTimer:(NSTimer *)timer {
+    if (self.unansweredCallBackgroundTaskId != UIBackgroundTaskInvalid) {
+        self.unansweredHandlerCallBack(self);
+    }
+    [self invalidateCallUnansweredNotifying];
+}
+
+-(void)invalidateCallUnansweredNotifying {
+    if (self.unansweredTimer &&
+        self.unansweredTimer.isValid) {
+        [self.unansweredTimer invalidate];
+    }
+
+    if (self.unansweredCallBackgroundTaskId != UIBackgroundTaskInvalid) {
+        [[UIApplication sharedApplication] endBackgroundTask:self.unansweredCallBackgroundTaskId];
+        self.unansweredCallBackgroundTaskId = UIBackgroundTaskInvalid;
+    }
+}
+
 @end

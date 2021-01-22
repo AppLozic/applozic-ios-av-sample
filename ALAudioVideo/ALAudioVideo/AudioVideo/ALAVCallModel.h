@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIKit/UIKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *displayName;
 @property (nonatomic) BOOL callForAudio;
+@property (nonatomic) UIBackgroundTaskIdentifier unansweredCallBackgroundTaskId;
+@property (nonatomic) BOOL unansweredCallTimerActive;
+@property (nonatomic, strong) void(^unansweredHandlerCallBack)(ALAVCallModel*);
+@property (strong, nonatomic) NSTimer *unansweredTimer;
 
 - (instancetype)initWithUserId:(NSString *)userId
                         roomId:(NSString *)roomId

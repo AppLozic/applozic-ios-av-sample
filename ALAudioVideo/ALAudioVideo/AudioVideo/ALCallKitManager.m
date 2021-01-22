@@ -70,18 +70,28 @@
                                                                   roomId:roomId
                                                                 callUUID:callUUID
                                                            launchForType:launchFor
-                                                            callForAudio:callForAudio withUserDisplayName:displayName withImageURL:imageURL];
+                                                            callForAudio:callForAudio
+                                                     withUserDisplayName:displayName
+                                                            withImageURL:imageURL];
+
+        __weak typeof(self) weakSelf = self;
+        callModel.unansweredHandlerCallBack = ^(ALAVCallModel *model) {
+            [weakSelf sendEndCallWithCallModel:model
+                                withCompletion:^(NSError *error) {
+                [weakSelf removeModelWithCallUUID:callUUIDString];
+                [weakSelf reportOutgoingCall:model.callUUID withCXCallEndedReason:CXCallEndedReasonUnanswered];
+            }];
+        };
+
         self.callListModels[callUUIDString] = callModel;
         [self.callKitProvider reportNewIncomingCallWithUUID:callUUID update:callUpdate completion:^(NSError * error) {
             if (error) {
                 NSLog(@"Error in callKitProvider reportNewIncomingCall: %@", error.localizedDescription);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self removeModelWithCallUUID:callUUIDString];
-                });
             } else {
                 NSLog(@"New call reported for userId successsfully %@",userId);
             }
         }];
+        callModel.unansweredCallTimerActive = YES;
     }
 }
 
@@ -106,7 +116,9 @@
                                                               roomId:roomId
                                                             callUUID:callUUID
                                                        launchForType:launchFor
-                                                        callForAudio:callForAudio withUserDisplayName:displayName withImageURL:alContact.contactImageUrl];
+                                                        callForAudio:callForAudio
+                                                 withUserDisplayName:displayName
+                                                        withImageURL:alContact.contactImageUrl];
     self.callListModels[callUUIDString] = callModel;
     CXTransaction *transaction = [[CXTransaction alloc] initWithAction:startCallAction];
     [self.callKitCallController requestTransaction:transaction completion:^(NSError *error) {
@@ -269,6 +281,13 @@
             [self clear];
         }];
     } else {
+
+        /// Invalidate  the call timer in case if its active if some one disconnect the call from other end
+        if (self.callListModels.count > 0 &&
+            [self.callListModels valueForKey: callUUID.UUIDString]) {
+            ALAVCallModel *callModel = [self.callListModels valueForKey:callUUID.UUIDString];
+            callModel.unansweredCallTimerActive = NO;
+        }
         [self reportOutgoingCall:callUUID withCXCallEndedReason:reason];
     }
 }
@@ -320,8 +339,6 @@
     
     // Check if call call is active
     if ([self isCallActive:callUUID]) {
-        self.activeCallModel = nil;
-        [self clear];
         [self.callKitProvider reportCallWithUUID:callUUID endedAtDate:nil reason:reason];
     }
 }
@@ -446,6 +463,13 @@
             NSLog(@"Error in provider:performAnswerCallAction: %@", error.localizedDescription);
             [action fail];
         } else {
+
+            if (self.callListModels.count > 0 &&
+                [self.callListModels valueForKey:[action.callUUID UUIDString]]) {
+                ALAVCallModel *callModel = [self.callListModels valueForKey:[action.callUUID UUIDString]];
+                callModel.unansweredCallTimerActive = NO;
+            }
+
             [self presentCallVCWithCallUUIDString:action.callUUID
                                 withFromStartCall:NO
                                    withCompletion:^(BOOL success) {
@@ -469,6 +493,7 @@
         [self.callListModels valueForKey:callUUIDString]) {
         UIBackgroundTaskIdentifier identifer = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
         ALAVCallModel *callModel = [self.callListModels valueForKey:callUUIDString];
+        callModel.unansweredCallTimerActive = NO;
         [self sendEndCallWithCallModel:callModel withCompletion:^(NSError *error) {
             [[UIApplication sharedApplication] endBackgroundTask:identifer];
             if (error) {
