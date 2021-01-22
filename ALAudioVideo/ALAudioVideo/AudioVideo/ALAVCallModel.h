@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL unansweredCallTimerActive;
 @property (nonatomic, strong) void(^unansweredHandlerCallBack)(ALAVCallModel*);
 @property (strong, nonatomic) NSTimer *unansweredTimer;
+@property (strong, nonatomic) NSNumber *startTime;
 
 - (instancetype)initWithUserId:(NSString *)userId
                         roomId:(NSString *)roomId

@@ -876,10 +876,7 @@ NSString * const AL_CALL_END = @"CALL_END";
 -(void)clearRoom {
     if (self.audioTimer) {
         [self.audioTimer invalidate];
-    }
-    ALCallKitManager *callkitManager = [ALCallKitManager sharedManager];
-    [callkitManager clear];
-    
+    }    
     // We are done with camera
     if (self.camera) {
         [self.camera stopCapture];

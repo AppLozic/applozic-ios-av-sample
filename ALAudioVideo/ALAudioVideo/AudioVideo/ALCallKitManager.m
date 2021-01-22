@@ -3,9 +3,6 @@
 #import "ALAudioVideoCallVC.h"
 
 @implementation ALCallKitManager
-{
-    NSNumber *startTime;
-}
 
 + (ALCallKitManager *)sharedManager {
     static ALCallKitManager *sharedMyManager = nil;
@@ -73,7 +70,7 @@
                                                             callForAudio:callForAudio
                                                      withUserDisplayName:displayName
                                                             withImageURL:imageURL];
-
+        
         __weak typeof(self) weakSelf = self;
         callModel.unansweredHandlerCallBack = ^(ALAVCallModel *model) {
             [weakSelf sendEndCallWithCallModel:model
@@ -82,7 +79,7 @@
                 [weakSelf reportOutgoingCall:model.callUUID withCXCallEndedReason:CXCallEndedReasonUnanswered];
             }];
         };
-
+        
         self.callListModels[callUUIDString] = callModel;
         [self.callKitProvider reportNewIncomingCallWithUUID:callUUID update:callUpdate completion:^(NSError * error) {
             if (error) {
@@ -143,7 +140,7 @@
 
 -(void) sendEndCallWithCallModel:(ALAVCallModel *)callModel
                   withCompletion:(void(^)(NSError * error)) completion {
-    if ([callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] && !startTime)
+    if ([callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] && !callModel.startTime)
     {
         //        SELF CALLED AND SELF REJECT : SEND MISSED MSG : WITHOUT TALK
         NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_MISSED
@@ -163,7 +160,7 @@
             }];
         }];
     }
-    else if ([callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]] && !startTime)
+    else if ([callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]] && !callModel.startTime)
     {
         //        SELF IS RECEIVER AND REJECT CALL : SEND REJECT MSG : WITHOUT TALK
         NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_REJECTED
@@ -182,9 +179,9 @@
         if ([callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]] ||
             [callModel.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]]) {
             
-            if (startTime.integerValue >0) {
+            if (callModel.startTime.integerValue >0) {
                 NSNumber *endTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
-                long int timeDuration = (endTime.integerValue - startTime.integerValue);
+                long int timeDuration = (endTime.integerValue - callModel.startTime.integerValue);
                 NSString *callDuration = [NSString stringWithFormat:@"%li",timeDuration];
                 NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_END
                                                                              andCallAudio:callModel.callForAudio
@@ -249,13 +246,11 @@
                         [self removeModelWithCallUUID:self.activeCallModel.callUUID.UUIDString];
                         self.activeCallModel = nil;
                         self.activeCallViewController = nil;
-                        [self clear];
                         completion(nil);
                     }];
                 } else {
                     self.activeCallModel = nil;
                     [self removeModelWithCallUUID:self.activeCallModel.callUUID.UUIDString];
-                    [self clear];
                     completion(nil);
                 }
             }
@@ -278,10 +273,9 @@
             [self removeModelWithCallUUID:self.activeCallModel.callUUID.UUIDString];
             self.activeCallModel = nil;
             self.activeCallViewController = nil;
-            [self clear];
         }];
     } else {
-
+        
         /// Invalidate  the call timer in case if its active if some one disconnect the call from other end
         if (self.callListModels.count > 0 &&
             [self.callListModels valueForKey: callUUID.UUIDString]) {
@@ -309,12 +303,12 @@
         audioVideoCallVC.uuid = callModel.callUUID;
         audioVideoCallVC.displayName = callModel.displayName;
         audioVideoCallVC.imageURL = callModel.imageURL;
-
+        
         audioVideoCallVC.modalPresentationStyle = UIModalPresentationFullScreen;
         if (fromStartCall) {
             [self.callKitProvider reportOutgoingCallWithUUID:callUUID startedConnectingAtDate:nil];
         }
-
+        
         if (!pushAssist.topViewController) {
             completion(NO);
             return;
@@ -348,21 +342,28 @@
     for (CXCall *call in callObserver.calls) {
         if ([call.UUID isEqual:callUUID] && call.isOutgoing) {
             [self.callKitProvider reportOutgoingCallWithUUID:callUUID connectedAtDate:nil];
-            startTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
+            [self updateCallStartTimeWithCallUUID:callUUID];
             break;
         }
     }
 }
 
+-(void)updateCallStartTimeWithCallUUID:(NSUUID *)callUUID {
+    NSString *callUUIDString = callUUID.UUIDString;
+    if (self.callListModels.count > 0 &&
+        [self.callListModels valueForKey:callUUIDString]) {
+        ALAVCallModel *callModel = [self.callListModels valueForKey:callUUIDString];
+        if (callModel) {
+            callModel.startTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
+            self.callListModels[callUUIDString] = callModel;
+        }
+    }
+}
 -(void)removeModelWithCallUUID:(NSString *) callUUIDString {
     if (self.callListModels.count > 0 &&
         [self.callListModels valueForKey:callUUIDString]) {
         [self.callListModels removeObjectForKey:callUUIDString];
     }
-}
-
--(void)clear {
-    self->startTime = nil;
 }
 
 - (void)setAudioOutputSpeaker:(BOOL)enabled {
@@ -400,7 +401,6 @@
                                                           completion:^{
             self.activeCallModel = nil;
             self.activeCallViewController = nil;
-            [self clear];
         }];
     }
 }
@@ -463,18 +463,18 @@
             NSLog(@"Error in provider:performAnswerCallAction: %@", error.localizedDescription);
             [action fail];
         } else {
-
+            
             if (self.callListModels.count > 0 &&
                 [self.callListModels valueForKey:[action.callUUID UUIDString]]) {
                 ALAVCallModel *callModel = [self.callListModels valueForKey:[action.callUUID UUIDString]];
                 callModel.unansweredCallTimerActive = NO;
             }
-
+            
             [self presentCallVCWithCallUUIDString:action.callUUID
                                 withFromStartCall:NO
                                    withCompletion:^(BOOL success) {
                 if (success) {
-                    startTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
+                    [self updateCallStartTimeWithCallUUID:action.callUUID];
                     [action fulfill];
                 } else {
                     NSLog(@"PerformAnswerCallAction is failed");
@@ -500,20 +500,23 @@
                 NSLog(@"Error in provider:performEndCallAction: %@", error.localizedDescription);
                 [action fail];
             } else {
-                if (self.activeCallViewController) {
-                    [self.activeCallViewController disconnectRoom];
-                    [self.activeCallViewController dismissViewControllerAnimated:YES
-                                                                      completion:^{
+                if (callModel.roomId == self.activeCallViewController.roomID) {
+                    if (self.activeCallViewController) {
+                        [self.activeCallViewController disconnectRoom];
+                        [self.activeCallViewController dismissViewControllerAnimated:YES
+                                                                          completion:^{
+                            self.activeCallModel = nil;
+                            self.activeCallViewController = nil;
+                            [self removeModelWithCallUUID:callUUIDString];
+                            [action fulfill];
+                        }];
+                    } else {
                         self.activeCallModel = nil;
-                        self.activeCallViewController = nil;
                         [self removeModelWithCallUUID:callUUIDString];
-                        [self clear];
                         [action fulfill];
-                    }];
+                    }
                 } else {
-                    self.activeCallModel = nil;
                     [self removeModelWithCallUUID:callUUIDString];
-                    [self clear];
                     [action fulfill];
                 }
             }

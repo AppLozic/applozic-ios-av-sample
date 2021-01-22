@@ -54,6 +54,5 @@
 // Audio output
 - (void)setAudioOutputSpeaker:(BOOL)enabled;
 
-- (void)clear;
 @end
 

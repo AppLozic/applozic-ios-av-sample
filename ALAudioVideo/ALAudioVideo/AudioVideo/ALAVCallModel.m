@@ -33,7 +33,7 @@
 -(void)setUnansweredCallTimerActive:(BOOL)unansweredCallTimerActive {
     if (unansweredCallTimerActive) {
         self.unansweredCallBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
-        self.unansweredTimer = [NSTimer scheduledTimerWithTimeInterval:60.0
+        self.unansweredTimer = [NSTimer scheduledTimerWithTimeInterval:30.0
                                                                 target:self
                                                               selector:@selector(callEndTimer:)
                                                               userInfo:nil
