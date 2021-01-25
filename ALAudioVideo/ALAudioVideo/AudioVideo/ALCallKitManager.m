@@ -70,7 +70,7 @@
                                                             callForAudio:callForAudio
                                                      withUserDisplayName:displayName
                                                             withImageURL:imageURL];
-        
+
         __weak typeof(self) weakSelf = self;
         callModel.unansweredHandlerCallBack = ^(ALAVCallModel *model) {
             [weakSelf sendEndCallWithCallModel:model
@@ -79,7 +79,7 @@
                 [weakSelf reportOutgoingCall:model.callUUID withCXCallEndedReason:CXCallEndedReasonUnanswered];
             }];
         };
-        
+
         self.callListModels[callUUIDString] = callModel;
         [self.callKitProvider reportNewIncomingCallWithUUID:callUUID update:callUpdate completion:^(NSError * error) {
             if (error) {
@@ -249,8 +249,8 @@
                         completion(nil);
                     }];
                 } else {
-                    self.activeCallModel = nil;
                     [self removeModelWithCallUUID:self.activeCallModel.callUUID.UUIDString];
+                    self.activeCallModel = nil;
                     completion(nil);
                 }
             }
@@ -275,7 +275,7 @@
             self.activeCallViewController = nil;
         }];
     } else {
-        
+
         /// Invalidate  the call timer in case if its active if some one disconnect the call from other end
         if (self.callListModels.count > 0 &&
             [self.callListModels valueForKey: callUUID.UUIDString]) {
@@ -303,12 +303,12 @@
         audioVideoCallVC.uuid = callModel.callUUID;
         audioVideoCallVC.displayName = callModel.displayName;
         audioVideoCallVC.imageURL = callModel.imageURL;
-        
+
         audioVideoCallVC.modalPresentationStyle = UIModalPresentationFullScreen;
         if (fromStartCall) {
             [self.callKitProvider reportOutgoingCallWithUUID:callUUID startedConnectingAtDate:nil];
         }
-        
+
         if (!pushAssist.topViewController) {
             completion(NO);
             return;
@@ -333,6 +333,9 @@
     
     // Check if call call is active
     if ([self isCallActive:callUUID]) {
+        if ([self.activeCallModel.callUUID isEqual:callUUID]) {
+            self.activeCallModel = nil;
+        }
         [self.callKitProvider reportCallWithUUID:callUUID endedAtDate:nil reason:reason];
     }
 }
@@ -463,13 +466,13 @@
             NSLog(@"Error in provider:performAnswerCallAction: %@", error.localizedDescription);
             [action fail];
         } else {
-            
+
             if (self.callListModels.count > 0 &&
                 [self.callListModels valueForKey:[action.callUUID UUIDString]]) {
                 ALAVCallModel *callModel = [self.callListModels valueForKey:[action.callUUID UUIDString]];
                 callModel.unansweredCallTimerActive = NO;
             }
-            
+
             [self presentCallVCWithCallUUIDString:action.callUUID
                                 withFromStartCall:NO
                                    withCompletion:^(BOOL success) {
