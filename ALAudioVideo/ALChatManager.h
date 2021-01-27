@@ -12,8 +12,7 @@
 #import <Applozic/ALConversationService.h>
 #import <Applozic/ALRegisterUserClientService.h>
 
-#define APPLICATION_ID @"133d8d632da14472eacdb399e5aec5516" //prod
-//#define APPLICATION_ID @"5693f5060e04b5b993cf5e2476a0b9d"
+#define APPLICATION_ID @"applozic-sample-app" //prod
 
 @interface ALChatManager : NSObject
 
@@ -23,9 +22,9 @@
 
 -(instancetype)initWithApplicationKey:(NSString *)applicationKey;
 
--(void)registerUser:(ALUser * )alUser;
+-(void)connectUser:(ALUser * )alUser;
 
--(void)registerUserWithCompletion:(ALUser *)alUser withHandler:(void(^)(ALRegistrationResponse *rResponse, NSError *error))completion;
+-(void)connectUserWithCompletion:(ALUser *)alUser withHandler:(void(^)(ALRegistrationResponse *rResponse, NSError *error))completion;
 
 @property (nonatomic,retain) NSString * userID;
 
@@ -33,7 +32,7 @@
 
 -(void)launchChatForUserWithDefaultText:(NSString * )userId andFromViewController:(UIViewController*)viewController;
 
--(void)registerUserAndLaunchChat:(ALUser *)alUser andFromController:(UIViewController*)viewController forUser:(NSString*)userId withGroupId:(NSNumber*)groupID;
+-(void)connectUserAndLaunchChat:(ALUser *)alUser andFromController:(UIViewController*)viewController forUser:(NSString*)userId withGroupId:(NSNumber*)groupID;
 
 -(void)launchChatForUserWithDisplayName:(NSString * )userId withGroupId:(NSNumber*)groupID andwithDisplayName:(NSString*)displayName andFromViewController:(UIViewController*)fromViewController;
 
@@ -50,5 +49,11 @@
 -(NSString *)getApplicationKey;
 
 -(void)launchChatListWithParentKey:(NSNumber *)parentGroupKey andFromViewController:(UIViewController *)viewController;
+
+-(void)launchGroupOfTwoWithClientId:(NSString *)userIdOfReceiver
+                         withItemId:(NSString *)itemId
+                       withMetaData:(NSMutableDictionary *)metadata
+                        andWithUser:(NSString *)userId
+              andFromViewController:(UIViewController *)viewController;
 
 @end

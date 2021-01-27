@@ -1,0 +1,5 @@
+/* Audio video call ViewController */
+"ALCallingStatusInfo" = "Calling";
+"ALReconnectingCallStatusInfo" = "Reconnecting...";
+"ALCallEndStatusInfo" = "Call End";
+"ALCallConnectingStatusInfo" = "Connecting...";

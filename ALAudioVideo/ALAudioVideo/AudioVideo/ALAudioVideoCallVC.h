@@ -7,18 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "ALAudioVideoUtils.h"
 #import <Applozic/Applozic.h>
 #import <TwilioVideo/TwilioVideo.h>
 #import <AVFoundation/AVFoundation.h>
 
-#define CALL_DIALED @"CALL_DIALED"
-#define CALL_ANSWERED @"CALL_ANSWERED"
-#define CALL_REJECTED @"CALL_REJECTED"
-#define CALL_MISSED @"CALL_MISSED"
-#define CALL_END @"CALL_END"
+extern NSString * const AL_CALL_DIALED;
+extern NSString * const AL_CALL_ANSWERED;
+extern NSString * const AL_CALL_REJECTED;
+extern NSString * const AL_CALL_MISSED;
+extern NSString * const AL_CALL_END;
 
-@interface ALAudioVideoCallVC : ALAudioVideoBaseVC <TVIRoomDelegate, TVIParticipantDelegate,TVIVideoViewDelegate,TVICameraCapturerDelegate>
+@interface ALAudioVideoCallVC : ALAudioVideoBaseVC <TVIRemoteParticipantDelegate, TVIRoomDelegate, TVIVideoViewDelegate, TVICameraSourceDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *callAcceptReject;
 @property (weak, nonatomic) IBOutlet UIButton *callReject;
@@ -32,7 +33,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *videoShare;
 @property (weak, nonatomic) IBOutlet UILabel *audioCallType;
 
-@property (strong, nonatomic) ALContact * alContact;
+@property (weak, nonatomic) IBOutlet UILabel *callStatus;
+
+@property (strong, nonatomic) NSUUID * uuid;
+@property (strong, nonatomic) NSString *imageURL;
+@property (strong, nonatomic) NSString *displayName;
 @property (weak, nonatomic) ALMQTTConversationService * alMQTTObject;
 
 - (IBAction)callAcceptRejectAction:(id)sender;
@@ -45,7 +50,7 @@
 @property (weak, nonatomic) IBOutlet UIView *callView;
 @property (weak, nonatomic) IBOutlet TVIVideoView *previewView;
 
-@property (nonatomic, weak) TVIVideoView *remoteView;
+-(void)disconnectRoom;
 
 //==============================================================================================================================
 #pragma mark Video SDK components
@@ -55,14 +60,12 @@
 @property (nonatomic, strong) NSString *tokenUrl;
 @property (nonatomic, strong) NSString *roomID;
 @property (nonatomic, strong) NSString *receiverID;
-
-@property (nonatomic, strong) TVIRoom *room;
-
+@property (nonatomic, strong) TVICameraSource *camera;
 @property (nonatomic, strong) TVILocalVideoTrack *localVideoTrack;
 @property (nonatomic, strong) TVILocalAudioTrack *localAudioTrack;
-
-@property (nonatomic, strong) TVICameraCapturer *camera;
-@property (nonatomic, strong) TVIParticipant *participant;
+@property (nonatomic, strong) TVIRemoteParticipant *remoteParticipant;
+@property (nonatomic, weak) TVIVideoView *remoteView;
+@property (nonatomic, strong) TVIRoom *room;
 
 @end
 
