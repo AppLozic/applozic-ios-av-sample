@@ -9,11 +9,19 @@
 #import "ALAudioVideoCallVC.h"
 #import "ALCallKitManager.h"
 
+NSString * const AL_CALL_DIALED = @"CALL_DIALED";
+NSString * const AL_CALL_ANSWERED = @"CALL_ANSWERED";
+NSString * const AL_CALL_REJECTED = @"CALL_REJECTED";
+NSString * const AL_CALL_MISSED = @"CALL_MISSED";
+NSString * const AL_CALL_END = @"CALL_END";
+
 @interface ALAudioVideoCallVC ()
 
 @property (weak, nonatomic) NSTimer * timer;
 @property (weak, nonatomic) NSTimer * audioTimer;
 @property (strong, nonatomic) NSString * callDuration;
+@property (nonatomic) BOOL isTokenFetchingInProgress;
+@property(strong) ALReachability * internetConnectionReach;
 
 @end
 
@@ -27,8 +35,6 @@
     NSDate *startDate;
     SystemSoundID soundID;
     NSString *soundPath;
-    NSNumber *startTime;
-    NSNumber *endTime;
     UITapGestureRecognizer *tapGesture;
 }
 
@@ -36,6 +42,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setupNotificationObservers];
     [ALAudioVideoBaseVC setChatRoomEngage:YES];
     self.receiverID = self.userID;
     if (self.callForAudio) {
@@ -45,21 +52,24 @@
         speakerEnable = YES;
         [self setAudioOutputSpeaker:speakerEnable];
     }
-
+    
+    self.internetConnectionReach = [ALReachability reachabilityForInternetConnection];
+    [self.internetConnectionReach startNotifier];
+    
     [self.loudSpeaker setImage:[UIImage imageNamed:(speakerEnable ? @"loudspeaker_solid.png" : @"loudspeaker_strip")] forState:UIControlStateNormal];
-
+    
     self.alMQTTObject = [ALMQTTConversationService sharedInstance];
     [self.alMQTTObject subscribeToConversation];
     
     // Configure access token manually for testing, if desired! Create one manually in the console
     self.accessToken = @"TWILIO_ACCESS_TOKEN";
-
+    
     self.tokenUrl = [NSString stringWithFormat:@"%@/twilio/token",[ALUserDefaultsHandler getBASEURL]];
-
+    
     [self startPreview];
-
+    
     if ([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_RECEIVED]]){
-        [self connectButtonPressed];
+        [self fetchAccessTokenAndConnectToRoom];
     }
     
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animate)];
@@ -70,6 +80,10 @@
     self.audioTimerLabel.text = @"";
 }
 
+-(void)setupNotificationObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:)
+                                                 name:AL_kReachabilityChangedNotification object:nil];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -85,25 +99,23 @@
         self.userProfile.layer.masksToBounds = YES;
     });
     
-    ALContactService * contactService = [[ALContactService alloc] init];
-    self.alContact = [contactService loadContactByKey:@"userId" value:self.receiverID];
-    [self.UserDisplayName setText:[self.alContact getDisplayName]];
-    if (self.alContact.contactImageUrl.length)
+    [self.UserDisplayName setText:self.displayName];
+    if (self.imageURL.length)
     {
-        [ALUtilityClass setImageFromURL:self.alContact.contactImageUrl andImageView:self.userProfile];
+        [ALUtilityClass setImageFromURL:self.imageURL andImageView:self.userProfile];
     }
     
     [self.callAcceptReject setHidden:YES];
     self.roomID = self.baseRoomId;
     count = 0;
-    
+    [self buttonVisiblityForCallType:NO];
     if([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]])
     {
         /// When calling to user will show status as Calling.
         NSString * callingStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallingStatusInfo", nil,[NSBundle mainBundle], @"Calling", @"");
         [self showCallStatus:YES withCallStatusInfo:callingStatusInfo];
         [self handleCallButtonVisiblity]; //  WHEN SOMEONE IS CALLING
-        [self connectButtonPressed];
+        [self fetchAccessTokenAndConnectToRoom];
         soundPath = [[NSURL URLWithString:@"/System/Library/Audio/UISounds/nano/ringback_tone_aus.caf"] path];
         AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:soundPath], &soundID);
     }
@@ -113,7 +125,6 @@
         NSString * connectingStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallConnectingStatusInfo", nil,[NSBundle mainBundle], @"Connecting...", @"");
         [self showCallStatus:YES withCallStatusInfo:connectingStatusInfo];
         [self handleCallButtonVisiblity];
-        [self buttonVisiblityForCallType:NO];
     }
     
     [self.audioCallType setHidden:NO];
@@ -174,7 +185,7 @@
         AudioServicesDisposeSystemSoundID(soundID);
         [self.timer invalidate];
     }
-    [self connectButtonPressed];
+    [self fetchAccessTokenAndConnectToRoom];
     [self handleCallButtonVisiblity]; // WHEN SOMEONE IS ACCEPTING CALL
     [self buttonVisiblityForCallType:NO];
     [self.callView addGestureRecognizer:tapGesture];
@@ -185,7 +196,7 @@
     if (self.callForAudio) {
         [self.audioTimer invalidate];
     }
-
+    
     ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
     [callkitManager performEndCallAction:self.uuid
                           withCompletion:^(NSError *error) {
@@ -216,7 +227,7 @@
     if (self.localAudioTrack)
     {
         self.localAudioTrack.enabled = !self.localAudioTrack.isEnabled;
-
+        
         if (self.localAudioTrack.isEnabled)
         {
             [self.muteUnmute setImage:[UIImage imageNamed:@"mic_active.png"] forState:UIControlStateNormal];
@@ -272,8 +283,8 @@
         if ([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]])
         {
             // SELF IS CALLED/RECEIVER AND TIMEOUT (count > 60) : SEND MISSED MSG
-
-            NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_MISSED"
+            
+            NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_MISSED
                                                                          andCallAudio:self.callForAudio
                                                                             andRoomId:self.roomID];
             [ALVOIPNotificationHandler sendMessageWithMetaData:dictionary
@@ -362,15 +373,17 @@
 #pragma mark - TWILIO : Public
 //==============================================================================================================================
 
-- (void)connectButtonPressed
+- (void)fetchAccessTokenAndConnectToRoom
 {
     [self showRoomUI:YES];
     
     if ([self.accessToken isEqualToString:@"TWILIO_ACCESS_TOKEN"])
     {
+        self.isTokenFetchingInProgress = YES;
         [self logMessage:[NSString stringWithFormat:@"Fetching an access token"]];
         [ALAudioVideoUtils retrieveAccessTokenFromURL:self.tokenUrl completion:^(NSString *token, NSError *err) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                self.isTokenFetchingInProgress = NO;
                 if (!err)
                 {
                     self.accessToken = token;
@@ -392,7 +405,7 @@
 {
     if([self.launchFor isEqualToNumber:[NSNumber numberWithInt:AV_CALL_DIALLED]])
     {
-        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_DIALED"
+        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_DIALED
                                                                      andCallAudio:self.callForAudio
                                                                         andRoomId:self.roomID];
         [self doConnect];
@@ -400,7 +413,7 @@
                                              andReceiverId:self.receiverID
                                             andContentType:AV_CALL_CONTENT_TWO
                                                 andMsgText:self.roomID withCompletion:^(NSError *error) {
-
+            
         }];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0
                                                       target:self
@@ -410,7 +423,7 @@
     }
     else
     {
-        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_ANSWERED"
+        NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_ANSWERED
                                                                      andCallAudio:self.callForAudio
                                                                         andRoomId:self.roomID];
         [self doConnect];
@@ -418,9 +431,9 @@
                                              andReceiverId:self.receiverID
                                             andContentType:AV_CALL_CONTENT_TWO
                                                 andMsgText:self.roomID withCompletion:^(NSError *error) {
-
+            
         }];
-
+        
     }
 }
 
@@ -438,10 +451,10 @@
         [self.previewView removeFromSuperview];
         return;
     }
-
+    
     AVCaptureDevice *frontCamera = [TVICameraSource captureDeviceForPosition:AVCaptureDevicePositionFront];
     AVCaptureDevice *backCamera = [TVICameraSource captureDeviceForPosition:AVCaptureDevicePositionBack];
-
+    
     if (frontCamera != nil || backCamera != nil) {
         self.camera = [[TVICameraSource alloc] initWithDelegate:self];
         self.localVideoTrack = [TVILocalVideoTrack trackWithSource:self.camera
@@ -452,13 +465,13 @@
         } else {
             [self.localVideoTrack addRenderer:self.previewView];
             [self logMessage:@"Video track created"];
-
+            
             if (frontCamera != nil && backCamera != nil) {
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                       action:@selector(flipCamera)];
                 [self.previewView addGestureRecognizer:tap];
             }
-
+            
             [self.camera startCaptureWithDevice:frontCamera != nil ? frontCamera : backCamera completion:^(AVCaptureDevice *device, TVIVideoFormat *format, NSError *error) {
                 if (error != nil) {
                     [self logMessage:[NSString stringWithFormat:@"Error selecting capture device.\ncode = %lu error = %@", error.code, error.localizedDescription]];
@@ -467,14 +480,14 @@
                 }
             }];
         }
-
+        
     } else {
         [self logMessage:@"No front or back capture device found!"];
     }
 }
 
 - (void)flipCamera {
-
+    
     AVCaptureDevice *newDevice = nil;
     if (self.camera.device.position == AVCaptureDevicePositionFront) {
         newDevice = [TVICameraSource captureDeviceForPosition:AVCaptureDevicePositionBack];
@@ -494,18 +507,18 @@
 
 - (void)prepareLocalMedia {
     // We will share local audio and video when we connect to room.
-
+    
     // Create an audio track.
     if (!self.localAudioTrack) {
         self.localAudioTrack = [TVILocalAudioTrack trackWithOptions:nil
                                                             enabled:YES
                                                                name:@"Microphone"];
-
+        
         if (!self.localAudioTrack) {
             [self logMessage:@"Failed to add audio track"];
         }
     }
-
+    
     // Create a video track which captures from the camera.
     if (!self.localVideoTrack) {
         [self startPreview];
@@ -523,11 +536,11 @@
     
     TVIConnectOptions *connectOptions = [TVIConnectOptions optionsWithToken:self.accessToken
                                                                       block:^(TVIConnectOptionsBuilder * _Nonnull builder) {
-
+        
         // Use the local media that we prepared earlier.
         builder.audioTracks = self.localAudioTrack ? @[ self.localAudioTrack ] : @[ ];
         builder.videoTracks = self.localVideoTrack ? @[ self.localVideoTrack ] : @[ ];
-
+        
         // The name of the Room where the Client will attempt to connect to. Please note that if you pass an empty
         // Room `name`, the Client will create one for you. You can get the name or sid from any connected Room.
         builder.roomName = self.roomID;
@@ -536,9 +549,9 @@
     
     // Connect to the Room using the options we provided.
     self.room = [TwilioVideoSDK connectWithOptions:connectOptions delegate:self];
-
+    
     [self logMessage:[NSString stringWithFormat:@"Attempting to connect to room %@", self.room.name]];
-
+    
 }
 
 
@@ -594,15 +607,15 @@
 
 - (void)room:(TVIRoom *)room didDisconnectWithError:(nullable NSError *)error {
     [self logMessage:[NSString stringWithFormat:@"Disconnected from room %@, error = %@", room.name, error]];
-
+    
     // Show the call status when disconncted from room
     NSString * callEndStatusInfo = NSLocalizedStringWithDefaultValue(@"ALCallEndStatusInfo", nil,[NSBundle mainBundle], @"Call End", @"");
     [self showCallStatus:YES withCallStatusInfo:callEndStatusInfo];
-
+    
     int reason = CXCallEndedReasonRemoteEnded;
     ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
     [callkitManager reportOutgoingCall:self.uuid withCXCallEndedReason:reason];
-
+    
     [self cleanupRemoteParticipant];
     self.room = nil;
     [self showRoomUI:NO];
@@ -632,7 +645,7 @@
 }
 
 - (void)room:(TVIRoom *)room participantDidConnect:(TVIRemoteParticipant *)participant {
-
+    
     // HERE RECEIVER USER CONNECT
     if (!self.remoteParticipant) {
         self.remoteParticipant = participant;
@@ -640,10 +653,10 @@
     }
     // Hide the call status view when participant connected
     [self showCallStatus:NO withCallStatusInfo:nil];
-
+    
     ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
     [callkitManager reportOutgoingCall:self.uuid];
-
+    
     [self logMessage:[NSString stringWithFormat:@"Room %@ participant %@ connected", room.name, participant.identity]];
     
     if(count < 60)
@@ -652,7 +665,6 @@
         [self.timer invalidate];
         [self buttonVisiblityForCallType:NO];
         [self.remoteView addGestureRecognizer:tapGesture];
-        startTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970] * 1000];
         
         // FOR AUDIO CALL
         if (self.callForAudio)
@@ -667,7 +679,7 @@
 }
 
 - (void)room:(TVIRoom *)room participantDidDisconnect:(TVIRemoteParticipant *)participant {
-
+    
     // HERE RECEIVER USER DIS-CONNECT
     if (self.remoteParticipant == participant) {
         [self cleanupRemoteParticipant];
@@ -680,36 +692,36 @@
 
 - (void)remoteParticipant:(TVIRemoteParticipant *)participant
      didPublishVideoTrack:(TVIRemoteVideoTrackPublication *)publication {
-
+    
     // Remote Participant has offered to share the video Track.
-
+    
     [self logMessage:[NSString stringWithFormat:@"Participant %@ published %@ video track .",
                       participant.identity, publication.trackName]];
 }
 
 - (void)remoteParticipant:(TVIRemoteParticipant *)participant
    didUnpublishVideoTrack:(TVIRemoteVideoTrackPublication *)publication {
-
+    
     // Remote Participant has stopped sharing the video Track.
-
+    
     [self logMessage:[NSString stringWithFormat:@"Participant %@ unpublished %@ video track.",
                       participant.identity, publication.trackName]];
 }
 
 - (void)remoteParticipant:(TVIRemoteParticipant *)participant
      didPublishAudioTrack:(TVIRemoteAudioTrackPublication *)publication {
-
+    
     // Remote Participant has offered to share the audio Track.
-
+    
     [self logMessage:[NSString stringWithFormat:@"Participant %@ published %@ audio track.",
                       participant.identity, publication.trackName]];
 }
 
 - (void)remoteParticipant:(TVIRemoteParticipant *)participant
    didUnpublishAudioTrack:(TVIRemoteAudioTrackPublication *)publication {
-
+    
     // Remote Participant has stopped sharing the audio Track.
-
+    
     [self logMessage:[NSString stringWithFormat:@"Participant %@ unpublished %@ audio track.",
                       participant.identity, publication.trackName]];
 }
@@ -717,13 +729,13 @@
 - (void)didSubscribeToVideoTrack:(TVIRemoteVideoTrack *)videoTrack
                      publication:(TVIRemoteVideoTrackPublication *)publication
                   forParticipant:(TVIRemoteParticipant *)participant {
-
+    
     // We are subscribed to the remote Participant's audio Track. We will start receiving the
     // remote Participant's video frames now.
-
+    
     [self logMessage:[NSString stringWithFormat:@"Subscribed to %@ video track for Participant %@",
                       publication.trackName, participant.identity]];
-
+    
     // Setup the remote view only in case of video call
     if (!self.callForAudio &&
         self.remoteParticipant == participant) {
@@ -735,13 +747,13 @@
 - (void)didUnsubscribeFromVideoTrack:(TVIRemoteVideoTrack *)videoTrack
                          publication:(TVIRemoteVideoTrackPublication *)publication
                       forParticipant:(TVIRemoteParticipant *)participant {
-
+    
     // We are unsubscribed from the remote Participant's video Track. We will no longer receive the
     // remote Participant's video.
-
+    
     [self logMessage:[NSString stringWithFormat:@"Unsubscribed from %@ video track for Participant %@",
                       publication.trackName, participant.identity]];
-
+    
     // Remove the remote view only in case of video call
     if (!self.callForAudio &&
         self.remoteParticipant == participant) {
@@ -753,10 +765,10 @@
 - (void)didSubscribeToAudioTrack:(TVIRemoteAudioTrack *)audioTrack
                      publication:(TVIRemoteAudioTrackPublication *)publication
                   forParticipant:(TVIRemoteParticipant *)participant {
-
+    
     // We are subscribed to the remote Participant's audio Track. We will start receiving the
     // remote Participant's audio now.
-
+    
     [self logMessage:[NSString stringWithFormat:@"Subscribed to %@ audio track for Participant %@",
                       publication.trackName, participant.identity]];
 }
@@ -764,10 +776,10 @@
 - (void)didUnsubscribeFromAudioTrack:(TVIRemoteAudioTrack *)audioTrack
                          publication:(TVIRemoteAudioTrackPublication *)publication
                       forParticipant:(TVIRemoteParticipant *)participant {
-
+    
     // We are unsubscribed from the remote Participant's audio Track. We will no longer receive the
     // remote Participant's audio.
-
+    
     [self logMessage:[NSString stringWithFormat:@"Unsubscribed from %@ audio track for Participant %@",publication.trackName, participant.identity]];
 }
 
@@ -815,9 +827,9 @@
     
     // `TVIVideoView` supports UIViewContentModeScaleToFill, UIViewContentModeScaleAspectFill and UIViewContentModeScaleAspectFit
     // UIViewContentModeScaleAspectFit is the default mode when you create `TVIVideoView` programmatically.
-    self.remoteView.contentMode = UIViewContentModeScaleAspectFit;
+    remoteView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view insertSubview:remoteView atIndex:0];
-
+    
     if(!self.callForAudio){
         [self.callView setHidden:YES];
     }
@@ -864,10 +876,7 @@
 -(void)clearRoom {
     if (self.audioTimer) {
         [self.audioTimer invalidate];
-    }
-    ALCallKitManager *callkitManager = [ALCallKitManager sharedManager];
-    [callkitManager clear];
-    
+    }    
     // We are done with camera
     if (self.camera) {
         [self.camera stopCapture];
@@ -904,5 +913,22 @@
 - (void)cameraSource:(TVICameraSource *)source didFailWithError:(NSError *)error {
     [self logMessage:[NSString stringWithFormat:@"Capture failed with error.\ncode = %lu error = %@", error.code, error.localizedDescription]];
 }
+
+
+-(void)reachabilityChanged:(NSNotification*)note {
+    ALReachability * reach = [note object];
+    
+    if (reach == self.internetConnectionReach) {
+        if ([reach isReachable]) {
+            /// If the token is not genrated once the internt connect again try to fetch the token and connect to room
+            if ([self.accessToken isEqualToString:@"TWILIO_ACCESS_TOKEN"] &&
+                !self.room &&
+                !self.isTokenFetchingInProgress) {
+                [self fetchAccessTokenAndConnectToRoom];
+            }
+        }
+    }
+}
+
 
 @end

@@ -22,7 +22,9 @@
                    withUserId:(NSString *)userId
              withCallForAudio:(BOOL)callForAudio
                    withRoomId:(NSString *)roomId
-                withLaunchFor:(NSNumber *)launchFor;
+                withLaunchFor:(NSNumber *)launchFor
+          withUserDisplayName:(NSString *)displayName
+                 withImageURL:(NSString *)imageURL;
 
 // Start call
 -(void)perfromStartCallAction:(NSUUID *)callUUID
@@ -52,6 +54,5 @@
 // Audio output
 - (void)setAudioOutputSpeaker:(BOOL)enabled;
 
-- (void)clear;
 @end
 

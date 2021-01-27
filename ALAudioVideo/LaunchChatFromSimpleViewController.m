@@ -299,10 +299,9 @@
     if([ALUserDefaultsHandler getDeviceKeyString])
     {
         [alUserClientService logoutWithCompletionHandler:^(ALAPIResponse *response, NSError *error) {
-            
+            [self dismissViewControllerAnimated:YES completion:nil];
         }];
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) insertInitialContacts

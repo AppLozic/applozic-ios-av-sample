@@ -12,8 +12,10 @@
 #import "ApplozicLoginViewController.h"
 #import <UserNotifications/UserNotifications.h>
 #import "ALAudioVideoCallHandler.h"
+#import <PushKit/PushKit.h>
+#import "ALAudioVideoPushNotificationService.h"
 
-@interface AppDelegate () <UNUserNotificationCenterDelegate>
+@interface AppDelegate () <UNUserNotificationCenterDelegate, PKPushRegistryDelegate>
 
 @end
 
@@ -22,7 +24,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     // checks wheather app version is updated/changed then makes server call setting VERSION_CODE
     [ALRegisterUserClientService isAppUpdated];
 
@@ -31,8 +32,7 @@
     // Register for Applozic notification tap actions and network change notifications
     ALAppLocalNotifications *localNotification = [ALAppLocalNotifications appLocalNotificationHandler];
     [localNotification dataConnectionNotificationHandler];
-    ALAudioVideoCallHandler * handler = [ALAudioVideoCallHandler shared];
-    [handler dataConnectionNotificationHandler];
+    [[ALAudioVideoCallHandler shared] dataConnectionNotificationHandler];
 
     if ([ALUserDefaultsHandler isLoggedIn])
     {
@@ -95,8 +95,8 @@
     [[ALDBHandler sharedInstance] saveContext];
 }
 
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)
-deviceToken {
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"DEVICE_TOKEN :: %@", deviceToken);
 
     const unsigned *tokenBytes = [deviceToken bytes];
     NSString *hexToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
@@ -105,21 +105,39 @@ deviceToken {
                           ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
 
     NSString *apnDeviceToken = hexToken;
-    NSLog(@"apnDeviceToken: %@", hexToken);
+    NSLog(@"APN_DEVICE_TOKEN :: %@", hexToken);
 
-    if (![[ALUserDefaultsHandler getApnDeviceToken] isEqualToString:apnDeviceToken]) {
-        ALRegisterUserClientService *registerUserClientService = [[ALRegisterUserClientService alloc] init];
-        [registerUserClientService updateApnDeviceTokenWithCompletion
-         :apnDeviceToken withCompletion:^(ALRegistrationResponse
-                                          *rResponse, NSError *error) {
-
-            if (error) {
-                NSLog(@"%@",error);
-                return;
-            }
-            NSLog(@"Registration response%@", rResponse);
-        }];
+    if ([[ALUserDefaultsHandler getApnDeviceToken] isEqualToString:apnDeviceToken]) {
+        return;
     }
+
+    ALRegisterUserClientService *registerUserClientService = [[ALRegisterUserClientService alloc] init];
+    [registerUserClientService updateAPNsOrVOIPDeviceToken:apnDeviceToken
+                                          withApnTokenFlag:YES withCompletion:^(ALRegistrationResponse *response, NSError *error) {
+
+    }];
+}
+
+-(void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(PKPushType)type {
+
+    NSLog(@"PUSHKIT : VOIP_TOKEN_DATA : %@",credentials.token);
+    const unsigned *tokenBytes = [credentials.token bytes];
+    NSString *hexToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
+                          ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
+                          ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
+                          ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+
+    NSLog(@"PUSHKIT : VOIP_TOKEN : %@",hexToken);
+    if ([[ALUserDefaultsHandler getVOIPDeviceToken] isEqualToString:hexToken]) {
+        return;
+    }
+
+    NSLog(@"PUSHKIT : VOIP_TOKEN_UPDATE_CALL");
+    ALRegisterUserClientService *registerUserClientService = [[ALRegisterUserClientService alloc] init];
+    [registerUserClientService updateAPNsOrVOIPDeviceToken:hexToken
+                                          withApnTokenFlag:NO withCompletion:^(ALRegistrationResponse *response, NSError *error) {
+
+    }];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
@@ -138,6 +156,10 @@ deviceToken {
             dispatch_async(dispatch_get_main_queue(), ^ {
                 [[UIApplication sharedApplication] registerForRemoteNotifications];  // required to get the app to do anything at all about push notifications
                 NSLog(@"Push registration success." );
+                /// Push kit Registry
+                PKPushRegistry * pushKitVOIP = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
+                pushKitVOIP.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+                pushKitVOIP.delegate = self;
             });
         }
         else
@@ -147,7 +169,18 @@ deviceToken {
             NSLog(@"SUGGESTIONS: %@ - %@", error.localizedRecoveryOptions, error.localizedRecoverySuggestion );
         }
     }];
+}
 
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
+
+    NSLog(@"RECEIVED_NOTIFICATION_WITH_COMPLETION :: %@", userInfo);
+    ALPushNotificationService *pushNotificationService = [[ALPushNotificationService alloc] init];
+    if ([pushNotificationService isApplozicNotification:userInfo]) {
+        [pushNotificationService notificationArrivedToApplication:application withDictionary:userInfo];
+        completionHandler(UIBackgroundFetchResultNewData);
+        return;
+    }
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 //============================================================================================================================
@@ -158,6 +191,7 @@ deviceToken {
     ALPushNotificationService *pushNotificationService = [[ALPushNotificationService
                                                            alloc] init];
     NSDictionary *userInfo = notification.request.content.userInfo;
+    NSLog(@"APNS willPresentNotification for userInfo: %@",userInfo);
 
     if ([pushNotificationService isApplozicNotification:userInfo]) {
         [pushNotificationService notificationArrivedToApplication:[UIApplication sharedApplication] withDictionary:userInfo];
@@ -165,51 +199,37 @@ deviceToken {
         return;
     }
     completionHandler(UNNotificationPresentationOptionAlert|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound);
-
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(nonnull UNNotificationResponse* )response withCompletionHandler:(nonnull void (^)(void))completionHandler {
 
-    NSDictionary *userInfo =  response.notification.request.content.userInfo;
 
-    if ([[userInfo valueForKey:@"AL_KEY"] isEqualToString:@"APPLOZIC_24"]) {
-        NSLog(@"Test notification ");
-        return;
-    }
     ALPushNotificationService *pushNotificationService = [[ALPushNotificationService
                                                            alloc] init];
+    NSDictionary *userInfo =  response.notification.request.content.userInfo;
+    NSLog(@"APNS didReceiveNotificationResponse for userInfo: %@",userInfo);
+
     if ([pushNotificationService isApplozicNotification:userInfo]) {
         [pushNotificationService notificationArrivedToApplication:[UIApplication sharedApplication] withDictionary:userInfo];
-
-        NSDictionary *payloadDict = [userInfo objectForKey:@"aps"];
-        NSString * alert = [payloadDict objectForKey:@"alert"];
-        NSString * sound = [payloadDict objectForKey:@"sound"];
-
-        if (alert)
-        {
-            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-            NSArray * msgContent = [alert componentsSeparatedByString:@":"];
-            content.title = [NSString localizedUserNotificationStringForKey:(msgContent[0] ? msgContent[0] : alert) arguments:nil];
-            content.body = [NSString localizedUserNotificationStringForKey:(msgContent[1] ? msgContent[1] : alert) arguments:nil];
-            content.userInfo = userInfo;
-            if (sound)
-            {
-                content.sound = [UNNotificationSound defaultSound];
-            }
-
-            UNNotificationRequest * request = [UNNotificationRequest requestWithIdentifier:@"VOIP_APNS" content:content trigger:nil];
-            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-            center.delegate = self;
-            [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                if (!error) {
-                    NSLog(@"Add NotificationRequest Succeeded!");
-                }
-            }];
-        }
         completionHandler();
         return;
     }
     completionHandler();
+}
+
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void(^)(void))completion {
+
+    NSLog(@"PUSHKIT : INCOMING VOIP NOTIFICATION : %@",payload.dictionaryPayload.description);
+
+    ALAudioVideoPushNotificationService *pushNotificationService = [[ALAudioVideoPushNotificationService
+                                                                     alloc] init];
+    NSDictionary * userInfoPayload = payload.dictionaryPayload;
+    if ([pushNotificationService isApplozicNotification:userInfoPayload]) {
+        [pushNotificationService processPushNotification:userInfoPayload];
+        completion();
+        return;
+    }
+    completion();
 }
 
 @end

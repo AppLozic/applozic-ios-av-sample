@@ -59,6 +59,8 @@ NS_SWIFT_NAME(videoViewOrientationDidChange(view:dimensions:));
  *
  *  When `TVIVideoView` is contained within a `UIWindowScene` on iOS 13.0+, it registers for lifecycle notifications from the scene. When the view is used on
  *  earlier versions of iOS or added to a `UIWindow` without a `UIWindowScene`, it registers for `UIApplication` lifecycle notifications instead.
+ *
+ *  Since the `TVIVideoView` uses metal, video rendering on iOS 11.x simulators is not supported.
  */
 NS_SWIFT_NAME(VideoView)
 @interface TVIVideoView : UIView <TVIVideoRenderer>
@@ -112,4 +114,3 @@ NS_SWIFT_NAME(VideoView)
 @property (nonatomic, assign, getter=shouldMirror) BOOL mirror;
 
 @end
-

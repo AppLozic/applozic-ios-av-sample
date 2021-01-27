@@ -14,9 +14,10 @@
 		18522F87257A44E600EB41C0 /* ALVOIPNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 18522F83257A44E600EB41C0 /* ALVOIPNotificationHandler.m */; };
 		18522F88257A44E600EB41C0 /* ALCallKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18522F84257A44E600EB41C0 /* ALCallKitManager.m */; };
 		18594B3825A8CF4100870027 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18594B3725A8CF4100870027 /* Localizable.strings */; };
+		1859A5D325B7509000EC582F /* Applozic.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1859A5CF25B7508300EC582F /* Applozic.xcframework */; };
+		1859A5D425B7509000EC582F /* Applozic.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1859A5CF25B7508300EC582F /* Applozic.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		186D97E025B61CFF004A6B59 /* ALAudioVideoPushNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 186D97DF25B61CFF004A6B59 /* ALAudioVideoPushNotificationService.m */; };
 		188C9B1F2566F060002086B4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C714D2081EF177E10068C6ED /* GLKit.framework */; };
-		1895AC90258906C4004264A6 /* Applozic.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1849C9E52588E314009D0030 /* Applozic.xcframework */; };
-		1895AC91258906C4004264A6 /* Applozic.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1849C9E52588E314009D0030 /* Applozic.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C714D1C71EF176730068C6ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1C61EF176730068C6ED /* main.m */; };
 		C714D1CA1EF176730068C6ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C714D1C91EF176730068C6ED /* AppDelegate.m */; };
 		C714D1D01EF176730068C6ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C714D1CE1EF176730068C6ED /* Main.storyboard */; };
@@ -65,7 +66,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				1822971E256BF6C90085A570 /* TwilioVideo.xcframework in Embed Frameworks */,
-				1895AC91258906C4004264A6 /* Applozic.xcframework in Embed Frameworks */,
+				1859A5D425B7509000EC582F /* Applozic.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,12 +79,14 @@
 		18230C742577EC3D00D73CC8 /* ALAudioVideoCallHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ALAudioVideoCallHandler.m; path = ALAudioVideo/AudioVideo/ALAudioVideoCallHandler.m; sourceTree = "<group>"; };
 		183F6EF22587A52E006C1401 /* ALAVCallModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ALAVCallModel.h; path = ALAudioVideo/AudioVideo/ALAVCallModel.h; sourceTree = "<group>"; };
 		183F6EF32587A52E006C1401 /* ALAVCallModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ALAVCallModel.m; path = ALAudioVideo/AudioVideo/ALAVCallModel.m; sourceTree = "<group>"; };
-		1849C9E52588E314009D0030 /* Applozic.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Applozic.xcframework; path = ALAudioVideo/Applozic.xcframework; sourceTree = "<group>"; };
 		18522F83257A44E600EB41C0 /* ALVOIPNotificationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALVOIPNotificationHandler.m; path = ALAudioVideo/AudioVideo/ALVOIPNotificationHandler.m; sourceTree = "<group>"; };
 		18522F84257A44E600EB41C0 /* ALCallKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALCallKitManager.m; path = ALAudioVideo/AudioVideo/ALCallKitManager.m; sourceTree = "<group>"; };
 		18522F85257A44E600EB41C0 /* ALVOIPNotificationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALVOIPNotificationHandler.h; path = ALAudioVideo/AudioVideo/ALVOIPNotificationHandler.h; sourceTree = "<group>"; };
 		18522F86257A44E600EB41C0 /* ALCallKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALCallKitManager.h; path = ALAudioVideo/AudioVideo/ALCallKitManager.h; sourceTree = "<group>"; };
 		18594B3725A8CF4100870027 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		1859A5CF25B7508300EC582F /* Applozic.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Applozic.xcframework; path = ALAudioVideo/Applozic.xcframework; sourceTree = "<group>"; };
+		186D97DE25B61CFF004A6B59 /* ALAudioVideoPushNotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ALAudioVideoPushNotificationService.h; path = ALAudioVideo/AudioVideo/ALAudioVideoPushNotificationService.h; sourceTree = "<group>"; };
+		186D97DF25B61CFF004A6B59 /* ALAudioVideoPushNotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ALAudioVideoPushNotificationService.m; path = ALAudioVideo/AudioVideo/ALAudioVideoPushNotificationService.m; sourceTree = "<group>"; };
 		188C9B202566F067002086B4 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		C714D1C21EF176730068C6ED /* ALAudioVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALAudioVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C714D1C61EF176730068C6ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -134,7 +137,7 @@
 				C714D2051EF177C80068C6ED /* AVFoundation.framework in Frameworks */,
 				C714D2031EF177AF0068C6ED /* VideoToolbox.framework in Frameworks */,
 				188C9B1F2566F060002086B4 /* GLKit.framework in Frameworks */,
-				1895AC90258906C4004264A6 /* Applozic.xcframework in Frameworks */,
+				1859A5D325B7509000EC582F /* Applozic.xcframework in Frameworks */,
 				1822971D256BF6C90085A570 /* TwilioVideo.xcframework in Frameworks */,
 				C714D2011EF177A00068C6ED /* AudioToolbox.framework in Frameworks */,
 			);
@@ -254,7 +257,7 @@
 		C714D22B1EF26E1D0068C6ED /* ApplozicAudioVideo */ = {
 			isa = PBXGroup;
 			children = (
-				1849C9E52588E314009D0030 /* Applozic.xcframework */,
+				1859A5CF25B7508300EC582F /* Applozic.xcframework */,
 				18522F86257A44E600EB41C0 /* ALCallKitManager.h */,
 				18522F84257A44E600EB41C0 /* ALCallKitManager.m */,
 				18522F85257A44E600EB41C0 /* ALVOIPNotificationHandler.h */,
@@ -270,6 +273,8 @@
 				18230C742577EC3D00D73CC8 /* ALAudioVideoCallHandler.m */,
 				183F6EF22587A52E006C1401 /* ALAVCallModel.h */,
 				183F6EF32587A52E006C1401 /* ALAVCallModel.m */,
+				186D97DE25B61CFF004A6B59 /* ALAudioVideoPushNotificationService.h */,
+				186D97DF25B61CFF004A6B59 /* ALAudioVideoPushNotificationService.m */,
 			);
 			name = ApplozicAudioVideo;
 			sourceTree = "<group>";
@@ -427,6 +432,7 @@
 				C714D2171EF18D9E0068C6ED /* ALAudioVideoUtils.m in Sources */,
 				C714D1CA1EF176730068C6ED /* AppDelegate.m in Sources */,
 				C714D2281EF1CE1E0068C6ED /* ApplozicLoginViewController.m in Sources */,
+				186D97E025B61CFF004A6B59 /* ALAudioVideoPushNotificationService.m in Sources */,
 				183F6EF42587A52E006C1401 /* ALAVCallModel.m in Sources */,
 				C714D2161EF18D9E0068C6ED /* ALAudioVideoCallVC.m in Sources */,
 				C714D1C71EF176730068C6ED /* main.m in Sources */,
@@ -514,6 +520,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -528,10 +535,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -565,6 +575,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -573,9 +584,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -590,12 +604,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = C25JNDCBM4;
+				EXCLUDED_ARCHS = arm64;
+				"EXCLUDED_ARCHS[sdk=*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ALAudioVideo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -615,12 +631,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = C25JNDCBM4;
+				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ALAudioVideo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -35,4 +35,17 @@ static NSString *const AL_LOGOUT_URL = @"/rest/ws/device/logout";
 -(void)syncAccountStatusWithCompletion:(void(^)(ALRegistrationResponse * response, NSError *error)) completion;
 
 -(void)updateUser:(ALUser *)alUser withCompletion:(void(^)(ALRegistrationResponse * response, NSError *error)) completion;
+
+/// This method is used for updating APNs and VOIP token to applozic server if both tokens are exists
+/// If either one of token doesn't exist it will store in user defaults for future use
+/// @param apnsOrVoipDeviceToken Pass APNs or VOIP token.
+/// @param isAPNsToken Pass YES in case of APNs token, NO in case of VOIP token.
+/// @param completion will trigger in case if any success or error.
+
+-(void)updateAPNsOrVOIPDeviceToken:(NSString *)apnsOrVoipDeviceToken
+                  withApnTokenFlag:(BOOL) isAPNsToken
+                    withCompletion:(void(^)(ALRegistrationResponse * response, NSError *error)) completion;
+
+/// This method is used for accessing currently stored APN's Or APN's and VOIP device token
+-(NSString *)getRegistrationId;
 @end

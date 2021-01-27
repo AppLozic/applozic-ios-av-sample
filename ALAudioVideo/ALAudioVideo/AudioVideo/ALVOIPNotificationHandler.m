@@ -8,11 +8,9 @@
 
 #import "ALVOIPNotificationHandler.h"
 #import "ALCallKitManager.h"
+#import "ALAudioVideoPushNotificationService.h"
 
 @implementation ALVOIPNotificationHandler
-{
-    UIApplication *appObject;
-}
 
 +(instancetype)sharedManager
 {
@@ -31,26 +29,6 @@
         
     }
     return self;
-}
-
-//==============================================================================================================================================
-#pragma mark - LAUNCH AUDIO/VIDEO VC
-//==============================================================================================================================================
-
--(void)launchAVViewController:(NSString *)userID andLaunchFor:(NSNumber *)type
-                     orRoomId:(NSString *)roomId andCallAudio:(BOOL)flag andViewController:(UIViewController *)viewSelf
-{
-    NSArray *parts = [roomId componentsSeparatedByString:@":"];
-    if (parts.count > 1) {
-        NSString *uuIDString = parts[0];
-        NSUUID * uuid = [[NSUUID alloc] initWithUUIDString:uuIDString];
-        ALCallKitManager * callkitManager = [ALCallKitManager sharedManager];
-        [callkitManager reportNewIncomingCall:uuid
-                                   withUserId:userID
-                             withCallForAudio:flag
-                                   withRoomId:roomId
-                                withLaunchFor:type];
-    }
 }
 
 //==============================================================================================================================
@@ -81,48 +59,26 @@
                           andRoomId:(NSString *)metaRoomID {
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:msgType forKey:@"MSG_TYPE"];
-    [dict setObject:metaRoomID forKey:@"CALL_ID"];
-    [dict setObject:flag ? @"true": @"false" forKey:@"CALL_AUDIO_ONLY"];
+    [dict setObject:msgType forKey:ALCallMessageTypeKey];
+    [dict setObject:metaRoomID forKey:ALCallerIDKey];
+    [dict setObject:flag ? @"true": @"false" forKey:ALCallAudioOnlyKey];
     
     return dict;
 }
 
--(void)handleAVMsg:(ALMessage *)alMessage andViewController:(UIViewController *)viewSelf
-{
-    appObject = [UIApplication sharedApplication];
-    self.presenterVC = viewSelf;
+-(void)handleAVMsg:(ALMessage *)alMessage {
 
-    if (alMessage.contentType == AV_CALL_CONTENT_TWO)
-    {
-        if(![ALApplozicSettings isAudioVideoEnabled] )
-        {
+    if (alMessage.contentType == AV_CALL_CONTENT_TWO) {
+        if (![ALApplozicSettings isAudioVideoEnabled]) {
             ALSLog(ALLoggerSeverityInfo, @" video/audio call not enables  ");
             return;
         }
 
-        NSString *msgType = (NSString *)[alMessage.metadata objectForKey:@"MSG_TYPE"];
-        BOOL isAudio = [[alMessage.metadata objectForKey:@"CALL_AUDIO_ONLY"] boolValue];
-        NSString *roomId = (NSString *)[alMessage.metadata objectForKey:@"CALL_ID"];
+        NSString *msgType = (NSString *)[alMessage.metadata objectForKey:ALCallMessageTypeKey];
+        BOOL isAudio = [[alMessage.metadata objectForKey:ALCallAudioOnlyKey] boolValue];
+        NSString *roomId = (NSString *)[alMessage.metadata objectForKey:ALCallerIDKey];
 
-        if([msgType isEqualToString:@"CALL_DIALED"])
-        {
-            if ([alMessage.type isEqualToString:@"5"] || [self isNotificationStale:alMessage])
-            {
-                return;
-            }
-
-            // TODO: Remove this later keeping this for testing the Call kit with notification for forground. Once we add support on server backend for new notification and on device we will remove this code and handle the new notification from VOIP notification delegate callback for CALL_DIALED.
-
-            ALVOIPNotificationHandler *voipHandler = [ALVOIPNotificationHandler sharedManager];
-            [voipHandler launchAVViewController:alMessage.to
-                                   andLaunchFor:[NSNumber numberWithInt:AV_CALL_RECEIVED]
-                                       orRoomId:roomId
-                                   andCallAudio:isAudio
-                              andViewController:viewSelf];
-        }
-        else if ([msgType isEqualToString:@"CALL_ANSWERED"])
-        {
+        if ([msgType isEqualToString:AL_CALL_ANSWERED]) {
             // MULTI_DEVICE (WHEN RECEIVER CALL_ANSWERED FROM ANOTHER DEVICE)
             // STOP RINGING AND DISMISSVIEW : CHECK INCOMING CALL_ID and CALL_ID OF OPEPENED VIEW
             if ([alMessage.type isEqualToString:@"5"]) {
@@ -134,13 +90,11 @@
                     [callkit endActiveCallVCWithCallReason:CXCallEndedReasonAnsweredElsewhere withRoomID:roomId withCallUUID:uuid];
                 }
             }
-        }
-        else if ([msgType isEqualToString:@"CALL_REJECTED"])
-        {
+        } else if ([msgType isEqualToString:AL_CALL_REJECTED]) {
             // MULTI_DEVICE (WHEN RECEIVER CUTS FROM ANOTHER DEVICE)
             // STOP RINGING AND DISMISSVIEW : CHECK INCOMING CALL_ID and CALL_ID OF OPEPENED VIEW
 
-            NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:@"CALL_REJECTED"
+            NSMutableDictionary * dictionary = [ALVOIPNotificationHandler getMetaData:AL_CALL_REJECTED
                                                                          andCallAudio:isAudio
                                                                             andRoomId:roomId];
 
@@ -163,9 +117,7 @@
                 NSUUID * uuid = [[NSUUID alloc] initWithUUIDString:uuidString];
                 [callkit endActiveCallVCWithCallReason:CXCallEndedReasonDeclinedElsewhere withRoomID:roomId withCallUUID:uuid];
             }
-        }
-        else if ([msgType isEqualToString:@"CALL_MISSED"])
-        {
+        } else if ([msgType isEqualToString:AL_CALL_MISSED]) {
             ALSLog(ALLoggerSeverityInfo, @"CALL_IS_MISSED");
             ALCallKitManager *callkit = [ALCallKitManager sharedManager];
             NSArray *parts = [roomId componentsSeparatedByString:@":"];
@@ -174,7 +126,7 @@
                 NSUUID * uuid = [[NSUUID alloc] initWithUUIDString:uuidString];
                 [callkit endActiveCallVCWithCallReason:CXCallEndedReasonRemoteEnded withRoomID:roomId withCallUUID:uuid];
             }
-        } else if ([msgType isEqualToString:@"CALL_END"]) {
+        } else if ([msgType isEqualToString:AL_CALL_END]) {
             ALCallKitManager *callkit = [ALCallKitManager sharedManager];
             NSArray *parts = [roomId componentsSeparatedByString:@":"];
             if (parts.count > 1) {
